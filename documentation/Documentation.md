@@ -1,10 +1,10 @@
 ## Project Description
 
-Our project implements the game "Life," conceived by John Conway, using CdM-16, Logisim, and cdm-devkit.
+Our project implements the "Game of Life", conceived by John Conway, using CdM-16, Logisim, and cdm-devkit.
 
 Our project includes:
 - A keyboard for receiving user commands;
-- A terminal for displaying commands;
+- A terminal for displaying commands and errors to the user;
 - A CdM-16 processor for processing user commands;
 - A video buffer for calculating the current state of the field;
 - A display for showing the game field.
