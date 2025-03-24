@@ -22,15 +22,15 @@ The video buffer has seven inputs, a clock generator connector, and 32 outputs (
 
 Video buffer inputs:
 
-| Input        | Purpose                                   | Data Bits |
-| ------------ | ---------------------------------------- | --------- |
-| `val`        | cell value: 0 — dead, 1 — alive          | 1         |
-| `update`     | enable/disable edit mode                 | 1         |
-| `start/stop` | enable/disable game mode                 | 1         |
-| `born`       | birth rules                              | 8         |
-| `sur`        | survival rules                           | 8         |
-| `line_adr`   | binary row number                        | 8         |
-| `cell_adr`   | binary column number                     | 8         |
+| Input        | Purpose                         | Data Bits |
+| ------------ | ------------------------------- | --------- |
+| `val`        | cell value: 0 — dead, 1 — alive | 1         |
+| `update`     | enable/disable edit mode        | 1         |
+| `start/stop` | enable/disable game mode        | 1         |
+| `born`       | birth rules                     | 8         |
+| `sur`        | survival rules                  | 8         |
+| `line_adr`   | binary row number               | 8         |
+| `cell_adr`   | binary column number            | 8         |
 
 ---
 ## Key Features
@@ -60,4 +60,4 @@ Our version of the game has several distinctive features:
 1. `set 2 3 1` — fill the cell with coordinates (2, 3);
 2. `fill 12 23 23 34 1 start` — fill the rectangle with the starting vertex at (12, 23) and the ending vertex at (22, 33), then start the game;
 3. `fill 0 0 2 6 1 fill 3 0 2 9 1 fill 3 7 9 9 1 fill 0 7 6 9 1 start` — create a "Coca Galaxy" and start the game;
-4. `rule 4 6` — standard "Game of Life" rules.
+4. `rule 3 23` — standard "Game of Life" rules.
