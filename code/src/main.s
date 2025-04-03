@@ -1,7 +1,7 @@
 ### SECTION: .text
 rsect ___src_main_c_41
 
-ISTATE: ext
+BORN: ext
 
 
 macro movens/2
@@ -16,8 +16,8 @@ main>                                   # -- Begin function main
 	addsp	-2
 	ldi	r0, 0
 	ssw	r0, -2
-	ldi	r2, ISTATE
-	ldi	r1, 5256
+	ldi	r2, BORN
+	ldi	r1, 1
 	stw	r2, r1
 	addsp	2
 	pop	fp

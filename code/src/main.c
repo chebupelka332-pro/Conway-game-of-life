@@ -25,6 +25,7 @@ int main()
     q.end = 1;
 
     *a = q.head + q.end;*/
+   BORN = 1;
 
     return 0;
 }
