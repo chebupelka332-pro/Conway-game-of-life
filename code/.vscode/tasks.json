@@ -5,7 +5,10 @@
 			"label": "Compile CdM-16",
 			"type": "cocas",
 			"target": "cdm16",
-			"sources": [],
+			"sources": [
+				"${workspaceFolder}${/}src${/}main.s",
+				"${workspaceFolder}${/}src${/}start.asm"
+			],
 			"artifacts": {
 				"image": "${workspaceFolder}${/}build${/}out.img",
 				"debug": "${workspaceFolder}${/}build${/}out.dbg.json"
