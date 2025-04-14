@@ -7,8 +7,10 @@ LINE_ADR: ext
 VALUE: ext
 UPDATE: ext
 START_STOP: ext
+CURR_CHAR: ext
 BORN: ext
 SURV: ext
+ISTATE: ext
 
 
 macro movens/2
@@ -33,10 +35,11 @@ __LBB0_1:                               # %for.cond
 	br	__LBB0_2
 __LBB0_2:                               # %for.body
                                         #   in Loop: Header=BB0_1 Depth=1
-	lsw	r1, -2
+	lsw	r0, -2
+	shl	r0, r1, 1
 	ldi	r2, queue
 	ldi	r0, 0
-	stb	r1, r2, r0
+	stw	r1, r2, r0
 	br	__LBB0_3
 __LBB0_3:                               # %for.inc
                                         #   in Loop: Header=BB0_1 Depth=1
@@ -61,11 +64,12 @@ qPush>                                  # -- Begin function qPush
 	addsp	-2
                                         # kill: def $r1 killed $r0
 	ssb	r0, -1
-	lsb	r1, -1
+	lssb	r1, -1
 	ldi	r0, end
 	ldw	r0, r2
+	shl	r2, r2, 1
 	ldi	r3, queue
-	stb	r2, r3, r1
+	stw	r2, r3, r1
 	ldw	r0, r1
 	add	r1, 1
 	shra	r1, r2, 8
@@ -121,8 +125,9 @@ __LBB2_1:                               # %if.then
 __LBB2_2:                               # %if.end
 	ldi	r1, head
 	ldw	r1, r0
+	shl	r0, r0, 1
 	ldi	r2, queue
-	ldb	r0, r2, r0
+	ldw	r0, r2, r0
 	ssb	r0, -2
 	ldw	r1, r0
 	add	r0, 1
@@ -375,6 +380,106 @@ cleanCommand>                           # -- Begin function cleanCommand
 	pop	fp
 	rts
                                         # -- End function
+help>                                   # -- Begin function help
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-18
+	ldi	r0, __L__const.help.someTetx+14
+	ldb	r0, r1
+	ldi	r0, __L__const.help.someTetx+15
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r1, r0
+	ldi	r1, -16
+	add	r1, fp, r1
+	ldi	r2, 14
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx+12
+	ldb	r0, r2
+	ldi	r0, __L__const.help.someTetx+13
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r2, r0
+	ldi	r2, 12
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx+10
+	ldb	r0, r2
+	ldi	r0, __L__const.help.someTetx+11
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r2, r0
+	ldi	r2, 10
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx+8
+	ldb	r0, r2
+	ldi	r0, __L__const.help.someTetx+9
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r2, r0
+	ldi	r2, 8
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx+6
+	ldb	r0, r2
+	ldi	r0, __L__const.help.someTetx+7
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r2, r0
+	ldi	r2, 6
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx+4
+	ldb	r0, r2
+	ldi	r0, __L__const.help.someTetx+5
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r2, r0
+	ldi	r2, 4
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx+2
+	ldb	r0, r2
+	ldi	r0, __L__const.help.someTetx+3
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r2, r0
+	ldi	r2, 2
+	stw	r1, r2, r0
+	ldi	r0, __L__const.help.someTetx
+	ldb	r0, r1
+	ldi	r0, __L__const.help.someTetx+1
+	ldb	r0, r0
+	shl	r0, r0, 8
+	or r0, r1, r0
+	ssw	r0, -16
+	ldi	r0, 0
+	ssw	r0, -18
+	br	__LBB10_1
+__LBB10_1:                              # %while.cond
+                                        # =>This Inner Loop Header: Depth=1
+	lsw	r1, -18
+	ldi	r0, -16
+	add	r0, fp, r0
+	ldb	r0, r1, r0
+	ldi	r1, 0
+	cmp	r0, r1
+	beq	__LBB10_3
+	br	__LBB10_2
+__LBB10_2:                              # %while.body
+                                        #   in Loop: Header=BB10_1 Depth=1
+	lsw	r1, -18
+	movens	r1, r0
+	add	r0, 1
+	ssw	r0, -18
+	ldi	r0, -16
+	add	r0, fp, r0
+	ldsb	r0, r1, r0
+	ldi	r1, CURR_CHAR
+	stw	r1, r0
+	br	__LBB10_1
+__LBB10_3:                              # %while.end
+	addsp	18
+	pop	fp
+	rts
+                                        # -- End function
 ruleCommand>                            # -- Begin function ruleCommand
 # %bb.0:                                # %entry
 	push	fp
@@ -396,47 +501,21 @@ main>                                   # -- Begin function main
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-16
-	ssw	r4, -2                          # 2-byte Folded Spill
+	addsp	-2
 	ldi	r0, 0
-	ssw	r0, -14                         # 2-byte Folded Spill
-	ssw	r0, -4
-	ldi	r0, 4
-	ldi	r1, 6
-	jsr	ruleCommand
-	ldi	r4, 2
-	ldi	r1, 3
-	ldi	r2, 1
-	ssw	r2, -16                         # 2-byte Folded Spill
-	movens	r4, r0
-	jsr	setCommand
-	lsw	r2, -16                         # 2-byte Folded Reload
-	ldi	r0, __L__const.main.s+2
-	ldw	r0, r1
-	ldi	r0, -8
-	add	r0, fp, r0
-	stw	r0, r4, r1
-	ldi	r1, __L__const.main.s
-	ldw	r1, r1
-	ssw	r1, -8
-	ldi	r1, __L__const.main.e+2
-	ldw	r1, r3
-	ldi	r1, -12
-	add	r1, fp, r1
-	stw	r1, r4, r3
-	ldi	r3, __L__const.main.e
-	ldw	r3, r3
-	ssw	r3, -12
-	jsr	fillCommand
-	lsw	r0, -14                         # 2-byte Folded Reload
-	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	16
-	pop	fp
-	rts
+	ssw	r0, -2
+	jsr	qInit
+	ldi	r1, ISTATE
+	ldi	r0, 1
+	stw	r1, r0
+	br	__LBB12_1
+__LBB12_1:                              # %while.body
+                                        # =>This Inner Loop Header: Depth=1
+	br	__LBB12_1
                                         # -- End function
 ### SECTION: .bss
 queue>                                  # @queue
-	ds	32
+	ds	64
 
 head>                                   # @head
 	dc	0                               # 0x0
@@ -449,12 +528,23 @@ __L__const.cleanCommand.end:            # @__const.cleanCommand.end
 	dc	32                              # 0x20
 	dc	32                              # 0x20
 
-__L__const.main.s:                      # @__const.main.s
-	dc	10                              # 0xa
-	dc	10                              # 0xa
-
-__L__const.main.e:                      # @__const.main.e
-	dc	15                              # 0xf
-	dc	16                              # 0x10
+### SECTION: .rodata.cst16
+__L__const.help.someTetx:               # @__const.help.someTetx
+	db	72
+	db	101
+	db	108
+	db	112
+	db	32
+	db	116
+	db	101
+	db	120
+	db	116
+	db	32
+	db	41
+	db	41
+	db	41
+	db	10
+	db	0
+	db	0
 
 end.

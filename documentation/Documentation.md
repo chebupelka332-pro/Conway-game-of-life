@@ -49,9 +49,9 @@ Our version of the game has several distinctive features:
 2. `rule <born> <sur>` — set game rules: birth and survival;
 3. `stop` — stop the game;
 4. `start` — start the game;
-5. `fill <x1> <y1> <x2> <y2> <val>` — fill the rectangle ((x1, y1), (x2 - 1, y2 - 1)) with the value `<val>`;
+5. `fill <x1> <y1> <x2> <y2> <val>` — fill the rectangle ((x1, y1), (x2, y2)) with the value `<val>`;
 6. `clean` — clear the entire field;
-7. `help` — display documentation;
+7. `help <cmd>` — display documentation for `cmd` if it passed, otherwise it displays general help message;
 8. `set-glider <x> <y>` — draw a working glider at coordinates (x, y).
 
 ---

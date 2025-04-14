@@ -1,7 +1,5 @@
 #define QSIZE 32
 #define FIELD_SIZE 32
-#define True 1
-#define False 0
 #define NULL 0
 
 extern int ISTATE;
@@ -14,9 +12,12 @@ extern int LINE_ADR;
 extern int CELL_ADR;
 extern int VALUE;
 
-char queue[QSIZE];
+extern char *len_error;
+
+int queue[QSIZE];
 int head;
 int end;
+
 
 /*int strcmp(char *str0, char *str1); // 1 - если равны, 0 - если не равны
 
@@ -35,7 +36,7 @@ void qInit()
 
 void qPush(char symbol)
 {
-    queue[end] = symbol;
+    queue[end] = (int)symbol;
     end = (end + 1) % QSIZE;
     
     if (end == head)
@@ -54,17 +55,17 @@ char qPop()
 int isNum(char symbol)
 {
     if (symbol >= '0' && symbol <= '9')
-        return True;
+        return 1;
 
-    return False;
+    return 0;
 }
 
 int isAlpha(char symbol)
 {
     if (symbol >= 'a' && symbol <= 'z')
-        return True;
+        return 1;
 
-    return False;
+    return 0;
 }
 
 void setCommand(int x, int y, int val)
@@ -104,7 +105,15 @@ void cleanCommand()
     fillCommand(start, end, 0);
 }
 
-void help(); // skip for now
+void help()
+{
+    char someTetx[] = "Help text )))\n\0";
+    int c = 0;
+    while (someTetx[c])
+    {
+        CURR_CHAR = (int)(someTetx[c++]);
+    }
+}
 
 void ruleCommand(int born, int sur)
 {
@@ -116,13 +125,23 @@ void ruleCommand(int born, int sur)
 
 int main()
 {
-    ruleCommand(0b00000100, 0b00000110);
+    /*ruleCommand(0b00000100, 0b00000110);
 
-    setCommand(2, 3, 1);
+    setCommand(1, 0, 1);
+    setCommand(2, 1, 1);
 
-    int s[] = {10, 10};
-    int e[] = {15, 16};
+    int s[] = {0, 2};
+    int e[] = {3, 3};
     fillCommand(s, e, 1);
+
+    startCommand();*/
+    
+    qInit();
+    ISTATE = 1; // Set interupt flag to 1
+    while (1)
+    {
+        1+1;
+    }
 
     return 0;
 }
