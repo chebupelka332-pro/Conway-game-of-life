@@ -20,69 +20,69 @@ qInit>                                  # -- Begin function qInit
 # %bb.0:                                # %entry
 	ldi	r1, queue
 	ldi	r0, 0
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+1
+	stb	r1, r0
 	ldi	r1, queue+2
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+3
+	stb	r1, r0
 	ldi	r1, queue+4
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+5
+	stb	r1, r0
 	ldi	r1, queue+6
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+7
+	stb	r1, r0
 	ldi	r1, queue+8
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+9
+	stb	r1, r0
 	ldi	r1, queue+10
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+11
+	stb	r1, r0
 	ldi	r1, queue+12
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+13
+	stb	r1, r0
 	ldi	r1, queue+14
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+15
+	stb	r1, r0
 	ldi	r1, queue+16
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+17
+	stb	r1, r0
 	ldi	r1, queue+18
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+19
+	stb	r1, r0
 	ldi	r1, queue+20
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+21
+	stb	r1, r0
 	ldi	r1, queue+22
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+23
+	stb	r1, r0
 	ldi	r1, queue+24
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+25
+	stb	r1, r0
 	ldi	r1, queue+26
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+27
+	stb	r1, r0
 	ldi	r1, queue+28
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+29
+	stb	r1, r0
 	ldi	r1, queue+30
-	stw	r1, r0
-	ldi	r1, queue+32
-	stw	r1, r0
-	ldi	r1, queue+34
-	stw	r1, r0
-	ldi	r1, queue+36
-	stw	r1, r0
-	ldi	r1, queue+38
-	stw	r1, r0
-	ldi	r1, queue+40
-	stw	r1, r0
-	ldi	r1, queue+42
-	stw	r1, r0
-	ldi	r1, queue+44
-	stw	r1, r0
-	ldi	r1, queue+46
-	stw	r1, r0
-	ldi	r1, queue+48
-	stw	r1, r0
-	ldi	r1, queue+50
-	stw	r1, r0
-	ldi	r1, queue+52
-	stw	r1, r0
-	ldi	r1, queue+54
-	stw	r1, r0
-	ldi	r1, queue+56
-	stw	r1, r0
-	ldi	r1, queue+58
-	stw	r1, r0
-	ldi	r1, queue+60
-	stw	r1, r0
-	ldi	r1, queue+62
-	stw	r1, r0
+	stb	r1, r0
+	ldi	r1, queue+31
+	stb	r1, r0
 	ldi	r1, head
 	stw	r1, r0
 	ldi	r1, end
@@ -3736,9 +3736,8 @@ __LBB20_2:                              # %while.body.preheader
 __LBB20_3:                              # %while.body
                                         # =>This Inner Loop Header: Depth=1
 	movens	r4, r1
-	shl	r5, r4, 1
 	ldi	r3, queue
-	ldw	r4, r3, r4
+	ldb	r5, r3, r4
 	ldi	r3, -70
 	add	r3, fp, r3
 	stb	r3, r2, r4
@@ -3769,69 +3768,69 @@ __LBB20_5:                              # %while.end
 	ldi	r1, 0
 	stb	r0, r6, r1
 	ldi	r0, queue
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+1
+	stb	r0, r1
 	ldi	r0, queue+2
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+3
+	stb	r0, r1
 	ldi	r0, queue+4
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+5
+	stb	r0, r1
 	ldi	r0, queue+6
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+7
+	stb	r0, r1
 	ldi	r0, queue+8
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+9
+	stb	r0, r1
 	ldi	r0, queue+10
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+11
+	stb	r0, r1
 	ldi	r0, queue+12
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+13
+	stb	r0, r1
 	ldi	r0, queue+14
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+15
+	stb	r0, r1
 	ldi	r0, queue+16
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+17
+	stb	r0, r1
 	ldi	r0, queue+18
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+19
+	stb	r0, r1
 	ldi	r0, queue+20
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+21
+	stb	r0, r1
 	ldi	r0, queue+22
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+23
+	stb	r0, r1
 	ldi	r0, queue+24
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+25
+	stb	r0, r1
 	ldi	r0, queue+26
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+27
+	stb	r0, r1
 	ldi	r0, queue+28
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+29
+	stb	r0, r1
 	ldi	r0, queue+30
-	stw	r0, r1
-	ldi	r0, queue+32
-	stw	r0, r1
-	ldi	r0, queue+34
-	stw	r0, r1
-	ldi	r0, queue+36
-	stw	r0, r1
-	ldi	r0, queue+38
-	stw	r0, r1
-	ldi	r0, queue+40
-	stw	r0, r1
-	ldi	r0, queue+42
-	stw	r0, r1
-	ldi	r0, queue+44
-	stw	r0, r1
-	ldi	r0, queue+46
-	stw	r0, r1
-	ldi	r0, queue+48
-	stw	r0, r1
-	ldi	r0, queue+50
-	stw	r0, r1
-	ldi	r0, queue+52
-	stw	r0, r1
-	ldi	r0, queue+54
-	stw	r0, r1
-	ldi	r0, queue+56
-	stw	r0, r1
-	ldi	r0, queue+58
-	stw	r0, r1
-	ldi	r0, queue+60
-	stw	r0, r1
-	ldi	r0, queue+62
-	stw	r0, r1
+	stb	r0, r1
+	ldi	r0, queue+31
+	stb	r0, r1
 	ldi	r0, head
 	stw	r0, r1
 	stw	r4, r1
@@ -3867,7 +3866,7 @@ __LBB20_9:                              # %while.cond6
 	cmp	r1, r2
 	beq	__LBB20_12
 	br	__LBB20_10
-__LBB20_12:                             # %while.body10
+__LBB20_12:                             # %while.body9
                                         #   in Loop: Header=BB20_9 Depth=1
 	ldb	r0, r4
 	add	r0, 1
@@ -3892,7 +3891,7 @@ __LBB20_14:                             # %land.lhs.true
 	cmp	r6, r2
 	bhi	__LBB20_17
 	br	__LBB20_15
-__LBB20_15:                             # %while.body28
+__LBB20_15:                             # %while.body27
                                         #   in Loop: Header=BB20_13 Depth=1
 	ldi	r1, -90
 	add	r1, fp, r1
@@ -3903,14 +3902,14 @@ __LBB20_15:                             # %while.body28
 	cmp	r4, r1
 	bne	__LBB20_13
 	br	__LBB20_16
-__LBB20_16:                             # %while.end32split
+__LBB20_16:                             # %while.end31split
 	add r0, r6, r0
 	sub	r0, 1
 	br	__LBB20_18
-__LBB20_17:                             # %land.lhs.true.while.end32_crit_edge
+__LBB20_17:                             # %land.lhs.true.while.end31_crit_edge
 	add r0, r6, r0
 	sub	r0, 1
-__LBB20_18:                             # %while.end32
+__LBB20_18:                             # %while.end31
 	ldi	r1, -90
 	add	r1, fp, r1
 	ldi	r5, 0
@@ -3918,14 +3917,14 @@ __LBB20_18:                             # %while.end32
 	sub	r0, 1
 	ldi	r1, 1
 	ldi	r4, 32
-__LBB20_19:                             # %while.cond34
+__LBB20_19:                             # %while.cond33
                                         # =>This Inner Loop Header: Depth=1
 	ldb	r0, r1, r2
 	add	r0, 1
 	cmp	r2, r4
 	beq	__LBB20_19
 	br	__LBB20_20
-__LBB20_20:                             # %while.end40
+__LBB20_20:                             # %while.end39
 	lsw	r1, -90
 	ssw	r1, -92                         # 2-byte Folded Spill
 	cmp	r1, r5
@@ -3966,14 +3965,14 @@ __LBB20_26:                             # %if.else
 	cmp	r1, r5
 	beq	__LBB20_30
 	br	__LBB20_27
-__LBB20_27:                             # %land.rhs.i114.preheader
+__LBB20_27:                             # %land.rhs.i113.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_28:                             # %land.rhs.i114
+__LBB20_28:                             # %land.rhs.i113
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.19
 	ldb	r5, r6, r6
@@ -3981,34 +3980,34 @@ __LBB20_28:                             # %land.rhs.i114
 	cmp	r1, r6
 	bne	__LBB20_32
 	br	__LBB20_29
-__LBB20_29:                             # %if.end.i119
+__LBB20_29:                             # %if.end.i118
                                         #   in Loop: Header=BB20_28 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_28
 	br	__LBB20_30
-__LBB20_30:                             # %StringCmp.exit127
+__LBB20_30:                             # %StringCmp.exit126
 	ldi	r1, __L.str.19
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_32
 	br	__LBB20_31
-__LBB20_32:                             # %if.else47
+__LBB20_32:                             # %if.else46
 	ldi	r5, 0
 	lsw	r1, -92                         # 2-byte Folded Reload
 	cmp	r1, r5
 	beq	__LBB20_36
 	br	__LBB20_33
-__LBB20_33:                             # %land.rhs.i129.preheader
+__LBB20_33:                             # %land.rhs.i128.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_34:                             # %land.rhs.i129
+__LBB20_34:                             # %land.rhs.i128
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.21
 	ldb	r5, r6, r6
@@ -4016,34 +4015,34 @@ __LBB20_34:                             # %land.rhs.i129
 	cmp	r1, r6
 	bne	__LBB20_38
 	br	__LBB20_35
-__LBB20_35:                             # %if.end.i134
+__LBB20_35:                             # %if.end.i133
                                         #   in Loop: Header=BB20_34 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_34
 	br	__LBB20_36
-__LBB20_36:                             # %StringCmp.exit142
+__LBB20_36:                             # %StringCmp.exit141
 	ldi	r1, __L.str.21
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_38
 	br	__LBB20_37
-__LBB20_38:                             # %if.else52
+__LBB20_38:                             # %if.else51
 	ldi	r5, 0
 	lsw	r1, -92                         # 2-byte Folded Reload
 	cmp	r1, r5
 	beq	__LBB20_42
 	br	__LBB20_39
-__LBB20_39:                             # %land.rhs.i144.preheader
+__LBB20_39:                             # %land.rhs.i143.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_40:                             # %land.rhs.i144
+__LBB20_40:                             # %land.rhs.i143
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.23
 	ldb	r5, r6, r6
@@ -4051,34 +4050,34 @@ __LBB20_40:                             # %land.rhs.i144
 	cmp	r1, r6
 	bne	__LBB20_44
 	br	__LBB20_41
-__LBB20_41:                             # %if.end.i149
+__LBB20_41:                             # %if.end.i148
                                         #   in Loop: Header=BB20_40 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_40
 	br	__LBB20_42
-__LBB20_42:                             # %StringCmp.exit157
+__LBB20_42:                             # %StringCmp.exit156
 	ldi	r1, __L.str.23
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_44
 	br	__LBB20_43
-__LBB20_44:                             # %if.else57
+__LBB20_44:                             # %if.else56
 	ldi	r5, 0
 	lsw	r1, -92                         # 2-byte Folded Reload
 	cmp	r1, r5
 	beq	__LBB20_48
 	br	__LBB20_45
-__LBB20_45:                             # %land.rhs.i159.preheader
+__LBB20_45:                             # %land.rhs.i158.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_46:                             # %land.rhs.i159
+__LBB20_46:                             # %land.rhs.i158
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.25
 	ldb	r5, r6, r6
@@ -4086,34 +4085,34 @@ __LBB20_46:                             # %land.rhs.i159
 	cmp	r1, r6
 	bne	__LBB20_50
 	br	__LBB20_47
-__LBB20_47:                             # %if.end.i164
+__LBB20_47:                             # %if.end.i163
                                         #   in Loop: Header=BB20_46 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_46
 	br	__LBB20_48
-__LBB20_48:                             # %StringCmp.exit172
+__LBB20_48:                             # %StringCmp.exit171
 	ldi	r1, __L.str.25
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_50
 	br	__LBB20_49
-__LBB20_50:                             # %if.else62
+__LBB20_50:                             # %if.else61
 	ldi	r5, 0
 	lsw	r1, -92                         # 2-byte Folded Reload
 	cmp	r1, r5
 	beq	__LBB20_54
 	br	__LBB20_51
-__LBB20_51:                             # %land.rhs.i174.preheader
+__LBB20_51:                             # %land.rhs.i173.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_52:                             # %land.rhs.i174
+__LBB20_52:                             # %land.rhs.i173
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.27
 	ldb	r5, r6, r6
@@ -4121,34 +4120,34 @@ __LBB20_52:                             # %land.rhs.i174
 	cmp	r1, r6
 	bne	__LBB20_56
 	br	__LBB20_53
-__LBB20_53:                             # %if.end.i179
+__LBB20_53:                             # %if.end.i178
                                         #   in Loop: Header=BB20_52 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_52
 	br	__LBB20_54
-__LBB20_54:                             # %StringCmp.exit187
+__LBB20_54:                             # %StringCmp.exit186
 	ldi	r1, __L.str.27
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_56
 	br	__LBB20_55
-__LBB20_56:                             # %if.else67
+__LBB20_56:                             # %if.else66
 	ldi	r5, 0
 	lsw	r1, -92                         # 2-byte Folded Reload
 	cmp	r1, r5
 	beq	__LBB20_60
 	br	__LBB20_57
-__LBB20_57:                             # %land.rhs.i189.preheader
+__LBB20_57:                             # %land.rhs.i188.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_58:                             # %land.rhs.i189
+__LBB20_58:                             # %land.rhs.i188
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.29
 	ldb	r5, r6, r6
@@ -4156,34 +4155,34 @@ __LBB20_58:                             # %land.rhs.i189
 	cmp	r1, r6
 	bne	__LBB20_62
 	br	__LBB20_59
-__LBB20_59:                             # %if.end.i194
+__LBB20_59:                             # %if.end.i193
                                         #   in Loop: Header=BB20_58 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_58
 	br	__LBB20_60
-__LBB20_60:                             # %StringCmp.exit202
+__LBB20_60:                             # %StringCmp.exit201
 	ldi	r1, __L.str.29
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_62
 	br	__LBB20_61
-__LBB20_62:                             # %if.else72
+__LBB20_62:                             # %if.else71
 	ldi	r5, 0
 	lsw	r1, -92                         # 2-byte Folded Reload
 	cmp	r1, r5
 	beq	__LBB20_66
 	br	__LBB20_63
-__LBB20_63:                             # %land.rhs.i204.preheader
+__LBB20_63:                             # %land.rhs.i203.preheader
 	ldi	r2, 0
 	ldi	r1, -90
 	add	r1, fp, r4
 	add	r4, 1
 	lsw	r1, -92                         # 2-byte Folded Reload
 	movens	r2, r5
-__LBB20_64:                             # %land.rhs.i204
+__LBB20_64:                             # %land.rhs.i203
                                         # =>This Inner Loop Header: Depth=1
 	ldi	r6, __L.str.31
 	ldb	r5, r6, r6
@@ -4191,21 +4190,21 @@ __LBB20_64:                             # %land.rhs.i204
 	cmp	r1, r6
 	bne	__LBB20_68
 	br	__LBB20_65
-__LBB20_65:                             # %if.end.i209
+__LBB20_65:                             # %if.end.i208
                                         #   in Loop: Header=BB20_64 Depth=1
 	ldb	r4, r5, r1
 	add	r5, 1
 	cmp	r1, r2
 	bne	__LBB20_64
 	br	__LBB20_66
-__LBB20_66:                             # %StringCmp.exit217
+__LBB20_66:                             # %StringCmp.exit216
 	ldi	r1, __L.str.31
 	ldb	r5, r1, r1
 	ldi	r2, 0
 	cmp	r1, r2
 	bne	__LBB20_68
 	br	__LBB20_67
-__LBB20_68:                             # %if.else77
+__LBB20_68:                             # %if.else76
 	ldi	r0, CURR_CHAR
 	ldi	r1, 69
 	stw	r0, r1
@@ -4250,12 +4249,12 @@ __LBB20_68:                             # %if.else77
 	cmp	r1, r2
 	beq	__LBB20_71
 	br	__LBB20_69
-__LBB20_69:                             # %while.body.i226.preheader
+__LBB20_69:                             # %while.body.i225.preheader
 	ldi	r1, -90
 	add	r1, fp, r4
 	lsw	r1, -92                         # 2-byte Folded Reload
 	add	r4, 1
-__LBB20_70:                             # %while.body.i226
+__LBB20_70:                             # %while.body.i225
                                         # =>This Inner Loop Header: Depth=1
 	sxt	r1, r1
 	stw	r0, r1
@@ -4264,7 +4263,7 @@ __LBB20_70:                             # %while.body.i226
 	cmp	r1, r2
 	bne	__LBB20_70
 	br	__LBB20_71
-__LBB20_71:                             # %print.exit232
+__LBB20_71:                             # %print.exit231
 	stw	r0, r3
 	ldi	r2, 46
 	stw	r0, r2
@@ -4289,20 +4288,20 @@ __LBB20_71:                             # %print.exit232
 	stw	r0, r2
 	ldi	r1, 10
 	stw	r0, r1
-__LBB20_72:                             # %cleanup87
+__LBB20_72:                             # %cleanup86
 	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
 	addsp	92
 	pop	fp
 	rts
-__LBB20_25:                             # %if.then42
+__LBB20_25:                             # %if.then41
 	jsr	SetCmd
 	br	__LBB20_72
-__LBB20_31:                             # %if.then46
+__LBB20_31:                             # %if.then45
 	jsr	RuleCmdWrapper
 	br	__LBB20_72
-__LBB20_37:                             # %if.then51
+__LBB20_37:                             # %if.then50
 	ldi	r0, START_STOP
 	ldi	r1, 0
 	stw	r0, r1
@@ -4334,19 +4333,19 @@ __LBB20_37:                             # %if.then51
 	ldi	r1, 10
 	stw	r0, r1
 	br	__LBB20_72
-__LBB20_43:                             # %if.then56
+__LBB20_43:                             # %if.then55
 	jsr	StartCmd
 	br	__LBB20_72
-__LBB20_49:                             # %if.then61
+__LBB20_49:                             # %if.then60
 	jsr	FillCmdWrapper
 	br	__LBB20_72
-__LBB20_55:                             # %if.then66
+__LBB20_55:                             # %if.then65
 	jsr	CleanCmd
 	br	__LBB20_72
-__LBB20_61:                             # %if.then71
+__LBB20_61:                             # %if.then70
 	jsr	HelpCmd
 	br	__LBB20_72
-__LBB20_67:                             # %if.then76
+__LBB20_67:                             # %if.then75
 	jsr	SetGliderCmdWrapper
 	br	__LBB20_72
                                         # -- End function
@@ -4378,7 +4377,7 @@ main>                                   # -- Begin function main
                                         # -- End function
 ### SECTION: .bss
 queue>                                  # @queue
-	ds	64
+	ds	32
 
 head>                                   # @head
 	dc	0                               # 0x0

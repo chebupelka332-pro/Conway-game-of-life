@@ -18,7 +18,7 @@ volatile extern int VALUE;
 
 //---- QUEUE VARIABLES ----
 
-volatile int queue[QSIZE];
+volatile char queue[QSIZE];
 volatile int head;
 volatile int end;
 
@@ -279,7 +279,7 @@ void parse()
     int current = head;
     while (current != end && len < QSIZE * 2 - 1)
     {
-        cmd_buffer[len++] = (char)queue[current];
+        cmd_buffer[len++] = queue[current];
         current = (current + 1) % QSIZE;
     }
     cmd_buffer[len] = NULL;

@@ -78,7 +78,7 @@ _kb_isr:
     save
 
     ldi r6, CURR_CHAR
-    ldw r6, r2
+    ldb r6, r2
 
     if
         ldi r1, end
@@ -96,7 +96,7 @@ _kb_isr:
         dec r1
         and r3, r1
 
-        stw r6, r2
+        stb r6, r2
         if
            ldi r0, 0x0a
            cmp r2, r0 # end of command
@@ -107,7 +107,7 @@ _kb_isr:
             clr r2
         fi
         ldi r5, queue
-        stw r5, r1, r2
+        stb r5, r1, r2
 
         inc r1
         and  r3, r1 
@@ -118,7 +118,7 @@ _kb_isr:
         # print "Too long!" error
         ldi r0, len_error
         jsr _print
-        jsr qInit
+        jsr qInit # проверить вызов!!!
     fi
 
     restore
@@ -126,6 +126,7 @@ _kb_isr:
 
 _print:
     push r1
+    push r2
     ldi r1, CURR_CHAR
     while
         ldc r0, r2
@@ -134,6 +135,7 @@ _print:
     stays nz 
         st r1, r2
     wend
+    pop r2
     pop r1
     rts
 
