@@ -1,7 +1,6 @@
 ### SECTION: .text
 rsect ___src_main_c_41
 
-memset: ext
 CURR_CHAR: ext
 CELL_ADR: ext
 LINE_ADR: ext
@@ -17,375 +16,137 @@ push $1
 pop $2
 mend
 
-qInit>                                  # -- Begin function qInit
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-2
-	ldi	r0, 0
-	ssw	r0, -2
-	br	__LBB0_1
-__LBB0_1:                               # %for.cond
-                                        # =>This Inner Loop Header: Depth=1
-	lsw	r0, -2
-	ldi	r1, 31
-	cmp	r0, r1
-	bgt	__LBB0_4
-	br	__LBB0_2
-__LBB0_2:                               # %for.body
-                                        #   in Loop: Header=BB0_1 Depth=1
-	lsw	r0, -2
-	shl	r0, r1, 1
-	ldi	r2, queue
-	ldi	r0, 0
-	stw	r1, r2, r0
-	br	__LBB0_3
-__LBB0_3:                               # %for.inc
-                                        #   in Loop: Header=BB0_1 Depth=1
-	lsw	r0, -2
-	add	r0, 1
-	ssw	r0, -2
-	br	__LBB0_1
-__LBB0_4:                               # %for.end
-	ldi	r1, head
-	ldi	r0, 0
-	stw	r1, r0
-	ldi	r1, end
-	stw	r1, r0
-	addsp	2
-	pop	fp
-	rts
-                                        # -- End function
 isNum>                                  # -- Begin function isNum
 # %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-4
-                                        # kill: def $r1 killed $r0
-	ssb	r0, -3
-	lssb	r0, -3
-	ldi	r1, 48
-	cmp	r0, r1
-	blt	__LBB1_3
-	br	__LBB1_1
-__LBB1_1:                               # %land.lhs.true
-	lssb	r0, -3
-	ldi	r1, 57
-	cmp	r0, r1
-	bgt	__LBB1_3
-	br	__LBB1_2
-__LBB1_2:                               # %if.then
+	sub	r0, 48
+	ldi	r1, 255
+	and r0, r1, r1
 	ldi	r0, 1
-	ssw	r0, -2
-	br	__LBB1_4
-__LBB1_3:                               # %if.end
+	ldi	r2, 10
+	cmp	r1, r2
+	blo	__LBB0_2
+# %bb.1:                                # %entry
 	ldi	r0, 0
-	ssw	r0, -2
-	br	__LBB1_4
-__LBB1_4:                               # %return
-	lsw	r0, -2
-	addsp	4
-	pop	fp
+__LBB0_2:                               # %entry
 	rts
                                         # -- End function
 isAlpha>                                # -- Begin function isAlpha
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-4
-                                        # kill: def $r1 killed $r0
-	ssb	r0, -3
-	lssb	r0, -3
-	ldi	r1, 97
-	cmp	r0, r1
-	blt	__LBB2_3
-	br	__LBB2_1
-__LBB2_1:                               # %land.lhs.true
-	lssb	r0, -3
-	ldi	r1, 122
-	cmp	r0, r1
-	bgt	__LBB2_3
-	br	__LBB2_2
-__LBB2_2:                               # %if.then
-	ldi	r0, 1
-	ssw	r0, -2
-	br	__LBB2_9
-__LBB2_3:                               # %if.end
-	lssb	r0, -3
-	ldi	r1, 65
-	cmp	r0, r1
-	blt	__LBB2_6
-	br	__LBB2_4
-__LBB2_4:                               # %land.lhs.true8
-	lssb	r0, -3
-	ldi	r1, 90
-	cmp	r0, r1
-	bgt	__LBB2_6
-	br	__LBB2_5
-__LBB2_5:                               # %if.then12
-	ldi	r0, 1
-	ssw	r0, -2
-	br	__LBB2_9
-__LBB2_6:                               # %if.end13
-	lssb	r0, -3
-	ldi	r1, 45
-	cmp	r0, r1
-	bne	__LBB2_8
-	br	__LBB2_7
-__LBB2_7:                               # %if.then17
-	ldi	r0, 1
-	ssw	r0, -2
-	br	__LBB2_9
-__LBB2_8:                               # %if.end18
-	ldi	r0, 0
-	ssw	r0, -2
-	br	__LBB2_9
-__LBB2_9:                               # %return
-	lsw	r0, -2
-	addsp	4
+	addsp	-2
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ldi	r2, 0
+	ldi	r1, 1
+	ldi	r3, 45
+	cmp	r0, r3
+	movens	r1, r3
+	beq	__LBB1_2
+# %bb.1:                                # %entry
+	movens	r2, r3
+__LBB1_2:                               # %entry
+	ldi	r4, 223
+	and r0, r4, r0
+	ldi	r4, -65
+	add r0, r4, r0
+	ldi	r4, 255
+	and r0, r4, r0
+	ldi	r4, 26
+	cmp	r0, r4
+	blo	__LBB1_4
+# %bb.3:                                # %entry
+	movens	r2, r1
+__LBB1_4:                               # %entry
+	or r3, r1, r0
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	2
 	pop	fp
 	rts
                                         # -- End function
 print>                                  # -- Begin function print
 # %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-4
-	shr	r0, r1, 8
-	ldi	r2, -2
-	add	r2, fp, r2
-	ldi	r3, 1
-	stb	r2, r3, r1
-	ssb	r0, -2
-	ldi	r0, 0
-	ssw	r0, -4
-	br	__LBB3_1
-__LBB3_1:                               # %while.cond
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	lsw	r1, -4
-	ldsb	r0, r1, r0
+	ldb	r0, r2
 	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB3_3
-	br	__LBB3_2
-__LBB3_2:                               # %while.body
-                                        #   in Loop: Header=BB3_1 Depth=1
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	lsw	r1, -4
-	movens	r1, r2
-	add	r2, 1
-	ssw	r2, -4
-	ldsb	r0, r1, r0
-	ldi	r1, CURR_CHAR
-	stw	r1, r0
-	br	__LBB3_1
-__LBB3_3:                               # %while.end
-	addsp	4
-	pop	fp
+	cmp	r2, r1
+	beq	__LBB2_3
+	br	__LBB2_1
+__LBB2_1:                               # %while.body.preheader
+	add	r0, 1
+	ldi	r3, CURR_CHAR
+__LBB2_2:                               # %while.body
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r3, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r1
+	bne	__LBB2_2
+	br	__LBB2_3
+__LBB2_3:                               # %while.end
 	rts
                                         # -- End function
 StringLen>                              # -- Begin function StringLen
 # %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-4
-	shr	r0, r1, 8
-	ldi	r2, -2
-	add	r2, fp, r2
-	ldi	r3, 1
-	stb	r2, r3, r1
-	ssb	r0, -2
-	ldi	r0, 0
-	ssw	r0, -4
-	br	__LBB4_1
-__LBB4_1:                               # %while.cond
+	movens	r0, r1
+	ldi	r2, 0
+	movens	r2, r0
+__LBB3_1:                               # %while.cond
                                         # =>This Inner Loop Header: Depth=1
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	lsw	r1, -4
-	ldsb	r0, r1, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB4_3
-	br	__LBB4_2
-__LBB4_2:                               # %while.body
-                                        #   in Loop: Header=BB4_1 Depth=1
-	lsw	r0, -4
+	ldb	r1, r0, r3
 	add	r0, 1
-	ssw	r0, -4
-	br	__LBB4_1
-__LBB4_3:                               # %while.end
-	lsw	r0, -4
-	addsp	4
-	pop	fp
+	cmp	r3, r2
+	bne	__LBB3_1
+	br	__LBB3_2
+__LBB3_2:                               # %while.end
+	sub	r0, 1
 	rts
                                         # -- End function
 StringCmp>                              # -- Begin function StringCmp
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-22
+	addsp	-6
 	ssw	r4, -2                          # 2-byte Folded Spill
-	shr	r0, r2, 8
-	ldi	r3, -6
-	add	r3, fp, r4
-	ldi	r3, 1
-	stb	r4, r3, r2
-	ssb	r0, -6
-	shr	r1, r0, 8
-	ldi	r2, -8
-	add	r2, fp, r2
-	stb	r2, r3, r0
-	ssb	r1, -8
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	movens	r0, r2
+	ldb	r2, r4
+	ldi	r5, 0
+	cmp	r4, r5
+	beq	__LBB4_4
+	br	__LBB4_1
+__LBB4_1:                               # %land.rhs.preheader
 	ldi	r0, 0
-	ssw	r0, -10
-	br	__LBB5_1
-__LBB5_1:                               # %while.cond
+	add	r2, 1
+	ldi	r6, 255
+	movens	r0, r5
+__LBB4_2:                               # %land.rhs
                                         # =>This Inner Loop Header: Depth=1
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	lsw	r1, -10
-	ldsb	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
-	ssw	r0, -12                         # 2-byte Folded Spill
-	beq	__LBB5_3
-	br	__LBB5_2
-__LBB5_2:                               # %land.rhs
-                                        #   in Loop: Header=BB5_1 Depth=1
-	ldi	r0, -8
-	add	r0, fp, r1
+	ldb	r1, r5, r3
+	and r4, r6, r4
+	cmp	r4, r3
+	bne	__LBB4_6
+	br	__LBB4_3
+__LBB4_3:                               # %if.end
+                                        #   in Loop: Header=BB4_2 Depth=1
+	ldb	r2, r5, r4
+	add	r5, 1
+	cmp	r4, r0
+	bne	__LBB4_2
+	br	__LBB4_4
+__LBB4_4:                               # %land.rhs16
+	ldb	r1, r5, r1
 	ldi	r0, 1
-	ldb	r1, r0, r1
-	shl	r1, r1, 8
-	lsb	r2, -8
-	or r1, r2, r1
-	lsw	r2, -10
-	ldsb	r1, r2, r1
 	ldi	r2, 0
-	ssw	r2, -16                         # 2-byte Folded Spill
 	cmp	r1, r2
-	ssw	r0, -14                         # 2-byte Folded Spill
-	bne	__LBB5_12
-# %bb.11:                               # %land.rhs
-                                        #   in Loop: Header=BB5_1 Depth=1
-	lsw	r0, -16                         # 2-byte Folded Reload
-	ssw	r0, -14                         # 2-byte Folded Spill
-__LBB5_12:                              # %land.rhs
-                                        #   in Loop: Header=BB5_1 Depth=1
-	lsw	r0, -14                         # 2-byte Folded Reload
-	ssw	r0, -12                         # 2-byte Folded Spill
-	br	__LBB5_3
-__LBB5_3:                               # %land.end
-                                        #   in Loop: Header=BB5_1 Depth=1
-	lsw	r0, -12                         # 2-byte Folded Reload
-	ldi	r1, 1
-	and r0, r1, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB5_7
-	br	__LBB5_4
-__LBB5_4:                               # %while.body
-                                        #   in Loop: Header=BB5_1 Depth=1
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r3, 1
-	ldb	r0, r3, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	lsw	r2, -10
-	ldsb	r0, r2, r0
-	ldi	r1, -8
-	add	r1, fp, r1
-	ldb	r1, r3, r1
-	shl	r1, r1, 8
-	lsb	r3, -8
-	or r1, r3, r1
-	ldsb	r1, r2, r1
-	cmp	r0, r1
-	beq	__LBB5_6
-	br	__LBB5_5
-__LBB5_5:                               # %if.then
-	ldi	r0, 0
-	ssw	r0, -4
-	br	__LBB5_10
-__LBB5_6:                               # %if.end
-                                        #   in Loop: Header=BB5_1 Depth=1
-	lsw	r0, -10
-	add	r0, 1
-	ssw	r0, -10
-	br	__LBB5_1
-__LBB5_7:                               # %while.end
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	lsw	r1, -10
-	ldsb	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
-	ssw	r0, -18                         # 2-byte Folded Spill
-	bne	__LBB5_9
-	br	__LBB5_8
-__LBB5_8:                               # %land.rhs16
-	ldi	r0, -8
-	add	r0, fp, r1
-	ldi	r0, 1
-	ldb	r1, r0, r1
-	shl	r1, r1, 8
-	lsb	r2, -8
-	or r1, r2, r1
-	lsw	r2, -10
-	ldsb	r1, r2, r1
-	ldi	r2, 0
-	ssw	r2, -22                         # 2-byte Folded Spill
-	cmp	r1, r2
-	ssw	r0, -20                         # 2-byte Folded Spill
-	beq	__LBB5_14
-# %bb.13:                               # %land.rhs16
-	lsw	r0, -22                         # 2-byte Folded Reload
-	ssw	r0, -20                         # 2-byte Folded Spill
-__LBB5_14:                              # %land.rhs16
-	lsw	r0, -20                         # 2-byte Folded Reload
-	ssw	r0, -18                         # 2-byte Folded Spill
-	br	__LBB5_9
-__LBB5_9:                               # %land.end21
-	lsw	r0, -18                         # 2-byte Folded Reload
-	ldi	r1, 1
-	and r0, r1, r0
-	ssw	r0, -4
-	br	__LBB5_10
-__LBB5_10:                              # %return
-	lsw	r0, -4
+	beq	__LBB4_6
+# %bb.5:                                # %land.rhs16
+	movens	r2, r0
+__LBB4_6:                               # %cleanup
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	22
+	addsp	6
 	pop	fp
 	rts
                                         # -- End function
@@ -393,267 +154,1365 @@ my_mul>                                 # -- Begin function my_mul
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-8
-	ssw	r0, -2
-	ssw	r1, -4
-	ldi	r0, 0
-	ssw	r0, -6
-	ssw	r0, -8
-	br	__LBB6_1
-__LBB6_1:                               # %for.cond
+	addsp	-2
+	ldi	r2, 0
+	ssw	r2, -2
+	ldi	r3, 1
+	cmp	r1, r3
+	blt	__LBB5_2
+	br	__LBB5_1
+__LBB5_1:                               # %for.body.preheader
+	br	__LBB5_3
+__LBB5_3:                               # %for.body
                                         # =>This Inner Loop Header: Depth=1
-	lsw	r0, -8
-	lsw	r1, -4
-	cmp	r0, r1
-	bge	__LBB6_4
-	br	__LBB6_2
-__LBB6_2:                               # %for.body
-                                        #   in Loop: Header=BB6_1 Depth=1
-	lsw	r1, -2
-	lsw	r0, -6
-	add r0, r1, r0
-	ssw	r0, -6
-	br	__LBB6_3
-__LBB6_3:                               # %for.inc
-                                        #   in Loop: Header=BB6_1 Depth=1
-	lsw	r0, -8
-	add	r0, 1
-	ssw	r0, -8
-	br	__LBB6_1
-__LBB6_4:                               # %for.end
-	lsw	r0, -6
-	addsp	8
+	lsw	r3, -2
+	add r3, r0, r3
+	ssw	r3, -2
+	sub	r1, 1
+	cmp	r1, r2
+	beq	__LBB5_2
+	br	__LBB5_3
+__LBB5_2:                               # %for.cond.cleanup
+	lsw	r0, -2
+	addsp	2
 	pop	fp
 	rts
                                         # -- End function
-my_atoi>                                # -- Begin function my_atoi
+StringTrimRight>                        # -- Begin function StringTrimRight
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-10
+	addsp	-6
 	ssw	r4, -2                          # 2-byte Folded Spill
-	shr	r0, r1, 8
-	ldi	r2, -4
-	add	r2, fp, r2
-	ldi	r3, 1
-	stb	r2, r3, r1
-	ssb	r0, -4
-	ldi	r0, 0
-	ssw	r0, -6
-	ssw	r0, -8
-	br	__LBB7_1
-__LBB7_1:                               # %while.cond
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, -4
-	add	r0, fp, r0
-	ldi	r2, 1
-	ldb	r0, r2, r0
-	shl	r0, r0, 8
-	lsb	r1, -4
-	or r0, r1, r0
-	ldb	r0, r1
-	ldb	r0, r2, r0
-	shl	r0, r0, 8
-	or r0, r1, r0
-	ldsb	r0, r0
-	ldi	r1, 32
-	cmp	r0, r1
-	bne	__LBB7_3
-	br	__LBB7_2
-__LBB7_2:                               # %while.body
-                                        #   in Loop: Header=BB7_1 Depth=1
-	ldi	r0, -4
-	add	r0, fp, r0
-	ldi	r3, 1
-	ldb	r0, r3, r0
-	shl	r0, r0, 8
-	lsb	r1, -4
-	or r0, r1, r1
-	ldb	r1, r2
-	ldb	r1, r3, r0
-	shl	r0, r0, 8
-	or r0, r2, r0
-	add	r0, 1
-	shr	r0, r2, 8
-	stb	r1, r3, r2
-	stb	r1, r0
-	br	__LBB7_1
-__LBB7_3:                               # %while.end
-	br	__LBB7_4
-__LBB7_4:                               # %while.cond2
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, -4
-	add	r0, fp, r0
-	ldi	r2, 1
-	ldb	r0, r2, r0
-	shl	r0, r0, 8
-	lsb	r1, -4
-	or r0, r1, r0
-	ldb	r0, r1
-	ldb	r0, r2, r0
-	shl	r0, r0, 8
-	or r0, r1, r0
-	ldsb	r0, r0
-	jsr	isNum
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
 	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB7_6
-	br	__LBB7_5
-__LBB7_5:                               # %while.body3
-                                        #   in Loop: Header=BB7_4 Depth=1
-	lsw	r0, -6
-	ldi	r1, 10
-	jsr	my_mul
-	movens	r0, r2
-	ldi	r0, -4
-	add	r0, fp, r0
-	ldi	r3, 1
-	ldb	r0, r3, r1
-	shl	r1, r1, 8
-	lsb	r4, -4
-	or r1, r4, r1
-	ldb	r1, r4
-	ldb	r1, r3, r1
-	shl	r1, r1, 8
-	or r1, r4, r1
-	ldsb	r1, r1
-	add r1, r2, r1
-	sub	r1, 48
-	ssw	r1, -6
-	ldb	r0, r3, r0
-	shl	r0, r0, 8
-	lsb	r1, -4
-	or r0, r1, r1
-	ldb	r1, r2
-	ldb	r1, r3, r0
-	shl	r0, r0, 8
-	or r0, r2, r0
-	add	r0, 1
-	shr	r0, r2, 8
-	stb	r1, r3, r2
-	stb	r1, r0
-	lsw	r0, -8
-	add	r0, 1
-	ssw	r0, -8
-	br	__LBB7_4
-__LBB7_6:                               # %while.end7
-	lsw	r0, -8
+	movens	r1, r2
+__LBB6_1:                               # %while.cond.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r0, r2, r3
+	add	r2, 1
+	cmp	r3, r1
+	bne	__LBB6_1
+	br	__LBB6_2
+__LBB6_2:                               # %while.cond.preheader
 	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB7_8
-	br	__LBB7_7
-__LBB7_7:                               # %cond.true
-	lsw	r0, -6
-	ssw	r0, -10                         # 2-byte Folded Spill
-	br	__LBB7_9
-__LBB7_8:                               # %cond.false
-	ldi	r0, -1
-	ssw	r0, -10                         # 2-byte Folded Spill
-	br	__LBB7_9
-__LBB7_9:                               # %cond.end
-	lsw	r0, -10                         # 2-byte Folded Reload
+	ldi	r3, 1
+	cmp	r2, r3
+	beq	__LBB6_8
+	br	__LBB6_3
+__LBB6_3:                               # %land.rhs.preheader
+	sub	r0, 2
+	ldi	r4, 2
+__LBB6_4:                               # %land.rhs
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r0, r2, r5
+	movens	r5, r6
+	sub	r6, 9
+	cmp	r6, r4
+	blo	__LBB6_6
+	br	__LBB6_5
+__LBB6_5:                               # %land.rhs
+                                        #   in Loop: Header=BB6_4 Depth=1
+	ldi	r6, 32
+	cmp	r5, r6
+	bne	__LBB6_7
+	br	__LBB6_6
+__LBB6_6:                               # %while.body
+                                        #   in Loop: Header=BB6_4 Depth=1
+	stb	r0, r2, r1
+	sub	r2, 1
+	cmp	r2, r3
+	bgt	__LBB6_4
+	br	__LBB6_8
+__LBB6_7:                               # %land.rhs.while.end.loopexit_crit_edge
+	sub	r2, 1
+	movens	r2, r1
+__LBB6_8:                               # %while.end
+	movens	r1, r0
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	10
+	addsp	6
 	pop	fp
+	rts
+                                        # -- End function
+clearBuffer>                            # -- Begin function clearBuffer
+# %bb.0:                                # %entry
+	ldi	r2, 1
+	cmp	r1, r2
+	blt	__LBB7_2
+	br	__LBB7_1
+__LBB7_1:                               # %for.body.preheader
+	ldi	r2, 0
+	br	__LBB7_3
+__LBB7_3:                               # %for.body
+                                        # =>This Inner Loop Header: Depth=1
+	stw	r0, r2
+	add	r0, 2
+	sub	r1, 1
+	cmp	r1, r2
+	beq	__LBB7_2
+	br	__LBB7_3
+__LBB7_2:                               # %for.cond.cleanup
+	rts
+                                        # -- End function
+parseArgs>                              # -- Begin function parseArgs
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-14
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ssw	r1, -12                         # 2-byte Folded Spill
+	ldi	r1, 1
+	ldi	r3, 0
+	cmp	r2, r3
+	bgt	__LBB8_2
+# %bb.1:                                # %entry
+	movens	r3, r1
+__LBB8_2:                               # %entry
+	ldb	r0, r6
+	cmp	r6, r3
+	ldi	r4, 255
+	ldi	r5, 32
+	beq	__LBB8_22
+	br	__LBB8_3
+__LBB8_3:                               # %entry
+	ssw	r1, -10                         # 2-byte Folded Spill
+	ldi	r1, 1
+	cmp	r2, r1
+	lsw	r1, -10                         # 2-byte Folded Reload
+	blt	__LBB8_22
+	br	__LBB8_4
+__LBB8_4:                               # %while.cond2.preheader.preheader
+	ssw	r2, -14                         # 2-byte Folded Spill
+	ldi	r2, 0
+	ssw	r2, -8                          # 2-byte Folded Spill
+	movens	r0, r3
+__LBB8_5:                               # %while.cond2.preheader
+                                        # =>This Loop Header: Depth=1
+                                        #     Child Loop BB8_6 Depth 2
+                                        #     Child Loop BB8_10 Depth 2
+	ldi	r1, 1
+__LBB8_6:                               # %while.cond2
+                                        #   Parent Loop BB8_5 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	and r6, r4, r0
+	cmp	r0, r5
+	beq	__LBB8_8
+	br	__LBB8_7
+__LBB8_8:                               # %while.body6
+                                        #   in Loop: Header=BB8_6 Depth=2
+	ldb	r3, r1, r6
+	add	r3, 1
+	br	__LBB8_6
+__LBB8_7:                               # %while.cond2
+                                        #   in Loop: Header=BB8_5 Depth=1
+	cmp	r0, r2
+	beq	__LBB8_20
+	br	__LBB8_9
+__LBB8_9:                               # %if.end
+                                        #   in Loop: Header=BB8_5 Depth=1
+	lsw	r1, -8                          # 2-byte Folded Reload
+	shl	r1, r0, 1
+	lsw	r2, -12                         # 2-byte Folded Reload
+	stb	r2, r0, r3
+	add r2, r0, r0
+	shr	r3, r6, 8
+	ldi	r2, 1
+	stb	r0, r2, r6
+	ldi	r2, 0
+	add	r1, 1
+	ssw	r1, -8                          # 2-byte Folded Spill
+	movens	r3, r0
+__LBB8_10:                              # %while.cond10
+                                        #   Parent Loop BB8_5 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	ldb	r0, r3
+	cmp	r3, r5
+	beq	__LBB8_16
+	br	__LBB8_11
+__LBB8_11:                              # %while.cond10
+                                        #   in Loop: Header=BB8_10 Depth=2
+	cmp	r3, r2
+	bne	__LBB8_15
+	br	__LBB8_12
+__LBB8_15:                              # %while.body19
+                                        #   in Loop: Header=BB8_10 Depth=2
+	add	r0, 1
+	br	__LBB8_10
+__LBB8_16:                              # %if.end27
+                                        #   in Loop: Header=BB8_5 Depth=1
+	lsw	r2, -14                         # 2-byte Folded Reload
+	lsw	r1, -8                          # 2-byte Folded Reload
+	cmp	r1, r2
+	ldi	r2, 1
+	movens	r2, r1
+	blt	__LBB8_18
+# %bb.17:                               # %if.end27
+                                        #   in Loop: Header=BB8_5 Depth=1
+	ldi	r1, 0
+__LBB8_18:                              # %if.end27
+                                        #   in Loop: Header=BB8_5 Depth=1
+	ssw	r1, -10                         # 2-byte Folded Spill
+	ldi	r1, 0
+	stb	r0, r1
+	ldb	r0, r2, r6
+	cmp	r6, r1
+	beq	__LBB8_21
+	br	__LBB8_19
+__LBB8_19:                              # %if.end27
+                                        #   in Loop: Header=BB8_5 Depth=1
+	movens	r0, r3
+	add	r3, 1
+	lsw	r2, -14                         # 2-byte Folded Reload
+	lsw	r1, -8                          # 2-byte Folded Reload
+	cmp	r1, r2
+	ldi	r2, 0
+	blt	__LBB8_5
+	br	__LBB8_21
+__LBB8_21:                              # %while.end28.loopexit112
+	add	r0, 1
+	lsw	r3, -8                          # 2-byte Folded Reload
+	lsw	r1, -10                         # 2-byte Folded Reload
+__LBB8_22:                              # %while.end28
+	movens	r1, r2
+	add	r0, 1
+__LBB8_23:                              # %while.cond29
+                                        # =>This Inner Loop Header: Depth=1
+	and r6, r4, r1
+	cmp	r1, r5
+	beq	__LBB8_25
+	br	__LBB8_24
+__LBB8_25:                              # %while.body33
+                                        #   in Loop: Header=BB8_23 Depth=1
+	ldb	r0, r6
+	add	r0, 1
+	br	__LBB8_23
+__LBB8_24:                              # %while.cond29
+	ldi	r0, 0
+	cmp	r1, r0
+	beq	__LBB8_27
+	br	__LBB8_26
+__LBB8_26:                              # %land.lhs.true
+	add r3, r2, r3
+	br	__LBB8_27
+__LBB8_27:                              # %if.end43
+	movens	r3, r0
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	14
+	pop	fp
+	rts
+__LBB8_20:                              # %while.end28.loopexit
+	ldi	r1, 1
+	movens	r3, r0
+	lsw	r3, -8                          # 2-byte Folded Reload
+	br	__LBB8_22
+__LBB8_12:                              # %if.end27.thread
+	ldi	r6, 0
+	ldi	r2, 1
+	lsw	r3, -8                          # 2-byte Folded Reload
+	lsw	r1, -14                         # 2-byte Folded Reload
+	cmp	r3, r1
+	movens	r2, r1
+	blt	__LBB8_14
+# %bb.13:                               # %if.end27.thread
+	movens	r6, r1
+__LBB8_14:                              # %if.end27.thread
+	br	__LBB8_22
+                                        # -- End function
+my_atoi_safe>                           # -- Begin function my_atoi_safe
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-12
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ssw	r1, -12                         # 2-byte Folded Spill
+	ldi	r3, 32
+__LBB9_1:                               # %while.cond
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r0, r5
+	add	r0, 1
+	cmp	r5, r3
+	beq	__LBB9_1
+	br	__LBB9_2
+__LBB9_2:                               # %while.end
+	movens	r5, r1
+	sub	r1, 58
+	ldi	r2, 255
+	and r1, r2, r1
+	ldi	r2, 0
+	ssw	r2, -10                         # 2-byte Folded Spill
+	ldi	r6, 246
+	cmp	r1, r6
+	blo	__LBB9_10
+	br	__LBB9_3
+__LBB9_10:                              # %cleanup
+	lsw	r0, -10                         # 2-byte Folded Reload
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	12
+	pop	fp
+	rts
+__LBB9_3:                               # %while.body5.preheader
+	ldi	r6, 0
+	ssw	r6, -10                         # 2-byte Folded Spill
+	ldi	r2, 255
+__LBB9_4:                               # %while.body5
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, 3276
+	cmp	r6, r1
+	bgt	__LBB9_10
+	br	__LBB9_5
+__LBB9_5:                               # %if.end9
+                                        #   in Loop: Header=BB9_4 Depth=1
+	ldi	r1, 0
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	lsw	r1, -8
+	add r1, r6, r1
+	ssw	r1, -8
+	and r5, r2, r1
+	lsw	r6, -8
+	ldb	r0, r5
+	movens	r5, r4
+	sub	r4, 58
+	and r4, r2, r4
+	add r1, r6, r6
+	add	r0, 1
+	sub	r6, 48
+	ldi	r1, 245
+	cmp	r4, r1
+	bhi	__LBB9_4
+	br	__LBB9_6
+__LBB9_8:                               # %while.body18
+                                        #   in Loop: Header=BB9_6 Depth=1
+	ldb	r0, r5
+	add	r0, 1
+	br	__LBB9_6
+__LBB9_6:                               # %while.cond14
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, 255
+	and r5, r1, r1
+	cmp	r1, r3
+	beq	__LBB9_8
+	br	__LBB9_7
+__LBB9_7:                               # %while.cond14
+	ldi	r0, 0
+	ssw	r0, -10                         # 2-byte Folded Spill
+	cmp	r1, r0
+	beq	__LBB9_9
+	br	__LBB9_10
+__LBB9_9:                               # %if.end25
+	lsw	r0, -12                         # 2-byte Folded Reload
+	stw	r0, r6
+	ldi	r0, 1
+	ssw	r0, -10                         # 2-byte Folded Spill
+	br	__LBB9_10
+                                        # -- End function
+pow2>                                   # -- Begin function pow2
+# %bb.0:                                # %entry
+	ldi	r1, 1
+	ldi	r2, 2
+	cmp	r0, r2
+	blt	__LBB10_2
+	br	__LBB10_1
+__LBB10_1:                              # %for.body.preheader
+	sub	r0, 1
+	ldi	r2, 0
+	br	__LBB10_3
+__LBB10_3:                              # %for.body
+                                        # =>This Inner Loop Header: Depth=1
+	shl	r1, r1, 1
+	sub	r0, 1
+	cmp	r0, r2
+	beq	__LBB10_2
+	br	__LBB10_3
+__LBB10_2:                              # %for.cond.cleanup
+	movens	r1, r0
+	rts
+                                        # -- End function
+parseRuleArg>                           # -- Begin function parseRuleArg
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-90
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	movens	r0, r1
+	ldi	r0, 0
+	ssw	r0, -24
+	ldi	r2, -24
+	add	r2, fp, r2
+	ldi	r3, 2
+	stw	r2, r3, r0
+	ldi	r3, 4
+	stw	r2, r3, r0
+	ldi	r3, 6
+	stw	r2, r3, r0
+	ldi	r3, 8
+	stw	r2, r3, r0
+	ldi	r3, 10
+	stw	r2, r3, r0
+	ldi	r3, 12
+	stw	r2, r3, r0
+	ldi	r3, 14
+	stw	r2, r3, r0
+	ldi	r3, 16
+	stw	r2, r3, r0
+	ldb	r1, r3
+	cmp	r3, r0
+	beq	__LBB11_15
+	br	__LBB11_1
+__LBB11_1:                              # %while.body.preheader
+	ldi	r4, 255
+	ldi	r6, 9
+	ldi	r2, 32
+	ssw	r2, -28                         # 2-byte Folded Spill
+	ssw	r0, -26                         # 2-byte Folded Spill
+__LBB11_2:                              # %while.body
+                                        # =>This Loop Header: Depth=1
+                                        #     Child Loop BB11_9 Depth 2
+	movens	r3, r2
+	sub	r2, 48
+	and r2, r4, r2
+	cmp	r2, r6
+	bhi	__LBB11_11
+	br	__LBB11_3
+__LBB11_11:                             # %if.else15
+                                        #   in Loop: Header=BB11_2 Depth=1
+	and r3, r4, r2
+	ldi	r3, 32
+	cmp	r2, r3
+	beq	__LBB11_13
+	br	__LBB11_12
+__LBB11_12:                             # %if.else15
+                                        #   in Loop: Header=BB11_2 Depth=1
+	cmp	r2, r6
+	bne	__LBB11_25
+	br	__LBB11_13
+__LBB11_3:                              # %if.then
+                                        #   in Loop: Header=BB11_2 Depth=1
+	and r3, r4, r3
+	movens	r3, r4
+	sub	r4, 48
+	cmp	r4, r0
+	beq	__LBB11_28
+	br	__LBB11_4
+__LBB11_4:                              # %if.end
+                                        #   in Loop: Header=BB11_2 Depth=1
+	cmp	r2, r6
+	bne	__LBB11_6
+	br	__LBB11_5
+__LBB11_6:                              # %if.then8
+                                        #   in Loop: Header=BB11_2 Depth=1
+	shl	r4, r4, 1
+	ldi	r2, -24
+	add	r2, fp, r2
+	movens	r6, r5
+	ldw	r2, r4, r6
+	cmp	r6, r0
+	movens	r5, r6
+	bne	__LBB11_13
+	br	__LBB11_7
+__LBB11_7:                              # %if.then10
+                                        #   in Loop: Header=BB11_2 Depth=1
+	ldi	r6, 50
+	cmp	r3, r6
+	ldi	r6, 1
+	blo	__LBB11_10
+	br	__LBB11_8
+__LBB11_8:                              # %for.body.i64.preheader
+                                        #   in Loop: Header=BB11_2 Depth=1
+	sub	r3, 49
+__LBB11_9:                              # %for.body.i64
+                                        #   Parent Loop BB11_2 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	shl	r6, r6, 1
+	sub	r3, 1
+	cmp	r3, r0
+	bne	__LBB11_9
+	br	__LBB11_10
+__LBB11_10:                             # %pow2.exit
+                                        #   in Loop: Header=BB11_2 Depth=1
+	add r2, r4, r2
+	ldi	r3, 1
+	stw	r2, r3
+	lsw	r2, -26                         # 2-byte Folded Reload
+	add r6, r2, r2
+	ssw	r2, -26                         # 2-byte Folded Spill
+	movens	r5, r6
+	br	__LBB11_13
+__LBB11_13:                             # %if.end25
+                                        #   in Loop: Header=BB11_2 Depth=1
+	ldi	r2, 1
+	ldb	r1, r2, r3
+	add	r1, 1
+	cmp	r3, r0
+	ldi	r4, 255
+	bne	__LBB11_2
+	br	__LBB11_14
+__LBB11_14:                             # %while.end
+	ldi	r0, 0
+	lsw	r1, -26                         # 2-byte Folded Reload
+	cmp	r1, r0
+	movens	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_15
+__LBB11_15:                             # %land.lhs.true28
+	ldi	r0, 0
+	lsw	r1, -24
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_16
+__LBB11_16:                             # %for.body.preheader
+	lsw	r1, -24
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_17
+__LBB11_17:                             # %for.cond
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 2
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_18
+__LBB11_18:                             # %for.cond.1
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 4
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_19
+__LBB11_19:                             # %for.cond.2
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 6
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_20
+__LBB11_20:                             # %for.cond.3
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 8
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_21
+__LBB11_21:                             # %for.cond.4
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 10
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_22
+__LBB11_22:                             # %for.cond.5
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 12
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_23
+__LBB11_23:                             # %for.cond.6
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 14
+	ldw	r0, r1, r1
+	ldi	r0, 0
+	cmp	r1, r0
+	bne	__LBB11_28
+	br	__LBB11_24
+__LBB11_24:                             # %for.cond.7
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r1, 16
+	ldw	r0, r1, r2
+	ldi	r0, 121
+	ssw	r0, -26                         # 2-byte Folded Spill
+	ldi	r0, 112
+	ssw	r0, -66                         # 2-byte Folded Spill
+	ldi	r0, 98
+	ssw	r0, -82                         # 2-byte Folded Spill
+	ldi	r0, 99
+	ssw	r0, -60                         # 2-byte Folded Spill
+	ldi	r6, 110
+	ldi	r0, 103
+	ssw	r0, -56                         # 2-byte Folded Spill
+	ldi	r5, 101
+	ldi	r0, 108
+	ssw	r0, -44                         # 2-byte Folded Spill
+	ldi	r1, 117
+	ldi	r0, 82
+	ssw	r0, -84                         # 2-byte Folded Spill
+	ldi	r3, 32
+	ldi	r4, 114
+	ldi	r0, 69
+	ssw	r0, -28                         # 2-byte Folded Spill
+	ldi	r0, 0
+	cmp	r2, r0
+	ssw	r4, -50                         # 2-byte Folded Spill
+	ssw	r4, -46                         # 2-byte Folded Spill
+	ssw	r3, -40                         # 2-byte Folded Spill
+	ssw	r4, -48                         # 2-byte Folded Spill
+	ssw	r4, -52                         # 2-byte Folded Spill
+	ldi	r4, 58
+	ssw	r1, -32                         # 2-byte Folded Spill
+	ssw	r1, -74                         # 2-byte Folded Spill
+	movens	r5, r1
+	ssw	r1, -54                         # 2-byte Folded Spill
+	ssw	r3, -58                         # 2-byte Folded Spill
+	ldi	r2, 97
+	movens	r2, r5
+	ssw	r6, -76                         # 2-byte Folded Spill
+	ssw	r6, -38                         # 2-byte Folded Spill
+	ssw	r6, -36                         # 2-byte Folded Spill
+	ldi	r6, 111
+	ssw	r6, -42                         # 2-byte Folded Spill
+	ssw	r6, -78                         # 2-byte Folded Spill
+	ldi	r6, 116
+	ssw	r6, -88                         # 2-byte Folded Spill
+	ssw	r3, -62                         # 2-byte Folded Spill
+	ssw	r1, -64                         # 2-byte Folded Spill
+	ssw	r3, -34                         # 2-byte Folded Spill
+	ssw	r3, -68                         # 2-byte Folded Spill
+	ssw	r1, -30                         # 2-byte Folded Spill
+	ssw	r1, -70                         # 2-byte Folded Spill
+	ldi	r3, 109
+	ssw	r3, -86                         # 2-byte Folded Spill
+	ssw	r3, -72                         # 2-byte Folded Spill
+	movens	r6, r1
+	ssw	r1, -80                         # 2-byte Folded Spill
+	beq	__LBB11_27
+	br	__LBB11_28
+__LBB11_5:                              # %while.body.i.preheader
+	ldi	r0, CURR_CHAR
+	ldi	r1, 69
+	stw	r0, r1
+	ldi	r0, 56
+	ssw	r0, -26                         # 2-byte Folded Spill
+	ldi	r0, 97
+	ssw	r0, -70                         # 2-byte Folded Spill
+	ldi	r0, 48
+	ssw	r0, -64                         # 2-byte Folded Spill
+	ldi	r0, 119
+	ssw	r0, -36                         # 2-byte Folded Spill
+	ldi	r0, 109
+	ssw	r0, -52                         # 2-byte Folded Spill
+	ldi	r2, 115
+	ldi	r6, 116
+	ldi	r0, 105
+	ssw	r0, -44                         # 2-byte Folded Spill
+	ldi	r0, 103
+	ssw	r0, -32                         # 2-byte Folded Spill
+	ldi	r4, 101
+	ldi	r0, 108
+	ssw	r0, -42                         # 2-byte Folded Spill
+	ldi	r1, 117
+	ldi	r0, 82
+	ssw	r0, -48                         # 2-byte Folded Spill
+	ldi	r0, 58
+	ssw	r0, -84                         # 2-byte Folded Spill
+	ldi	r0, 111
+	ldi	r5, 114
+	ssw	r5, -82                         # 2-byte Folded Spill
+	ldi	r3, 32
+	ssw	r3, -90                         # 2-byte Folded Spill
+	ssw	r1, -50                         # 2-byte Folded Spill
+	ssw	r1, -56                         # 2-byte Folded Spill
+	ssw	r2, -40                         # 2-byte Folded Spill
+	ssw	r2, -74                         # 2-byte Folded Spill
+	ssw	r3, -54                         # 2-byte Folded Spill
+	movens	r4, r2
+	ssw	r3, -58                         # 2-byte Folded Spill
+	ldi	r1, 98
+	ssw	r1, -38                         # 2-byte Folded Spill
+	ssw	r1, -60                         # 2-byte Folded Spill
+	ssw	r6, -30                         # 2-byte Folded Spill
+	ssw	r6, -76                         # 2-byte Folded Spill
+	ssw	r4, -46                         # 2-byte Folded Spill
+	ssw	r4, -78                         # 2-byte Folded Spill
+	ssw	r3, -68                         # 2-byte Folded Spill
+	ldi	r1, 110
+	ssw	r1, -62                         # 2-byte Folded Spill
+	ssw	r1, -72                         # 2-byte Folded Spill
+	ldi	r1, 100
+	ssw	r1, -34                         # 2-byte Folded Spill
+	ssw	r1, -66                         # 2-byte Folded Spill
+	ssw	r3, -80                         # 2-byte Folded Spill
+	br	__LBB11_26
+__LBB11_25:                             # %cleanup46.sink.split.sink.split.loopexit
+	ldi	r0, 116
+	ssw	r0, -26                         # 2-byte Folded Spill
+	ldi	r0, 109
+	ssw	r0, -72                         # 2-byte Folded Spill
+	ldi	r0, 103
+	ssw	r0, -68                         # 2-byte Folded Spill
+	ldi	r0, 105
+	ssw	r0, -58                         # 2-byte Folded Spill
+	ldi	r0, 104
+	ssw	r0, -40                         # 2-byte Folded Spill
+	ldi	r3, 99
+	ldi	r0, 100
+	ssw	r0, -32                         # 2-byte Folded Spill
+	ldi	r6, 108
+	ldi	r2, 97
+	ldi	r0, 118
+	ssw	r0, -46                         # 2-byte Folded Spill
+	ldi	r1, 110
+	ldi	r0, 73
+	ssw	r0, -50                         # 2-byte Folded Spill
+	ldi	r4, 32
+	ldi	r0, 58
+	ssw	r0, -28                         # 2-byte Folded Spill
+	ldi	r0, 111
+	ssw	r0, -82                         # 2-byte Folded Spill
+	ldi	r0, 114
+	ldi	r5, 69
+	ssw	r0, -84                         # 2-byte Folded Spill
+	ssw	r4, -44                         # 2-byte Folded Spill
+	ssw	r0, -52                         # 2-byte Folded Spill
+	ssw	r2, -90                         # 2-byte Folded Spill
+	ssw	r2, -56                         # 2-byte Folded Spill
+	ssw	r3, -30                         # 2-byte Folded Spill
+	ssw	r3, -74                         # 2-byte Folded Spill
+	ssw	r0, -38                         # 2-byte Folded Spill
+	movens	r4, r2
+	ssw	r1, -60                         # 2-byte Folded Spill
+	ssw	r0, -76                         # 2-byte Folded Spill
+	ssw	r6, -34                         # 2-byte Folded Spill
+	ssw	r6, -78                         # 2-byte Folded Spill
+	ssw	r4, -48                         # 2-byte Folded Spill
+	ssw	r4, -62                         # 2-byte Folded Spill
+	ssw	r0, -64                         # 2-byte Folded Spill
+	ldi	r3, 117
+	ssw	r3, -36                         # 2-byte Folded Spill
+	ssw	r3, -70                         # 2-byte Folded Spill
+	ldi	r3, 101
+	ssw	r3, -54                         # 2-byte Folded Spill
+	ssw	r3, -66                         # 2-byte Folded Spill
+	ssw	r1, -42                         # 2-byte Folded Spill
+	ssw	r1, -80                         # 2-byte Folded Spill
+__LBB11_26:                             # %cleanup46.sink.split.sink.split
+	ldi	r3, CURR_CHAR
+	stw	r3, r5
+	ldi	r5, 114
+	stw	r3, r5
+	stw	r3, r0
+	lsw	r0, -82                         # 2-byte Folded Reload
+	stw	r3, r0
+	lsw	r0, -84                         # 2-byte Folded Reload
+	stw	r3, r0
+	ldi	r0, 101
+	ssw	r0, -88                         # 2-byte Folded Spill
+	ldi	r0, 116
+	ssw	r0, -86                         # 2-byte Folded Spill
+	ldi	r0, 105
+	ssw	r0, -84                         # 2-byte Folded Spill
+	lsw	r4, -90                         # 2-byte Folded Reload
+	movens	r4, r5
+	movens	r2, r6
+	ssw	r4, -82                         # 2-byte Folded Spill
+__LBB11_27:                             # %cleanup46.sink.split
+	ldi	r0, CURR_CHAR
+	lsw	r3, -28                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r1, -48                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -50                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -42                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -46                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r4
+	lsw	r1, -34                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -84                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -32                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -44                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -30                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -40                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r5
+	lsw	r1, -52                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -56                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -74                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -86                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -54                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -38                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r6
+	lsw	r1, -58                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -60                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r2
+	lsw	r1, -76                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -36                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -78                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -88                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -62                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -82                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -64                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -68                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -70                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -72                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -66                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -80                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -26                         # 2-byte Folded Reload
+	stw	r0, r1
+	ldi	r1, 46
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	ldi	r0, -1
+__LBB11_28:                             # %cleanup46
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	90
+	pop	fp
+	rts
+                                        # -- End function
+qInit>                                  # -- Begin function qInit
+# %bb.0:                                # %entry
+	ldi	r1, queue
+	ldi	r0, 0
+	stb	r1, r0
+	ldi	r1, queue+1
+	stb	r1, r0
+	ldi	r1, queue+2
+	stb	r1, r0
+	ldi	r1, queue+3
+	stb	r1, r0
+	ldi	r1, queue+4
+	stb	r1, r0
+	ldi	r1, queue+5
+	stb	r1, r0
+	ldi	r1, queue+6
+	stb	r1, r0
+	ldi	r1, queue+7
+	stb	r1, r0
+	ldi	r1, queue+8
+	stb	r1, r0
+	ldi	r1, queue+9
+	stb	r1, r0
+	ldi	r1, queue+10
+	stb	r1, r0
+	ldi	r1, queue+11
+	stb	r1, r0
+	ldi	r1, queue+12
+	stb	r1, r0
+	ldi	r1, queue+13
+	stb	r1, r0
+	ldi	r1, queue+14
+	stb	r1, r0
+	ldi	r1, queue+15
+	stb	r1, r0
+	ldi	r1, queue+16
+	stb	r1, r0
+	ldi	r1, queue+17
+	stb	r1, r0
+	ldi	r1, queue+18
+	stb	r1, r0
+	ldi	r1, queue+19
+	stb	r1, r0
+	ldi	r1, queue+20
+	stb	r1, r0
+	ldi	r1, queue+21
+	stb	r1, r0
+	ldi	r1, queue+22
+	stb	r1, r0
+	ldi	r1, queue+23
+	stb	r1, r0
+	ldi	r1, queue+24
+	stb	r1, r0
+	ldi	r1, queue+25
+	stb	r1, r0
+	ldi	r1, queue+26
+	stb	r1, r0
+	ldi	r1, queue+27
+	stb	r1, r0
+	ldi	r1, queue+28
+	stb	r1, r0
+	ldi	r1, queue+29
+	stb	r1, r0
+	ldi	r1, queue+30
+	stb	r1, r0
+	ldi	r1, queue+31
+	stb	r1, r0
+	ldi	r1, head
+	stw	r1, r0
+	ldi	r1, end
+	stw	r1, r0
 	rts
                                         # -- End function
 SetCommand>                             # -- Begin function SetCommand
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-6
-	ssw	r0, -2
-	ssw	r1, -4
-	ssw	r2, -6
-	lsw	r0, -2
-	ldi	r1, 0
-	cmp	r0, r1
-	blt	__LBB8_4
-	br	__LBB8_1
-__LBB8_1:                               # %lor.lhs.false
-	lsw	r0, -2
-	ldi	r1, 31
-	cmp	r0, r1
-	bgt	__LBB8_4
-	br	__LBB8_2
-__LBB8_2:                               # %lor.lhs.false2
-	lsw	r0, -4
-	ldi	r1, 0
-	cmp	r0, r1
-	blt	__LBB8_4
-	br	__LBB8_3
-__LBB8_3:                               # %lor.lhs.false4
-	lsw	r0, -4
-	ldi	r1, 32
-	cmp	r0, r1
-	blt	__LBB8_5
-	br	__LBB8_4
-__LBB8_4:                               # %if.then
-	ldi	r0, __L.str
-	jsr	print
-	br	__LBB8_9
-__LBB8_5:                               # %if.end
-	lsw	r0, -6
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB8_8
-	br	__LBB8_6
-__LBB8_6:                               # %land.lhs.true
-	lsw	r0, -6
+	addsp	-10
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	or r1, r0, r3
+	ldi	r4, 32
+	cmp	r3, r4
+	ldi	r3, CURR_CHAR
+	blo	__LBB13_2
+	br	__LBB13_1
+__LBB13_2:                              # %if.end
+	ldi	r4, 2
+	cmp	r2, r4
+	blo	__LBB13_4
+	br	__LBB13_3
+__LBB13_3:                              # %while.body.i19.preheader
+	ldi	r0, 69
+	stw	r3, r0
+	ldi	r0, 114
+	stw	r3, r0
+	stw	r3, r0
+	ldi	r1, 111
+	ssw	r1, -8                          # 2-byte Folded Spill
+	stw	r3, r1
+	stw	r3, r0
+	ldi	r1, 58
+	stw	r3, r1
+	ldi	r4, 32
+	stw	r3, r4
+	ldi	r1, 86
+	stw	r3, r1
+	ldi	r1, 97
+	stw	r3, r1
+	ldi	r1, 108
+	stw	r3, r1
+	ldi	r1, 117
+	stw	r3, r1
+	ldi	r2, 101
+	stw	r3, r2
+	stw	r3, r4
+	ldi	r5, 109
+	stw	r3, r5
+	stw	r3, r1
+	ldi	r1, 115
+	stw	r3, r1
+	ldi	r1, 116
+	stw	r3, r1
+	stw	r3, r4
+	ldi	r1, 98
+	stw	r3, r1
+	ldi	r1, 49
+	ssw	r1, -10                         # 2-byte Folded Spill
+	ldi	r1, 48
+	movens	r4, r6
+	movens	r4, r5
+	br	__LBB13_5
+__LBB13_1:                              # %while.body.i.preheader
+	ldi	r0, 69
+	stw	r3, r0
+	ldi	r1, 114
+	stw	r3, r1
+	stw	r3, r1
+	ldi	r0, 111
+	stw	r3, r0
+	stw	r3, r1
+	ldi	r2, 58
+	stw	r3, r2
+	stw	r3, r4
+	ldi	r2, 67
+	stw	r3, r2
+	stw	r3, r0
+	stw	r3, r0
+	stw	r3, r1
+	ldi	r1, 100
+	stw	r3, r1
+	ldi	r2, 105
+	stw	r3, r2
+	ldi	r5, 110
+	stw	r3, r5
+	ldi	r2, 97
+	stw	r3, r2
+	ldi	r6, 116
+	stw	r3, r6
+	ldi	r2, 101
+	stw	r3, r2
+	ldi	r2, 115
+	stw	r3, r2
+	stw	r3, r4
+	stw	r3, r0
+	ldi	r1, 117
+	stw	r3, r1
+	stw	r3, r6
+	stw	r3, r4
+	stw	r3, r0
+	ldi	r6, 102
+	stw	r3, r6
+	stw	r3, r4
+	ldi	r6, 98
+	stw	r3, r6
+	stw	r3, r0
+	stw	r3, r1
+	stw	r3, r5
+	ldi	r0, 100
+	stw	r3, r0
+	ldi	r0, 93
+	ssw	r0, -10                         # 2-byte Folded Spill
+	ldi	r5, 49
+	ldi	r0, 51
+	ldi	r1, 45
+	ssw	r1, -8                          # 2-byte Folded Spill
+	ldi	r6, 48
+	ldi	r1, 91
+	br	__LBB13_5
+__LBB13_4:                              # %if.end9
+	ldi	r4, CELL_ADR
+	stw	r4, r0
+	ldi	r0, LINE_ADR
+	stw	r0, r1
+	ldi	r0, VALUE
+	stw	r0, r2
+	ldi	r0, UPDATE
 	ldi	r1, 1
-	cmp	r0, r1
-	beq	__LBB8_8
-	br	__LBB8_7
-__LBB8_7:                               # %if.then8
-	ldi	r0, __L.str.1
-	jsr	print
-	br	__LBB8_9
-__LBB8_8:                               # %if.end9
-	lsw	r0, -2
-	ldi	r1, CELL_ADR
-	stw	r1, r0
-	lsw	r0, -4
-	ldi	r1, LINE_ADR
-	stw	r1, r0
-	lsw	r0, -6
-	ldi	r1, VALUE
-	stw	r1, r0
-	ldi	r1, UPDATE
-	ldi	r0, 1
-	stw	r1, r0
-	ldi	r0, 0
-	stw	r1, r0
-	br	__LBB8_9
-__LBB8_9:                               # %return
-	addsp	6
+	stw	r0, r1
+	ldi	r0, 116
+	ssw	r0, -10                         # 2-byte Folded Spill
+	ldi	r0, 115
+	ldi	r1, 32
+	ssw	r1, -8                          # 2-byte Folded Spill
+	ldi	r1, 108
+	ldi	r4, 101
+	ldi	r2, 67
+	movens	r1, r6
+	movens	r4, r5
+__LBB13_5:                              # %return
+	stw	r3, r2
+	stw	r3, r4
+	stw	r3, r1
+	stw	r3, r6
+	lsw	r1, -8                          # 2-byte Folded Reload
+	stw	r3, r1
+	stw	r3, r0
+	stw	r3, r5
+	lsw	r0, -10                         # 2-byte Folded Reload
+	stw	r3, r0
+	ldi	r0, 46
+	stw	r3, r0
+	ldi	r0, 10
+	stw	r3, r0
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	10
 	pop	fp
 	rts
                                         # -- End function
-StartCmd>                               # -- Begin function StartCmd
+StartCmdWrapper>                        # -- Begin function StartCmdWrapper
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	0
+	addsp	-20
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r0, 0
+	cmp	r1, r0
+	ldi	r0, CURR_CHAR
+	beq	__LBB14_2
+	br	__LBB14_1
+__LBB14_1:                              # %while.body.i.preheader
+	ldi	r1, 69
+	stw	r0, r1
+	ldi	r3, 114
+	ssw	r3, -14                         # 2-byte Folded Spill
+	stw	r0, r3
+	stw	r0, r3
+	ldi	r1, 111
+	stw	r0, r1
+	stw	r0, r3
+	ldi	r2, 58
+	stw	r0, r2
+	ldi	r4, 32
+	stw	r0, r4
+	ldi	r2, 39
+	stw	r0, r2
+	ldi	r5, 115
+	stw	r0, r5
+	ldi	r6, 116
+	stw	r0, r6
+	ldi	r5, 97
+	stw	r0, r5
+	stw	r0, r3
+	stw	r0, r6
+	stw	r0, r2
+	stw	r0, r4
+	ldi	r2, 99
+	stw	r0, r2
+	ssw	r1, -10                         # 2-byte Folded Spill
+	stw	r0, r1
+	ldi	r3, 109
+	stw	r0, r3
+	stw	r0, r3
+	stw	r0, r5
+	ldi	r2, 110
+	stw	r0, r2
+	ldi	r1, 100
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r6
+	stw	r0, r5
+	ldi	r1, 107
+	stw	r0, r1
+	ldi	r1, 101
+	ssw	r1, -12                         # 2-byte Folded Spill
+	stw	r0, r1
+	ldi	r1, 115
+	ssw	r1, -8                          # 2-byte Folded Spill
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 117
+	ssw	r1, -16                         # 2-byte Folded Spill
+	ldi	r1, 103
+	ssw	r1, -18                         # 2-byte Folded Spill
+	ssw	r2, -20                         # 2-byte Folded Spill
+	br	__LBB14_3
+__LBB14_2:                              # %if.end
 	ldi	r1, START_STOP
-	ldi	r0, 1
-	stw	r1, r0
-	ldi	r0, __L.str.2
-	jsr	print
-	addsp	0
+	ldi	r2, 1
+	stw	r1, r2
+	ldi	r1, gmState
+	stw	r1, r2
+	ldi	r1, 100
+	ssw	r1, -8                          # 2-byte Folded Spill
+	ldi	r1, 114
+	ssw	r1, -12                         # 2-byte Folded Spill
+	ldi	r6, 116
+	ldi	r1, 115
+	ssw	r1, -18                         # 2-byte Folded Spill
+	ldi	r1, 32
+	ssw	r1, -14                         # 2-byte Folded Spill
+	ldi	r5, 101
+	ldi	r4, 109
+	ldi	r3, 97
+	ldi	r2, 71
+	ssw	r3, -10                         # 2-byte Folded Spill
+	ssw	r6, -16                         # 2-byte Folded Spill
+	ssw	r6, -20                         # 2-byte Folded Spill
+	movens	r5, r6
+__LBB14_3:                              # %return
+	stw	r0, r2
+	lsw	r2, -10                         # 2-byte Folded Reload
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r5
+	lsw	r1, -14                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -18                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -16                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r3
+	lsw	r1, -12                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -20                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r6
+	lsw	r1, -8                          # 2-byte Folded Reload
+	stw	r0, r1
+	ldi	r1, 46
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	20
 	pop	fp
 	rts
                                         # -- End function
-StopCmd>                                # -- Begin function StopCmd
+StopCmdWrapper>                         # -- Begin function StopCmdWrapper
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	0
+	addsp	-18
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, 0
+	cmp	r1, r2
+	ldi	r0, CURR_CHAR
+	beq	__LBB15_2
+	br	__LBB15_1
+__LBB15_1:                              # %while.body.i.preheader
+	ldi	r1, 69
+	stw	r0, r1
+	ldi	r1, 114
+	stw	r0, r1
+	stw	r0, r1
+	ldi	r3, 111
+	stw	r0, r3
+	ssw	r1, -8                          # 2-byte Folded Spill
+	stw	r0, r1
+	ldi	r1, 58
+	stw	r0, r1
+	ldi	r4, 32
+	stw	r0, r4
+	ldi	r1, 39
+	stw	r0, r1
+	ldi	r2, 115
+	stw	r0, r2
+	ldi	r2, 116
+	stw	r0, r2
+	stw	r0, r3
+	ldi	r5, 112
+	stw	r0, r5
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 99
+	stw	r0, r1
+	stw	r0, r3
+	ldi	r1, 109
+	stw	r0, r1
+	ssw	r1, -12                         # 2-byte Folded Spill
+	stw	r0, r1
+	ldi	r6, 97
+	stw	r0, r6
+	ldi	r1, 110
+	stw	r0, r1
+	ldi	r5, 100
+	stw	r0, r5
+	stw	r0, r4
+	stw	r0, r2
+	stw	r0, r6
+	ldi	r5, 107
+	stw	r0, r5
+	ldi	r5, 101
+	ssw	r5, -14                         # 2-byte Folded Spill
+	stw	r0, r5
+	ldi	r5, 115
+	ssw	r5, -10                         # 2-byte Folded Spill
+	stw	r0, r5
+	stw	r0, r4
+	ldi	r5, 117
+	ssw	r5, -16                         # 2-byte Folded Spill
+	ldi	r5, 103
+	ssw	r5, -18                         # 2-byte Folded Spill
+	movens	r1, r5
+	br	__LBB15_3
+__LBB15_2:                              # %if.end
 	ldi	r1, START_STOP
-	ldi	r0, 0
-	stw	r1, r0
-	ldi	r0, __L.str.3
-	jsr	print
-	addsp	0
+	stw	r1, r2
+	ldi	r1, gmState
+	stw	r1, r2
+	ldi	r1, 100
+	ssw	r1, -10                         # 2-byte Folded Spill
+	ldi	r5, 112
+	ldi	r1, 111
+	ssw	r1, -12                         # 2-byte Folded Spill
+	ldi	r1, 116
+	ssw	r1, -16                         # 2-byte Folded Spill
+	ldi	r1, 115
+	ssw	r1, -18                         # 2-byte Folded Spill
+	ldi	r1, 32
+	ssw	r1, -8                          # 2-byte Folded Spill
+	ldi	r6, 101
+	ldi	r4, 109
+	ldi	r3, 97
+	ldi	r1, 71
+	ssw	r5, -14                         # 2-byte Folded Spill
+	movens	r6, r2
+__LBB15_3:                              # %return
+	stw	r0, r1
+	stw	r0, r3
+	stw	r0, r4
+	stw	r0, r6
+	lsw	r1, -8                          # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -18                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -16                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -12                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -14                         # 2-byte Folded Reload
+	stw	r0, r1
+	stw	r0, r5
+	stw	r0, r2
+	lsw	r1, -10                         # 2-byte Folded Reload
+	stw	r0, r1
+	ldi	r1, 46
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	18
 	pop	fp
 	rts
                                         # -- End function
@@ -661,512 +1520,423 @@ FillCmd>                                # -- Begin function FillCmd
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
+	addsp	-22
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ssw	r0, -8                          # 2-byte Folded Spill
+	ldw	r0, r4
+	ldi	r3, 31
+	cmp	r4, r3
+	bhi	__LBB16_6
+	br	__LBB16_1
+__LBB16_1:                              # %lor.lhs.false3
+	ldi	r0, 2
+	lsw	r5, -8                          # 2-byte Folded Reload
+	ldw	r5, r0, r5
+	cmp	r5, r3
+	bhi	__LBB16_6
+	br	__LBB16_2
+__LBB16_6:                              # %if.then
+	ldi	r0, CURR_CHAR
+	ldi	r1, 69
+	stw	r0, r1
+	ldi	r5, 114
+	stw	r0, r5
+	stw	r0, r5
+	ldi	r1, 111
+	stw	r0, r1
+	stw	r0, r5
+	ldi	r1, 58
+	stw	r0, r1
+	ldi	r1, 32
+	stw	r0, r1
+	ldi	r3, 73
+	stw	r0, r3
+	ldi	r2, 110
+	stw	r0, r2
+	ldi	r3, 118
+	stw	r0, r3
+	ldi	r6, 97
+	stw	r0, r6
+	ldi	r3, 108
+	stw	r0, r3
+	ldi	r3, 105
+	stw	r0, r3
+	ldi	r3, 100
+	stw	r0, r3
+	stw	r0, r1
+	stw	r0, r5
+	ldi	r3, 101
+	stw	r0, r3
+	ldi	r4, 99
+	stw	r0, r4
+	ldi	r2, 116
+	stw	r0, r2
+	stw	r0, r6
+	ldi	r2, 110
+	stw	r0, r2
+	ldi	r6, 103
+	stw	r0, r6
+	ldi	r6, 108
+	stw	r0, r6
+	stw	r0, r3
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r4, 111
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r5
+	ldi	r6, 100
+	stw	r0, r6
+	ldi	r6, 105
+	stw	r0, r6
+	stw	r0, r2
+	ldi	r2, 97
+	stw	r0, r2
+	ldi	r2, 116
+	stw	r0, r2
+	stw	r0, r3
+	ldi	r3, 115
+	stw	r0, r3
+	stw	r0, r1
+	ldi	r3, 102
+	stw	r0, r3
+	stw	r0, r4
+	stw	r0, r5
+	stw	r0, r1
+	stw	r0, r3
+	stw	r0, r6
+	ldi	r2, 108
+	stw	r0, r2
+	stw	r0, r2
+	ldi	r2, 46
+	stw	r0, r2
+	ldi	r2, 10
+	stw	r0, r2
+	ldi	r2, __L.str.11+1
+	ldi	r3, 0
+__LBB16_7:                              # %while.body.i64
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r1, r1
+	stw	r0, r1
+	ldb	r2, r1
+	add	r2, 1
+	cmp	r1, r3
+	beq	__LBB16_18
+	br	__LBB16_7
+__LBB16_2:                              # %lor.lhs.false9
+	ldw	r1, r6
+	cmp	r6, r4
+	blt	__LBB16_6
+	br	__LBB16_3
+__LBB16_3:                              # %lor.lhs.false9
+	cmp	r6, r3
+	bgt	__LBB16_6
+	br	__LBB16_4
+__LBB16_4:                              # %lor.lhs.false16
+	ldw	r1, r0, r6
+	cmp	r6, r5
+	blt	__LBB16_6
+	br	__LBB16_5
+__LBB16_5:                              # %lor.lhs.false16
+	ldi	r3, 32
+	cmp	r6, r3
+	blt	__LBB16_8
+	br	__LBB16_6
+__LBB16_8:                              # %if.end
+	cmp	r2, r0
+	ldi	r3, CURR_CHAR
+	blo	__LBB16_10
+	br	__LBB16_9
+__LBB16_9:                              # %while.body.i71.preheader
+	ldi	r0, 69
+	stw	r3, r0
+	ldi	r0, 114
+	stw	r3, r0
+	stw	r3, r0
+	ldi	r1, 111
+	ssw	r1, -8                          # 2-byte Folded Spill
+	stw	r3, r1
+	stw	r3, r0
+	ldi	r1, 58
+	stw	r3, r1
+	ldi	r2, 32
+	stw	r3, r2
+	ldi	r1, 86
+	stw	r3, r1
+	ldi	r1, 97
+	stw	r3, r1
+	ldi	r1, 108
+	stw	r3, r1
+	ldi	r6, 117
+	stw	r3, r6
+	ldi	r1, 101
+	ssw	r1, -22                         # 2-byte Folded Spill
+	stw	r3, r1
+	stw	r3, r2
+	ldi	r1, 109
+	stw	r3, r1
+	ldi	r1, 49
+	ssw	r1, -18                         # 2-byte Folded Spill
+	ldi	r1, 48
+	ssw	r1, -10                         # 2-byte Folded Spill
+	ldi	r4, 98
+	ldi	r1, 116
+	ldi	r5, 115
+	ssw	r5, -20                         # 2-byte Folded Spill
+	ssw	r2, -16                         # 2-byte Folded Spill
+	ssw	r2, -14                         # 2-byte Folded Spill
+	ssw	r2, -12                         # 2-byte Folded Spill
+	br	__LBB16_17
+__LBB16_10:                             # %for.body.lr.ph
+	ssw	r2, -10                         # 2-byte Folded Spill
+	ldi	r3, START_STOP
+	ldi	r0, 0
+	stw	r3, r0
+	ssw	r1, -12                         # 2-byte Folded Spill
+	ldw	r1, r3
+	lsw	r0, -8                          # 2-byte Folded Reload
+	ldw	r0, r0
+	cmp	r0, r3
+	bgt	__LBB16_12
+	br	__LBB16_11
+__LBB16_12:                             # %for.cond.cleanup
+	ldi	r0, gmState
+	ldw	r0, r0
+	ldi	r1, START_STOP
+	stw	r1, r0
+	ldi	r0, 116
+	ssw	r0, -12                         # 2-byte Folded Spill
+	ldi	r0, 101
+	ldi	r1, 112
+	ssw	r1, -14                         # 2-byte Folded Spill
+	ldi	r1, 109
+	ssw	r1, -10                         # 2-byte Folded Spill
+	ldi	r1, 111
+	ssw	r1, -16                         # 2-byte Folded Spill
+	ldi	r1, 99
+	ssw	r1, -22                         # 2-byte Folded Spill
+	ldi	r1, 108
+	ldi	r2, 105
+	ssw	r2, -20                         # 2-byte Folded Spill
+	ldi	r6, 70
+	movens	r1, r2
+	ssw	r1, -8                          # 2-byte Folded Spill
+	ssw	r0, -18                         # 2-byte Folded Spill
+	ldi	r3, CURR_CHAR
+	ldi	r4, 32
+	br	__LBB16_17
+__LBB16_17:                             # %return.sink.split
+	stw	r3, r6
+	lsw	r5, -20                         # 2-byte Folded Reload
+	stw	r3, r5
+	stw	r3, r1
+	stw	r3, r2
+	stw	r3, r4
+	lsw	r1, -22                         # 2-byte Folded Reload
+	stw	r3, r1
+	lsw	r1, -16                         # 2-byte Folded Reload
+	stw	r3, r1
+	lsw	r1, -10                         # 2-byte Folded Reload
+	stw	r3, r1
+	lsw	r1, -14                         # 2-byte Folded Reload
+	stw	r3, r1
+	lsw	r1, -8                          # 2-byte Folded Reload
+	stw	r3, r1
+	stw	r3, r0
+	lsw	r0, -12                         # 2-byte Folded Reload
+	stw	r3, r0
+	lsw	r0, -18                         # 2-byte Folded Reload
+	stw	r3, r0
+	ldi	r0, 46
+	stw	r3, r0
+	ldi	r0, 10
+	stw	r3, r0
+__LBB16_18:                             # %return
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	22
+	pop	fp
+	rts
+__LBB16_11:                             # %for.body.preheader
+	ssw	r6, -14                         # 2-byte Folded Spill
+	ldi	r0, 1
+	br	__LBB16_13
+__LBB16_15:                             # %for.cond.cleanup34
+                                        #   in Loop: Header=BB16_13 Depth=1
+	movens	r5, r4
+	add	r4, 1
+	lsw	r6, -14                         # 2-byte Folded Reload
+	cmp	r5, r6
+	movens	r4, r5
+	beq	__LBB16_12
+	br	__LBB16_13
+__LBB16_13:                             # %for.body
+                                        # =>This Loop Header: Depth=1
+                                        #     Child Loop BB16_16 Depth 2
+	lsw	r4, -8                          # 2-byte Folded Reload
+	ldw	r4, r4
+	cmp	r4, r3
+	lsw	r2, -10                         # 2-byte Folded Reload
+	lsw	r1, -12                         # 2-byte Folded Reload
+	bgt	__LBB16_15
+	br	__LBB16_14
+__LBB16_14:                             # %for.body35.preheader
+                                        #   in Loop: Header=BB16_13 Depth=1
+	movens	r4, r6
+	br	__LBB16_16
+__LBB16_16:                             # %for.body35
+                                        #   Parent Loop BB16_13 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	ldi	r3, CELL_ADR
+	stw	r3, r4
+	ldi	r3, LINE_ADR
+	stw	r3, r5
+	ldi	r3, VALUE
+	stw	r3, r2
+	ldi	r3, UPDATE
+	stw	r3, r0
+	add	r6, 1
+	ldw	r1, r3
+	cmp	r4, r3
+	movens	r6, r4
+	blt	__LBB16_16
+	br	__LBB16_15
+                                        # -- End function
+CleanCmdWrapper>                        # -- Begin function CleanCmdWrapper
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
 	addsp	-14
 	ssw	r4, -2                          # 2-byte Folded Spill
 	ssw	r5, -4                          # 2-byte Folded Spill
-	movens	r1, r3
-	movens	r0, r4
-	shr	r4, r5, 8
-	ldi	r0, -6
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, 0
+	cmp	r1, r2
+	beq	__LBB17_2
+	br	__LBB17_1
+__LBB17_1:                              # %while.body.i.preheader
+	ldi	r0, CURR_CHAR
+	ldi	r1, 69
+	stw	r0, r1
+	ldi	r2, 114
+	stw	r0, r2
+	stw	r0, r2
+	ldi	r1, 111
+	stw	r0, r1
+	stw	r0, r2
+	ldi	r1, 58
+	stw	r0, r1
+	ldi	r3, 32
+	stw	r0, r3
+	ldi	r1, 39
+	stw	r0, r1
+	ldi	r2, 99
+	stw	r0, r2
+	ldi	r5, 108
+	stw	r0, r5
+	ldi	r4, 101
+	stw	r0, r4
+	ldi	r6, 97
+	stw	r0, r6
+	ldi	r5, 110
+	stw	r0, r5
+	stw	r0, r1
+	stw	r0, r3
+	stw	r0, r2
+	ldi	r1, 111
+	stw	r0, r1
+	ldi	r1, 109
+	stw	r0, r1
+	stw	r0, r1
+	stw	r0, r6
+	stw	r0, r5
+	ldi	r2, 100
+	stw	r0, r2
+	stw	r0, r3
+	ldi	r2, 116
+	stw	r0, r2
+	stw	r0, r6
+	ldi	r2, 107
+	stw	r0, r2
+	stw	r0, r4
+	ldi	r2, 115
+	stw	r0, r2
+	stw	r0, r3
+	stw	r0, r5
+	ldi	r4, 111
+	stw	r0, r4
+	stw	r0, r3
+	stw	r0, r6
+	ldi	r3, 114
+	stw	r0, r3
+	ldi	r3, 103
+	stw	r0, r3
+	ldi	r3, 117
+	stw	r0, r3
+	stw	r0, r1
+	ldi	r1, 101
+	stw	r0, r1
+	stw	r0, r5
+	ldi	r1, 116
+	stw	r0, r1
+	stw	r0, r2
+	ldi	r1, 46
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	br	__LBB17_3
+__LBB17_2:                              # %while.body.i2.preheader
+	ldi	r0, CURR_CHAR
+	ldi	r1, 67
+	stw	r0, r1
+	ldi	r1, 108
+	stw	r0, r1
+	ldi	r3, 101
+	stw	r0, r3
+	ldi	r4, 97
+	stw	r0, r4
+	ldi	r4, 114
+	stw	r0, r4
+	ldi	r4, 105
+	stw	r0, r4
+	ldi	r5, 110
+	stw	r0, r5
+	ldi	r5, 103
+	stw	r0, r5
+	ldi	r5, 32
+	stw	r0, r5
+	ldi	r5, 102
+	stw	r0, r5
+	stw	r0, r4
+	stw	r0, r3
+	stw	r0, r1
+	ldi	r1, 100
+	stw	r0, r1
+	ldi	r1, 46
+	stw	r0, r1
+	stw	r0, r1
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	ldi	r0, -14
+	add	r0, fp, r1
+	ldi	r0, -10
 	add	r0, fp, r0
-	ldi	r1, 1
-	stb	r0, r1, r5
-	ssb	r4, -6
-	shr	r3, r4, 8
-	ldi	r5, -8
-	add	r5, fp, r5
-	stb	r5, r1, r4
-	ssb	r3, -8
+	ldi	r3, 2
+	stw	r0, r3, r2
 	ssw	r2, -10
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	ldw	r0, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	blt	__LBB11_8
-	br	__LBB11_1
-__LBB11_1:                              # %lor.lhs.false
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	ldw	r0, r0
-	ldi	r1, 31
-	cmp	r0, r1
-	bgt	__LBB11_8
-	br	__LBB11_2
-__LBB11_2:                              # %lor.lhs.false3
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	ldi	r1, 2
-	ldw	r0, r1, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	blt	__LBB11_8
-	br	__LBB11_3
-__LBB11_3:                              # %lor.lhs.false6
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	ldi	r1, 2
-	ldw	r0, r1, r0
-	ldi	r1, 31
-	cmp	r0, r1
-	bgt	__LBB11_8
-	br	__LBB11_4
-__LBB11_4:                              # %lor.lhs.false9
-	ldi	r0, -8
-	add	r0, fp, r0
-	ldi	r2, 1
-	ldb	r0, r2, r0
-	shl	r0, r0, 8
-	lsb	r1, -8
-	or r0, r1, r0
-	ldw	r0, r0
-	ldi	r1, -6
-	add	r1, fp, r1
-	ldb	r1, r2, r1
-	shl	r1, r1, 8
-	lsb	r2, -6
-	or r1, r2, r1
-	ldw	r1, r1
-	cmp	r0, r1
-	ble	__LBB11_8
-	br	__LBB11_5
-__LBB11_5:                              # %lor.lhs.false13
-	ldi	r0, -8
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -8
-	or r0, r1, r0
-	ldw	r0, r0
-	ldi	r1, 32
-	cmp	r0, r1
-	bgt	__LBB11_8
-	br	__LBB11_6
-__LBB11_6:                              # %lor.lhs.false16
-	ldi	r0, -8
-	add	r0, fp, r0
-	ldi	r3, 1
-	ldb	r0, r3, r0
-	shl	r0, r0, 8
-	lsb	r1, -8
-	or r0, r1, r0
-	ldi	r2, 2
-	ldw	r0, r2, r0
-	ldi	r1, -6
-	add	r1, fp, r1
-	ldb	r1, r3, r1
-	shl	r1, r1, 8
-	lsb	r3, -6
-	or r1, r3, r1
-	ldw	r1, r2, r1
-	cmp	r0, r1
-	ble	__LBB11_8
-	br	__LBB11_7
-__LBB11_7:                              # %lor.lhs.false20
-	ldi	r0, -8
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -8
-	or r0, r1, r0
-	ldi	r1, 2
-	ldw	r0, r1, r0
-	ldi	r1, 33
-	cmp	r0, r1
-	blt	__LBB11_9
-	br	__LBB11_8
-__LBB11_8:                              # %if.then
-	ldi	r0, __L.str.4
-	jsr	print
-	br	__LBB11_21
-__LBB11_9:                              # %if.end
-	lsw	r0, -10
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB11_12
-	br	__LBB11_10
-__LBB11_10:                             # %land.lhs.true
-	lsw	r0, -10
-	ldi	r1, 1
-	cmp	r0, r1
-	beq	__LBB11_12
-	br	__LBB11_11
-__LBB11_11:                             # %if.then25
-	ldi	r0, __L.str.1
-	jsr	print
-	br	__LBB11_21
-__LBB11_12:                             # %if.end26
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	ldw	r0, r0
-	ssw	r0, -12
-	br	__LBB11_13
-__LBB11_13:                             # %for.cond
-                                        # =>This Loop Header: Depth=1
-                                        #     Child Loop BB11_15 Depth 2
-	lsw	r0, -12
-	ldi	r1, -8
-	add	r1, fp, r1
-	ldi	r2, 1
-	ldb	r1, r2, r1
-	shl	r1, r1, 8
-	lsb	r2, -8
-	or r1, r2, r1
-	ldw	r1, r1
-	cmp	r0, r1
-	bgt	__LBB11_20
-	br	__LBB11_14
-__LBB11_14:                             # %for.body
-                                        #   in Loop: Header=BB11_13 Depth=1
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -6
-	or r0, r1, r0
-	ldi	r1, 2
-	ldw	r0, r1, r0
-	ssw	r0, -14
-	br	__LBB11_15
-__LBB11_15:                             # %for.cond31
-                                        #   Parent Loop BB11_13 Depth=1
-                                        # =>  This Inner Loop Header: Depth=2
-	lsw	r0, -14
-	ldi	r1, -8
-	add	r1, fp, r1
-	ldi	r2, 1
-	ldb	r1, r2, r1
-	shl	r1, r1, 8
-	lsb	r2, -8
-	or r1, r2, r1
-	ldi	r2, 2
-	ldw	r1, r2, r1
-	cmp	r0, r1
-	bgt	__LBB11_18
-	br	__LBB11_16
-__LBB11_16:                             # %for.body34
-                                        #   in Loop: Header=BB11_15 Depth=2
-	lsw	r0, -12
-	lsw	r1, -14
-	lsw	r2, -10
-	jsr	SetCommand
-	br	__LBB11_17
-__LBB11_17:                             # %for.inc
-                                        #   in Loop: Header=BB11_15 Depth=2
-	lsw	r0, -14
-	add	r0, 1
-	ssw	r0, -14
-	br	__LBB11_15
-__LBB11_18:                             # %for.end
-                                        #   in Loop: Header=BB11_13 Depth=1
-	br	__LBB11_19
-__LBB11_19:                             # %for.inc35
-                                        #   in Loop: Header=BB11_13 Depth=1
-	lsw	r0, -12
-	add	r0, 1
-	ssw	r0, -12
-	br	__LBB11_13
-__LBB11_20:                             # %for.end37
-	ldi	r0, __L.str.5
-	jsr	print
-	br	__LBB11_21
-__LBB11_21:                             # %return
+	ldi	r4, 31
+	stw	r1, r3, r4
+	ssw	r4, -14
+	jsr	FillCmd
+__LBB17_3:                              # %return
+	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
 	addsp	14
-	pop	fp
-	rts
-                                        # -- End function
-CleanCmd>                               # -- Begin function CleanCmd
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-10
-	ssw	r4, -2                          # 2-byte Folded Spill
-	ldi	r0, -6
-	add	r0, fp, r0
-	ldi	r4, 2
-	ldi	r2, 0
-	stw	r0, r4, r2
-	ssw	r2, -6
-	ldi	r1, __L__const.CleanCmd.e+2
-	ldw	r1, r3
-	ldi	r1, -10
-	add	r1, fp, r1
-	stw	r1, r4, r3
-	ldi	r3, __L__const.CleanCmd.e
-	ldw	r3, r3
-	ssw	r3, -10
-	jsr	FillCmd
-	ldi	r0, __L.str.6
-	jsr	print
-	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	10
-	pop	fp
-	rts
-                                        # -- End function
-HelpCmd>                                # -- Begin function HelpCmd
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-2
-	movens	r0, r2
-	shr	r2, r3, 8
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	stb	r0, r1, r3
-	ssb	r2, -2
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.7
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_2
-	br	__LBB13_1
-__LBB13_1:                              # %if.then
-	ldi	r0, __L.str.8
-	jsr	print
-	ldi	r0, __L.str.9
-	jsr	print
-	ldi	r0, __L.str.10
-	jsr	print
-	ldi	r0, __L.str.11
-	jsr	print
-	ldi	r0, __L.str.12
-	jsr	print
-	ldi	r0, __L.str.13
-	jsr	print
-	ldi	r0, __L.str.14
-	jsr	print
-	ldi	r0, __L.str.15
-	jsr	print
-	ldi	r0, __L.str.16
-	jsr	print
-	br	__LBB13_27
-__LBB13_2:                              # %if.else
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.17
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_4
-	br	__LBB13_3
-__LBB13_3:                              # %if.then3
-	ldi	r0, __L.str.18
-	jsr	print
-	br	__LBB13_26
-__LBB13_4:                              # %if.else4
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.19
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_6
-	br	__LBB13_5
-__LBB13_5:                              # %if.then7
-	ldi	r0, __L.str.20
-	jsr	print
-	br	__LBB13_25
-__LBB13_6:                              # %if.else8
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.21
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_8
-	br	__LBB13_7
-__LBB13_7:                              # %if.then11
-	ldi	r0, __L.str.22
-	jsr	print
-	br	__LBB13_24
-__LBB13_8:                              # %if.else12
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.23
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_10
-	br	__LBB13_9
-__LBB13_9:                              # %if.then15
-	ldi	r0, __L.str.24
-	jsr	print
-	br	__LBB13_23
-__LBB13_10:                             # %if.else16
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.25
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_12
-	br	__LBB13_11
-__LBB13_11:                             # %if.then19
-	ldi	r0, __L.str.26
-	jsr	print
-	br	__LBB13_22
-__LBB13_12:                             # %if.else20
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.27
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_14
-	br	__LBB13_13
-__LBB13_13:                             # %if.then23
-	ldi	r0, __L.str.28
-	jsr	print
-	br	__LBB13_21
-__LBB13_14:                             # %if.else24
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.29
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_16
-	br	__LBB13_15
-__LBB13_15:                             # %if.then27
-	ldi	r0, __L.str.30
-	jsr	print
-	br	__LBB13_20
-__LBB13_16:                             # %if.else28
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	ldi	r1, __L.str.31
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB13_18
-	br	__LBB13_17
-__LBB13_17:                             # %if.then31
-	ldi	r0, __L.str.32
-	jsr	print
-	br	__LBB13_19
-__LBB13_18:                             # %if.else32
-	ldi	r0, __L.str.33
-	jsr	print
-	ldi	r0, -2
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -2
-	or r0, r1, r0
-	jsr	print
-	ldi	r0, __L.str.34
-	jsr	print
-	br	__LBB13_19
-__LBB13_19:                             # %if.end
-	br	__LBB13_20
-__LBB13_20:                             # %if.end33
-	br	__LBB13_21
-__LBB13_21:                             # %if.end34
-	br	__LBB13_22
-__LBB13_22:                             # %if.end35
-	br	__LBB13_23
-__LBB13_23:                             # %if.end36
-	br	__LBB13_24
-__LBB13_24:                             # %if.end37
-	br	__LBB13_25
-__LBB13_25:                             # %if.end38
-	br	__LBB13_26
-__LBB13_26:                             # %if.end39
-	br	__LBB13_27
-__LBB13_27:                             # %if.end40
-	addsp	2
-	pop	fp
-	rts
-                                        # -- End function
-RuleCmd>                                # -- Begin function RuleCmd
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-4
-	ssw	r0, -2
-	ssw	r1, -4
-	lsw	r0, -2
-	ldi	r1, BORN
-	stw	r1, r0
-	lsw	r0, -4
-	ldi	r1, SURV
-	stw	r1, r0
-	ldi	r0, __L.str.35
-	jsr	print
-	addsp	4
 	pop	fp
 	rts
                                         # -- End function
@@ -1174,184 +1944,496 @@ RuleCmdWrapper>                         # -- Begin function RuleCmdWrapper
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-8
-	movens	r0, r1
-	shr	r1, r2, 8
-	ldi	r0, -2
-	add	r0, fp, r0
-	ssw	r0, -8                          # 2-byte Folded Spill
-	ldi	r3, 1
-	stb	r0, r3, r2
-	ssb	r1, -2
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -8                          # 2-byte Folded Reload
-	ssw	r1, -4
-	jsr	my_atoi
-	ssw	r0, -6
-	lsw	r0, -4
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB15_2
-	br	__LBB15_1
-__LBB15_1:                              # %lor.lhs.false
-	lsw	r0, -6
-	ldi	r1, -1
-	cmp	r0, r1
-	bne	__LBB15_3
-	br	__LBB15_2
-__LBB15_2:                              # %if.then
-	ldi	r0, __L.str.36
-	jsr	print
-	br	__LBB15_4
-__LBB15_3:                              # %if.else
-	lsw	r0, -4
-	lsw	r1, -6
-	jsr	RuleCmd
-	br	__LBB15_4
-__LBB15_4:                              # %if.end
-	addsp	8
-	pop	fp
-	rts
-                                        # -- End function
-SetGliderCmd>                           # -- Begin function SetGliderCmd
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
 	addsp	-6
-	ssw	r0, -2
-	ssw	r1, -4
-	ldi	r0, __L.str.37
-	jsr	print
-	lsw	r0, -2
-	add	r0, 1
-	lsw	r1, -4
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r6, 2
+	cmp	r1, r6
+	beq	__LBB18_3
+	br	__LBB18_1
+__LBB18_3:                              # %if.end
 	ldi	r2, 1
-	ssw	r2, -6                          # 2-byte Folded Spill
-	jsr	SetCommand
-	lsw	r2, -6                          # 2-byte Folded Reload
-	lsw	r0, -2
-	add	r0, 2
-	lsw	r1, -4
-	add	r1, 1
-	jsr	SetCommand
-	lsw	r2, -6                          # 2-byte Folded Reload
-	lsw	r0, -2
-	lsw	r1, -4
-	add	r1, 2
-	jsr	SetCommand
-	lsw	r2, -6                          # 2-byte Folded Reload
-	lsw	r0, -2
+	ldb	r0, r2, r1
+	shl	r1, r1, 8
+	ldb	r0, r3
+	or r1, r3, r1
+	ldb	r1, r3
+	ldi	r4, 98
+	cmp	r3, r4
+	bne	__LBB18_7
+	br	__LBB18_4
+__LBB18_4:                              # %lor.lhs.false
+	ldb	r0, r6, r3
+	ldi	r4, 3
+	ldb	r0, r4, r5
+	shl	r5, r5, 8
+	or r5, r3, r3
+	ldb	r3, r5
+	ldi	r4, 115
+	cmp	r5, r4
+	bne	__LBB18_7
+	br	__LBB18_5
+__LBB18_5:                              # %lor.lhs.false9
+	ldb	r1, r2, r4
+	sub	r4, 58
+	ldi	r5, 255
+	and r4, r5, r4
+	ldi	r5, 246
+	cmp	r4, r5
+	blo	__LBB18_7
+	br	__LBB18_6
+__LBB18_6:                              # %lor.lhs.false12
+	ldb	r3, r2, r2
+	sub	r2, 58
+	ldi	r3, 255
+	and r2, r3, r2
+	ldi	r3, 245
+	cmp	r2, r3
+	bhi	__LBB18_9
+	br	__LBB18_7
+__LBB18_7:                              # %while.body.i40.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.16+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+__LBB18_8:                              # %while.body.i40
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
 	add	r0, 1
-	lsw	r1, -4
-	add	r1, 2
-	jsr	SetCommand
-	lsw	r2, -6                          # 2-byte Folded Reload
-	lsw	r0, -2
-	add	r0, 2
-	lsw	r1, -4
-	add	r1, 2
-	jsr	SetCommand
+	cmp	r2, r3
+	beq	__LBB18_12
+	br	__LBB18_8
+__LBB18_1:                              # %while.body.i.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.15+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+__LBB18_2:                              # %while.body.i
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB18_12
+	br	__LBB18_2
+__LBB18_9:                              # %if.end18
+	add	r1, 1
+	movens	r0, r4
+	movens	r1, r0
+	jsr	parseRuleArg
+	movens	r0, r5
+	ldb	r4, r6, r0
+	ldi	r1, 3
+	ldb	r4, r1, r1
+	shl	r1, r1, 8
+	or r1, r0, r0
+	add	r0, 1
+	jsr	parseRuleArg
+	ldi	r1, -1
+	cmp	r5, r1
+	beq	__LBB18_12
+	br	__LBB18_10
+__LBB18_10:                             # %if.end18
+	cmp	r0, r1
+	beq	__LBB18_12
+	br	__LBB18_11
+__LBB18_11:                             # %if.end30
+	ldi	r1, BORN
+	stw	r1, r5
+	ldi	r1, SURV
+	stw	r1, r0
+	ldi	r0, CURR_CHAR
+	ldi	r1, 82
+	stw	r0, r1
+	ldi	r1, 117
+	stw	r0, r1
+	ldi	r2, 108
+	stw	r0, r2
+	ldi	r2, 101
+	stw	r0, r2
+	ldi	r3, 115
+	stw	r0, r3
+	ldi	r3, 32
+	stw	r0, r3
+	stw	r0, r1
+	ldi	r1, 112
+	stw	r0, r1
+	ldi	r1, 100
+	stw	r0, r1
+	ldi	r3, 97
+	stw	r0, r3
+	ldi	r3, 116
+	stw	r0, r3
+	stw	r0, r2
+	stw	r0, r1
+	ldi	r1, 46
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+__LBB18_12:                             # %cleanup.cont
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
 	addsp	6
 	pop	fp
 	rts
                                         # -- End function
-SetGliderCmdWrapper>                    # -- Begin function SetGliderCmdWrapper
+SetCmdWrapper>                          # -- Begin function SetCmdWrapper
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-8
-	movens	r0, r1
-	shr	r1, r2, 8
-	ldi	r0, -2
-	add	r0, fp, r0
-	ssw	r0, -8                          # 2-byte Folded Spill
-	ldi	r3, 1
-	stb	r0, r3, r2
-	ssb	r1, -2
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -8                          # 2-byte Folded Reload
-	ssw	r1, -4
-	jsr	my_atoi
-	ssw	r0, -6
-	lsw	r0, -4
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB17_2
-	br	__LBB17_1
-__LBB17_1:                              # %lor.lhs.false
-	lsw	r0, -6
-	ldi	r1, -1
-	cmp	r0, r1
-	bne	__LBB17_3
-	br	__LBB17_2
-__LBB17_2:                              # %if.then
-	ldi	r0, __L.str.38
-	jsr	print
-	br	__LBB17_4
-__LBB17_3:                              # %if.else
-	lsw	r0, -4
-	lsw	r1, -6
-	jsr	SetGliderCmd
-	br	__LBB17_4
-__LBB17_4:                              # %if.end
-	addsp	8
-	pop	fp
-	rts
-                                        # -- End function
-SetCmd>                                 # -- Begin function SetCmd
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-10
-	movens	r0, r1
-	shr	r1, r2, 8
-	ldi	r0, -2
-	add	r0, fp, r0
-	ssw	r0, -10                         # 2-byte Folded Spill
-	ldi	r3, 1
-	stb	r0, r3, r2
-	ssb	r1, -2
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -10                         # 2-byte Folded Reload
-	ssw	r1, -4
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -10                         # 2-byte Folded Reload
-	ssw	r1, -6
-	jsr	my_atoi
-	ssw	r0, -8
-	lsw	r0, -4
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB18_3
-	br	__LBB18_1
-__LBB18_1:                              # %lor.lhs.false
-	lsw	r0, -6
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB18_3
-	br	__LBB18_2
-__LBB18_2:                              # %lor.lhs.false4
-	lsw	r0, -8
-	ldi	r1, -1
-	cmp	r0, r1
-	bne	__LBB18_4
-	br	__LBB18_3
-__LBB18_3:                              # %if.then
-	ldi	r0, __L.str.39
-	jsr	print
-	br	__LBB18_5
-__LBB18_4:                              # %if.else
-	lsw	r0, -4
-	lsw	r1, -6
-	lsw	r2, -8
+	addsp	-16
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, 3
+	cmp	r1, r2
+	beq	__LBB19_3
+	br	__LBB19_1
+__LBB19_3:                              # %if.end
+	ldi	r1, 1
+	ldb	r0, r1, r1
+	shl	r1, r1, 8
+	ssw	r0, -16                         # 2-byte Folded Spill
+	ldb	r0, r0
+	or r1, r0, r1
+	ldi	r3, 32
+__LBB19_4:                              # %while.cond.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r1, r4
+	add	r1, 1
+	cmp	r4, r3
+	beq	__LBB19_4
+	br	__LBB19_5
+__LBB19_5:                              # %while.end.i
+	movens	r4, r0
+	sub	r0, 58
+	ldi	r2, 255
+	and r0, r2, r0
+	ldi	r2, 246
+	cmp	r0, r2
+	blo	__LBB19_7
+	br	__LBB19_6
+__LBB19_7:                              # %while.body.i104.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.19+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+	br	__LBB19_34
+__LBB19_34:                             # %while.body.i104
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB19_36
+	br	__LBB19_34
+__LBB19_1:                              # %while.body.i.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.18+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+__LBB19_2:                              # %while.body.i
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB19_36
+	br	__LBB19_2
+__LBB19_6:                              # %while.body5.i.preheader
+	ldi	r0, 0
+	ldi	r5, 255
+	br	__LBB19_8
+__LBB19_8:                              # %while.body5.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r2, 3276
+	cmp	r0, r2
+	bgt	__LBB19_7
+	br	__LBB19_9
+__LBB19_9:                              # %if.end9.i
+                                        #   in Loop: Header=BB19_8 Depth=1
+	ldi	r2, 0
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r2
+	ssw	r2, -12
+	lsw	r2, -12
+	add r2, r0, r0
+	ssw	r0, -12
+	and r4, r5, r0
+	lsw	r2, -12
+	ldb	r1, r4
+	movens	r4, r6
+	sub	r6, 58
+	and r6, r5, r6
+	add r0, r2, r0
+	add	r1, 1
+	sub	r0, 48
+	ldi	r2, 245
+	cmp	r6, r2
+	bhi	__LBB19_8
+	br	__LBB19_10
+__LBB19_10:                             # %while.cond14.i.preheader
+	ldi	r2, 255
+__LBB19_11:                             # %while.cond14.i
+                                        # =>This Inner Loop Header: Depth=1
+	and r4, r2, r5
+	cmp	r5, r3
+	beq	__LBB19_13
+	br	__LBB19_12
+__LBB19_13:                             # %while.body18.i
+                                        #   in Loop: Header=BB19_11 Depth=1
+	ldb	r1, r4
+	add	r1, 1
+	br	__LBB19_11
+__LBB19_12:                             # %while.cond14.i
+	ldi	r1, 0
+	cmp	r5, r1
+	beq	__LBB19_14
+	br	__LBB19_7
+__LBB19_14:                             # %lor.lhs.false
+	ldi	r1, 2
+	lsw	r2, -16                         # 2-byte Folded Reload
+	ldb	r2, r1, r1
+	ldi	r4, 3
+	ldb	r2, r4, r2
+	shl	r2, r2, 8
+	or r2, r1, r2
+__LBB19_15:                             # %while.cond.i15
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r2, r6
+	add	r2, 1
+	cmp	r6, r3
+	beq	__LBB19_15
+	br	__LBB19_16
+__LBB19_16:                             # %while.end.i19
+	movens	r6, r1
+	sub	r1, 58
+	ldi	r4, 255
+	and r1, r4, r1
+	ldi	r4, 246
+	cmp	r1, r4
+	blo	__LBB19_7
+	br	__LBB19_17
+__LBB19_17:                             # %while.body5.i20.preheader
+	ldi	r1, 0
+__LBB19_18:                             # %while.body5.i20
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r4, 3276
+	cmp	r1, r4
+	bgt	__LBB19_7
+	br	__LBB19_19
+__LBB19_19:                             # %if.end9.i24
+                                        #   in Loop: Header=BB19_18 Depth=1
+	ldi	r4, 0
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r1, r1
+	ssw	r1, -10
+	ldi	r1, 255
+	and r6, r1, r1
+	ssw	r1, -14                         # 2-byte Folded Spill
+	lsw	r4, -10
+	ldb	r2, r6
+	movens	r6, r5
+	sub	r5, 58
+	movens	r3, r1
+	ldi	r3, 255
+	and r5, r3, r5
+	movens	r1, r3
+	lsw	r1, -14                         # 2-byte Folded Reload
+	add r1, r4, r1
+	add	r2, 1
+	sub	r1, 48
+	ldi	r4, 245
+	cmp	r5, r4
+	bhi	__LBB19_18
+	br	__LBB19_20
+__LBB19_20:                             # %while.cond14.i51.preheader
+	ldi	r4, 255
+__LBB19_21:                             # %while.cond14.i51
+                                        # =>This Inner Loop Header: Depth=1
+	and r6, r4, r5
+	cmp	r5, r3
+	beq	__LBB19_23
+	br	__LBB19_22
+__LBB19_23:                             # %while.body18.i55
+                                        #   in Loop: Header=BB19_21 Depth=1
+	ldb	r2, r6
+	add	r2, 1
+	br	__LBB19_21
+__LBB19_22:                             # %while.cond14.i51
+	ldi	r2, 0
+	cmp	r5, r2
+	beq	__LBB19_24
+	br	__LBB19_7
+__LBB19_24:                             # %lor.lhs.false4
+	ldi	r2, 4
+	lsw	r4, -16                         # 2-byte Folded Reload
+	ldb	r4, r2, r2
+	ldi	r5, 5
+	ldb	r4, r5, r4
+	shl	r4, r4, 8
+	or r4, r2, r6
+__LBB19_25:                             # %while.cond.i60
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r5
+	add	r6, 1
+	cmp	r5, r3
+	beq	__LBB19_25
+	br	__LBB19_26
+__LBB19_26:                             # %while.end.i64
+	movens	r5, r2
+	sub	r2, 58
+	ldi	r4, 255
+	and r2, r4, r2
+	ldi	r4, 246
+	cmp	r2, r4
+	blo	__LBB19_7
+	br	__LBB19_27
+__LBB19_27:                             # %while.body5.i65.preheader
+	ldi	r2, 0
+__LBB19_28:                             # %while.body5.i65
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r4, 3276
+	cmp	r2, r4
+	bgt	__LBB19_7
+	br	__LBB19_29
+__LBB19_29:                             # %if.end9.i69
+                                        #   in Loop: Header=BB19_28 Depth=1
+	ldi	r4, 0
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r2, r2
+	ssw	r2, -8
+	ldi	r2, 255
+	and r5, r2, r2
+	ssw	r2, -16                         # 2-byte Folded Spill
+	lsw	r4, -8
+	ldb	r6, r5
+	ssw	r5, -14                         # 2-byte Folded Spill
+	sub	r5, 58
+	ldi	r2, 255
+	and r5, r2, r5
+	lsw	r2, -16                         # 2-byte Folded Reload
+	add r2, r4, r2
+	add	r6, 1
+	sub	r2, 48
+	ldi	r4, 245
+	cmp	r5, r4
+	lsw	r5, -14                         # 2-byte Folded Reload
+	bhi	__LBB19_28
+	br	__LBB19_30
+__LBB19_30:                             # %while.cond14.i96.preheader
+	ldi	r4, 255
+__LBB19_31:                             # %while.cond14.i96
+                                        # =>This Inner Loop Header: Depth=1
+	and r5, r4, r5
+	cmp	r5, r3
+	beq	__LBB19_33
+	br	__LBB19_32
+__LBB19_33:                             # %while.body18.i100
+                                        #   in Loop: Header=BB19_31 Depth=1
+	ldb	r6, r5
+	add	r6, 1
+	br	__LBB19_31
+__LBB19_32:                             # %while.cond14.i96
+	ldi	r3, 0
+	cmp	r5, r3
+	beq	__LBB19_35
+	br	__LBB19_7
+__LBB19_35:                             # %if.end9
 	jsr	SetCommand
-	br	__LBB18_5
-__LBB18_5:                              # %if.end
-	addsp	10
+__LBB19_36:                             # %cleanup.cont
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	16
 	pop	fp
 	rts
                                         # -- End function
@@ -1360,520 +2442,2958 @@ FillCmdWrapper>                         # -- Begin function FillCmdWrapper
 	push	fp
 	ldsp	fp
 	addsp	-22
-	movens	r0, r1
-	shr	r1, r2, 8
-	ldi	r0, -2
-	add	r0, fp, r0
-	ssw	r0, -22                         # 2-byte Folded Spill
-	ldi	r3, 1
-	stb	r0, r3, r2
-	ssb	r1, -2
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -22                         # 2-byte Folded Reload
-	ssw	r1, -4
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -22                         # 2-byte Folded Reload
-	ssw	r1, -6
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -22                         # 2-byte Folded Reload
-	ssw	r1, -8
-	jsr	my_atoi
-	movens	r0, r1
-	lsw	r0, -22                         # 2-byte Folded Reload
-	ssw	r1, -10
-	jsr	my_atoi
-	ssw	r0, -12
-	lsw	r0, -4
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB19_5
-	br	__LBB19_1
-__LBB19_1:                              # %lor.lhs.false
-	lsw	r0, -6
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB19_5
-	br	__LBB19_2
-__LBB19_2:                              # %lor.lhs.false6
-	lsw	r0, -8
-	ldi	r1, -1
-	cmp	r0, r1
-	beq	__LBB19_5
-	br	__LBB19_3
-__LBB19_3:                              # %lor.lhs.false8
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, 5
+	cmp	r1, r2
+	beq	__LBB20_3
+	br	__LBB20_1
+__LBB20_3:                              # %if.end
+	ldi	r1, 1
+	ldb	r0, r1, r1
+	shl	r1, r2, 8
+	ssw	r0, -16                         # 2-byte Folded Spill
+	ldb	r0, r1
+	or r2, r1, r6
+	ldi	r0, 32
+__LBB20_4:                              # %while.cond.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r3
+	add	r6, 1
+	cmp	r3, r0
+	beq	__LBB20_4
+	br	__LBB20_5
+__LBB20_5:                              # %while.end.i
+	movens	r3, r0
+	sub	r0, 58
+	ldi	r1, 255
+	and r0, r1, r0
+	ldi	r2, 246
+	cmp	r0, r2
+	blo	__LBB20_7
+	br	__LBB20_6
+__LBB20_7:                              # %while.body.i209.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.21+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+	br	__LBB20_54
+__LBB20_54:                             # %while.body.i209
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB20_56
+	br	__LBB20_54
+__LBB20_1:                              # %while.body.i.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.20+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+__LBB20_2:                              # %while.body.i
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB20_56
+	br	__LBB20_2
+__LBB20_6:                              # %while.body5.i.preheader
+	ldi	r5, 0
+	movens	r5, r4
+	br	__LBB20_8
+__LBB20_8:                              # %while.body5.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r0, 3276
+	cmp	r4, r0
+	bgt	__LBB20_7
+	br	__LBB20_9
+__LBB20_9:                              # %if.end9.i
+                                        #   in Loop: Header=BB20_8 Depth=1
+	ssw	r5, -10
 	lsw	r0, -10
-	ldi	r1, -1
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r4, r0
+	ssw	r0, -10
+	and r3, r1, r0
+	lsw	r4, -10
+	ldb	r6, r3
+	movens	r3, r2
+	sub	r2, 58
+	and r2, r1, r2
+	add r0, r4, r4
+	add	r6, 1
+	sub	r4, 48
+	ldi	r0, 245
+	cmp	r2, r0
+	bhi	__LBB20_8
+	br	__LBB20_10
+__LBB20_10:                             # %while.cond14.i.preheader
+	ldi	r0, 32
+__LBB20_11:                             # %while.cond14.i
+                                        # =>This Inner Loop Header: Depth=1
+	and r3, r1, r2
+	cmp	r2, r0
+	beq	__LBB20_13
+	br	__LBB20_12
+__LBB20_13:                             # %while.body18.i
+                                        #   in Loop: Header=BB20_11 Depth=1
+	ldb	r6, r3
+	add	r6, 1
+	br	__LBB20_11
+__LBB20_12:                             # %while.cond14.i
+	ldi	r0, 0
+	cmp	r2, r0
+	beq	__LBB20_14
+	br	__LBB20_7
+__LBB20_14:                             # %lor.lhs.false
+	ldi	r0, 2
+	lsw	r3, -16                         # 2-byte Folded Reload
+	ldb	r3, r0, r0
+	ldi	r2, 3
+	ldb	r3, r2, r2
+	shl	r2, r2, 8
+	or r2, r0, r2
+	ldi	r0, 32
+__LBB20_15:                             # %while.cond.i30
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r2, r5
+	add	r2, 1
+	cmp	r5, r0
+	beq	__LBB20_15
+	br	__LBB20_16
+__LBB20_16:                             # %while.end.i34
+	movens	r5, r0
+	sub	r0, 58
+	and r0, r1, r0
+	ldi	r3, 246
+	cmp	r0, r3
+	blo	__LBB20_7
+	br	__LBB20_17
+__LBB20_17:                             # %while.body5.i35.preheader
+	ldi	r6, 0
+__LBB20_18:                             # %while.body5.i35
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r0, 3276
+	cmp	r6, r0
+	bgt	__LBB20_7
+	br	__LBB20_19
+__LBB20_19:                             # %if.end9.i39
+                                        #   in Loop: Header=BB20_18 Depth=1
+	ldi	r0, 0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r6, r0
+	ssw	r0, -10
+	and r5, r1, r0
+	lsw	r3, -10
+	ldb	r2, r5
+	movens	r5, r6
+	sub	r6, 58
+	ldi	r1, 255
+	and r6, r1, r1
+	add r0, r3, r6
+	add	r2, 1
+	sub	r6, 48
+	ldi	r0, 245
+	cmp	r1, r0
+	ldi	r1, 255
+	bhi	__LBB20_18
+	br	__LBB20_20
+__LBB20_20:                             # %while.cond14.i66.preheader
+	ldi	r0, 32
+__LBB20_21:                             # %while.cond14.i66
+                                        # =>This Inner Loop Header: Depth=1
+	and r5, r1, r5
+	cmp	r5, r0
+	beq	__LBB20_23
+	br	__LBB20_22
+__LBB20_23:                             # %while.body18.i70
+                                        #   in Loop: Header=BB20_21 Depth=1
+	ldb	r2, r5
+	add	r2, 1
+	br	__LBB20_21
+__LBB20_22:                             # %while.cond14.i66
+	ldi	r0, 0
+	cmp	r5, r0
+	beq	__LBB20_24
+	br	__LBB20_7
+__LBB20_24:                             # %lor.lhs.false4
+	ldi	r0, 4
+	lsw	r1, -16                         # 2-byte Folded Reload
+	ldb	r1, r0, r0
+	ldi	r2, 5
+	ldb	r1, r2, r1
+	shl	r1, r1, 8
+	or r1, r0, r2
+	ldi	r0, 32
+__LBB20_25:                             # %while.cond.i75
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r2, r5
+	add	r2, 1
+	cmp	r5, r0
+	beq	__LBB20_25
+	br	__LBB20_26
+__LBB20_26:                             # %while.end.i79
+	movens	r5, r0
+	sub	r0, 58
+	ldi	r1, 255
+	and r0, r1, r0
+	ldi	r3, 246
+	cmp	r0, r3
+	blo	__LBB20_7
+	br	__LBB20_27
+__LBB20_27:                             # %while.body5.i80.preheader
+	ldi	r3, 0
+__LBB20_28:                             # %while.body5.i80
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r0, 3276
+	cmp	r3, r0
+	bgt	__LBB20_7
+	br	__LBB20_29
+__LBB20_29:                             # %if.end9.i84
+                                        #   in Loop: Header=BB20_28 Depth=1
+	ldi	r0, 0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	and r5, r1, r0
+	ssw	r0, -18                         # 2-byte Folded Spill
+	lsw	r1, -10
+	ldb	r2, r5
+	movens	r5, r3
+	sub	r3, 58
+	ldi	r0, 255
+	and r3, r0, r0
+	ssw	r0, -20                         # 2-byte Folded Spill
+	lsw	r0, -18                         # 2-byte Folded Reload
+	add r0, r1, r3
+	add	r2, 1
+	sub	r3, 48
+	ldi	r0, 245
+	lsw	r1, -20                         # 2-byte Folded Reload
+	cmp	r1, r0
+	ldi	r1, 255
+	bhi	__LBB20_28
+	br	__LBB20_30
+__LBB20_30:                             # %while.cond14.i111.preheader
+	ldi	r0, 32
+__LBB20_31:                             # %while.cond14.i111
+                                        # =>This Inner Loop Header: Depth=1
+	and r5, r1, r5
+	cmp	r5, r0
+	beq	__LBB20_33
+	br	__LBB20_32
+__LBB20_33:                             # %while.body18.i115
+                                        #   in Loop: Header=BB20_31 Depth=1
+	ldb	r2, r5
+	add	r2, 1
+	br	__LBB20_31
+__LBB20_32:                             # %while.cond14.i111
+	ldi	r0, 0
+	cmp	r5, r0
+	beq	__LBB20_34
+	br	__LBB20_7
+__LBB20_34:                             # %lor.lhs.false8
+	ssw	r3, -22                         # 2-byte Folded Spill
+	ldi	r0, 6
+	lsw	r2, -16                         # 2-byte Folded Reload
+	ldb	r2, r0, r0
+	ldi	r1, 7
+	ldb	r2, r1, r1
+	shl	r1, r1, 8
+	or r1, r0, r2
+	ldi	r0, 32
+__LBB20_35:                             # %while.cond.i120
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r2, r5
+	add	r2, 1
+	cmp	r5, r0
+	beq	__LBB20_35
+	br	__LBB20_36
+__LBB20_36:                             # %while.end.i124
+	movens	r5, r0
+	sub	r0, 58
+	ldi	r1, 255
+	and r0, r1, r0
+	ldi	r3, 246
+	cmp	r0, r3
+	blo	__LBB20_7
+	br	__LBB20_37
+__LBB20_37:                             # %while.body5.i125.preheader
+	ldi	r3, 0
+__LBB20_38:                             # %while.body5.i125
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r0, 3276
+	cmp	r3, r0
+	bgt	__LBB20_7
+	br	__LBB20_39
+__LBB20_39:                             # %if.end9.i129
+                                        #   in Loop: Header=BB20_38 Depth=1
+	ldi	r0, 0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	and r5, r1, r0
+	ssw	r0, -18                         # 2-byte Folded Spill
+	lsw	r1, -10
+	ldb	r2, r5
+	movens	r5, r3
+	sub	r3, 58
+	ldi	r0, 255
+	and r3, r0, r0
+	ssw	r0, -20                         # 2-byte Folded Spill
+	lsw	r0, -18                         # 2-byte Folded Reload
+	add r0, r1, r3
+	add	r2, 1
+	sub	r3, 48
+	ldi	r0, 245
+	lsw	r1, -20                         # 2-byte Folded Reload
+	cmp	r1, r0
+	ldi	r1, 255
+	bhi	__LBB20_38
+	br	__LBB20_40
+__LBB20_40:                             # %while.cond14.i156.preheader
+	ldi	r0, 32
+__LBB20_41:                             # %while.cond14.i156
+                                        # =>This Inner Loop Header: Depth=1
+	and r5, r1, r5
+	cmp	r5, r0
+	beq	__LBB20_43
+	br	__LBB20_42
+__LBB20_43:                             # %while.body18.i160
+                                        #   in Loop: Header=BB20_41 Depth=1
+	ldb	r2, r5
+	add	r2, 1
+	br	__LBB20_41
+__LBB20_42:                             # %while.cond14.i156
+	ldi	r0, 0
+	cmp	r5, r0
+	beq	__LBB20_44
+	br	__LBB20_7
+__LBB20_44:                             # %lor.lhs.false12
+	ssw	r3, -18                         # 2-byte Folded Spill
+	ldi	r0, 8
+	lsw	r2, -16                         # 2-byte Folded Reload
+	ldb	r2, r0, r0
+	ldi	r1, 9
+	ldb	r2, r1, r1
+	shl	r1, r1, 8
+	or r1, r0, r5
+	ldi	r0, 32
+__LBB20_45:                             # %while.cond.i165
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r5, r2
+	add	r5, 1
+	cmp	r2, r0
+	beq	__LBB20_45
+	br	__LBB20_46
+__LBB20_46:                             # %while.end.i169
+	movens	r2, r0
+	sub	r0, 58
+	ldi	r1, 255
+	and r0, r1, r0
+	ldi	r1, 246
 	cmp	r0, r1
-	beq	__LBB19_5
-	br	__LBB19_4
-__LBB19_4:                              # %lor.lhs.false10
-	lsw	r0, -12
-	ldi	r1, -1
+	blo	__LBB20_7
+	br	__LBB20_47
+__LBB20_47:                             # %while.body5.i170.preheader
+	ldi	r0, 0
+	movens	r0, r1
+__LBB20_48:                             # %while.body5.i170
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r0, 3276
+	cmp	r1, r0
+	movens	r1, r3
+	ldi	r1, 255
+	bgt	__LBB20_7
+	br	__LBB20_49
+__LBB20_49:                             # %if.end9.i174
+                                        #   in Loop: Header=BB20_48 Depth=1
+	ldi	r0, 0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	lsw	r0, -10
+	add r0, r3, r0
+	ssw	r0, -10
+	and r2, r1, r0
+	ssw	r0, -16                         # 2-byte Folded Spill
+	lsw	r0, -10
+	ldb	r5, r2
+	movens	r2, r3
+	sub	r3, 58
+	and r3, r1, r3
+	lsw	r1, -16                         # 2-byte Folded Reload
+	add r1, r0, r1
+	add	r5, 1
+	sub	r1, 48
+	ldi	r0, 245
+	cmp	r3, r0
+	bhi	__LBB20_48
+	br	__LBB20_50
+__LBB20_50:                             # %while.cond14.i201.preheader
+	movens	r1, r3
+	ldi	r0, 255
+	ldi	r1, 32
+__LBB20_51:                             # %while.cond14.i201
+                                        # =>This Inner Loop Header: Depth=1
+	and r2, r0, r0
 	cmp	r0, r1
-	bne	__LBB19_6
-	br	__LBB19_5
-__LBB19_5:                              # %if.then
-	ldi	r0, __L.str.40
-	jsr	print
-	br	__LBB19_7
-__LBB19_6:                              # %if.else
-	lsw	r0, -4
-	ssw	r0, -16
-	lsw	r1, -6
-	ldi	r0, -16
+	beq	__LBB20_53
+	br	__LBB20_52
+__LBB20_53:                             # %while.body18.i205
+                                        #   in Loop: Header=BB20_51 Depth=1
+	ldb	r5, r2
+	add	r5, 1
+	ldi	r0, 255
+	br	__LBB20_51
+__LBB20_52:                             # %while.cond14.i201
+	ldi	r1, 0
+	cmp	r0, r1
+	lsw	r2, -22                         # 2-byte Folded Reload
+	lsw	r5, -18                         # 2-byte Folded Reload
+	beq	__LBB20_55
+	br	__LBB20_7
+__LBB20_55:                             # %if.end17
+	ldi	r0, -10
 	add	r0, fp, r0
-	ldi	r3, 2
-	stw	r0, r3, r1
-	lsw	r1, -8
-	ssw	r1, -20
-	lsw	r2, -10
-	ldi	r1, -20
+	ldi	r1, 2
+	stw	r0, r1, r6
+	movens	r1, r6
+	ssw	r4, -10
+	ldi	r1, -14
 	add	r1, fp, r1
-	stw	r1, r3, r2
-	lsw	r2, -12
+	stw	r1, r6, r5
+	ssw	r2, -14
+	movens	r3, r2
 	jsr	FillCmd
-	br	__LBB19_7
-__LBB19_7:                              # %if.end
+__LBB20_56:                             # %cleanup.cont
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
 	addsp	22
 	pop	fp
 	rts
+                                        # -- End function
+SetGliderCmd>                           # -- Begin function SetGliderCmd
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-22
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r3, START_STOP
+	ldi	r2, 0
+	stw	r3, r2
+	or r1, r0, r2
+	ldi	r3, 32
+	cmp	r2, r3
+	ldi	r2, CURR_CHAR
+	blo	__LBB21_2
+	br	__LBB21_1
+__LBB21_2:                              # %SetCommand.exit66
+	ldi	r3, 80
+	stw	r2, r3
+	ldi	r6, 108
+	stw	r2, r6
+	ldi	r3, 97
+	ssw	r3, -10                         # 2-byte Folded Spill
+	stw	r2, r3
+	ldi	r3, 99
+	ssw	r3, -12                         # 2-byte Folded Spill
+	stw	r2, r3
+	ldi	r3, 105
+	stw	r2, r3
+	ldi	r3, 110
+	stw	r2, r3
+	movens	r0, r3
+	add	r3, 1
+	ldi	r4, 31
+	and r3, r4, r5
+	ssw	r5, -20                         # 2-byte Folded Spill
+	movens	r1, r3
+	add	r3, 1
+	and r3, r4, r3
+	ssw	r3, -22                         # 2-byte Folded Spill
+	movens	r0, r3
+	add	r3, 2
+	and r3, r4, r3
+	ssw	r3, -14                         # 2-byte Folded Spill
+	movens	r1, r3
+	add	r3, 2
+	and r3, r4, r3
+	ssw	r3, -18                         # 2-byte Folded Spill
+	ldi	r3, 103
+	stw	r2, r3
+	ldi	r4, 32
+	stw	r2, r4
+	stw	r2, r3
+	stw	r2, r6
+	ldi	r3, 105
+	ssw	r3, -8                          # 2-byte Folded Spill
+	stw	r2, r3
+	ldi	r3, 100
+	stw	r2, r3
+	ldi	r3, 101
+	stw	r2, r3
+	ldi	r4, 114
+	ssw	r4, -16                         # 2-byte Folded Spill
+	stw	r2, r4
+	ldi	r4, 46
+	stw	r2, r4
+	stw	r2, r4
+	stw	r2, r4
+	ldi	r4, 10
+	stw	r2, r4
+	ldi	r4, CELL_ADR
+	stw	r4, r5
+	ldi	r4, LINE_ADR
+	stw	r4, r1
+	ldi	r4, VALUE
+	ldi	r5, 1
+	stw	r4, r5
+	ldi	r4, UPDATE
+	stw	r4, r5
+	ldi	r4, 67
+	stw	r2, r4
+	stw	r2, r3
+	stw	r2, r6
+	stw	r2, r6
+	ldi	r4, 32
+	stw	r2, r4
+	ldi	r4, 115
+	stw	r2, r4
+	stw	r2, r3
+	ldi	r4, 116
+	stw	r2, r4
+	ldi	r1, 46
+	stw	r2, r1
+	ldi	r1, 10
+	stw	r2, r1
+	ldi	r1, CELL_ADR
+	lsw	r4, -14                         # 2-byte Folded Reload
+	stw	r1, r4
+	ldi	r4, LINE_ADR
+	lsw	r1, -22                         # 2-byte Folded Reload
+	stw	r4, r1
+	ldi	r1, VALUE
+	stw	r1, r5
+	ldi	r1, UPDATE
+	stw	r1, r5
+	ldi	r1, 67
+	stw	r2, r1
+	stw	r2, r3
+	stw	r2, r6
+	stw	r2, r6
+	ldi	r1, 32
+	stw	r2, r1
+	ldi	r1, 115
+	stw	r2, r1
+	stw	r2, r3
+	ldi	r1, 116
+	stw	r2, r1
+	ldi	r1, 46
+	stw	r2, r1
+	ldi	r1, 10
+	stw	r2, r1
+	ldi	r1, CELL_ADR
+	stw	r1, r0
+	lsw	r0, -18                         # 2-byte Folded Reload
+	stw	r4, r0
+	ldi	r1, VALUE
+	stw	r1, r5
+	ldi	r1, UPDATE
+	stw	r1, r5
+	ldi	r1, 67
+	stw	r2, r1
+	stw	r2, r3
+	stw	r2, r6
+	stw	r2, r6
+	ldi	r1, 32
+	stw	r2, r1
+	ldi	r1, 115
+	stw	r2, r1
+	stw	r2, r3
+	ldi	r1, 116
+	stw	r2, r1
+	ldi	r1, 46
+	stw	r2, r1
+	ldi	r1, 10
+	stw	r2, r1
+	lsw	r4, -20                         # 2-byte Folded Reload
+	ldi	r1, CELL_ADR
+	stw	r1, r4
+	ldi	r1, LINE_ADR
+	stw	r1, r0
+	ldi	r1, VALUE
+	stw	r1, r5
+	ldi	r1, UPDATE
+	stw	r1, r5
+	ldi	r1, 67
+	stw	r2, r1
+	stw	r2, r3
+	stw	r2, r6
+	stw	r2, r6
+	ldi	r1, 32
+	stw	r2, r1
+	ldi	r1, 115
+	stw	r2, r1
+	stw	r2, r3
+	ldi	r1, 116
+	stw	r2, r1
+	ldi	r1, 46
+	stw	r2, r1
+	ldi	r1, 10
+	stw	r2, r1
+	lsw	r4, -14                         # 2-byte Folded Reload
+	ldi	r1, CELL_ADR
+	stw	r1, r4
+	ldi	r1, LINE_ADR
+	stw	r1, r0
+	ldi	r0, VALUE
+	stw	r0, r5
+	ldi	r0, UPDATE
+	stw	r0, r5
+	ldi	r0, 67
+	stw	r2, r0
+	stw	r2, r3
+	stw	r2, r6
+	stw	r2, r6
+	ldi	r0, 32
+	stw	r2, r0
+	ldi	r0, 115
+	stw	r2, r0
+	stw	r2, r3
+	ldi	r0, 116
+	stw	r2, r0
+	ldi	r0, 46
+	stw	r2, r0
+	ldi	r0, 10
+	stw	r2, r0
+	ldi	r0, gmState
+	ldw	r0, r0
+	ldi	r1, START_STOP
+	stw	r1, r0
+	ldi	r0, 112
+	ssw	r0, -18                         # 2-byte Folded Spill
+	ldi	r0, 71
+	movens	r6, r4
+	movens	r3, r5
+	ldi	r1, 100
+	ssw	r1, -14                         # 2-byte Folded Spill
+__LBB21_3:                              # %return
+	stw	r2, r0
+	stw	r2, r6
+	lsw	r0, -8                          # 2-byte Folded Reload
+	stw	r2, r0
+	lsw	r0, -14                         # 2-byte Folded Reload
+	stw	r2, r0
+	stw	r2, r3
+	lsw	r0, -16                         # 2-byte Folded Reload
+	stw	r2, r0
+	ldi	r0, 32
+	stw	r2, r0
+	lsw	r0, -18                         # 2-byte Folded Reload
+	stw	r2, r0
+	stw	r2, r4
+	lsw	r0, -10                         # 2-byte Folded Reload
+	stw	r2, r0
+	lsw	r0, -12                         # 2-byte Folded Reload
+	stw	r2, r0
+	stw	r2, r5
+	stw	r2, r1
+	ldi	r0, 46
+	stw	r2, r0
+	ldi	r0, 10
+	stw	r2, r0
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	22
+	pop	fp
+	rts
+__LBB21_1:                              # %while.body.i.preheader
+	ldi	r0, 69
+	stw	r2, r0
+	ldi	r0, 114
+	stw	r2, r0
+	stw	r2, r0
+	ldi	r6, 111
+	stw	r2, r6
+	stw	r2, r0
+	ldi	r1, 58
+	stw	r2, r1
+	ldi	r4, 32
+	stw	r2, r4
+	ldi	r1, 67
+	stw	r2, r1
+	stw	r2, r6
+	stw	r2, r6
+	stw	r2, r0
+	ldi	r3, 100
+	stw	r2, r3
+	ldi	r0, 105
+	stw	r2, r0
+	ldi	r0, 110
+	ssw	r0, -14                         # 2-byte Folded Spill
+	stw	r2, r0
+	ldi	r0, 97
+	stw	r2, r0
+	ldi	r0, 116
+	stw	r2, r0
+	ldi	r1, 101
+	stw	r2, r1
+	ldi	r1, 115
+	ssw	r1, -16                         # 2-byte Folded Spill
+	stw	r2, r1
+	stw	r2, r4
+	stw	r2, r6
+	ldi	r1, 117
+	ssw	r1, -8                          # 2-byte Folded Spill
+	stw	r2, r1
+	stw	r2, r0
+	stw	r2, r4
+	stw	r2, r6
+	ldi	r0, 102
+	stw	r2, r0
+	stw	r2, r4
+	ldi	r1, 93
+	ldi	r5, 49
+	ldi	r0, 51
+	ssw	r0, -12                         # 2-byte Folded Spill
+	ldi	r0, 45
+	ssw	r0, -10                         # 2-byte Folded Spill
+	ldi	r4, 48
+	ldi	r0, 91
+	ssw	r0, -18                         # 2-byte Folded Spill
+	ldi	r0, 98
+	br	__LBB21_3
+                                        # -- End function
+SetGliderCmdWrapper>                    # -- Begin function SetGliderCmdWrapper
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-12
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, 2
+	cmp	r1, r2
+	beq	__LBB22_3
+	br	__LBB22_1
+__LBB22_3:                              # %if.end
+	ldi	r1, 1
+	ldb	r0, r1, r1
+	shl	r1, r1, 8
+	ssw	r0, -12                         # 2-byte Folded Spill
+	ldb	r0, r0
+	or r1, r0, r1
+	ldi	r2, 32
+__LBB22_4:                              # %while.cond.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r1, r5
+	add	r1, 1
+	cmp	r5, r2
+	beq	__LBB22_4
+	br	__LBB22_5
+__LBB22_5:                              # %while.end.i
+	movens	r5, r0
+	sub	r0, 58
+	ldi	r3, 255
+	and r0, r3, r0
+	ldi	r3, 246
+	cmp	r0, r3
+	blo	__LBB22_7
+	br	__LBB22_6
+__LBB22_7:                              # %while.body.i53.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.25+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+	br	__LBB22_23
+__LBB22_23:                             # %while.body.i53
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB22_25
+	br	__LBB22_23
+__LBB22_1:                              # %while.body.i.preheader
+	ldi	r2, 69
+	ldi	r0, __L.str.24+1
+	ldi	r1, CURR_CHAR
+	ldi	r3, 0
+__LBB22_2:                              # %while.body.i
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r3
+	beq	__LBB22_25
+	br	__LBB22_2
+__LBB22_6:                              # %while.body5.i.preheader
+	ldi	r0, 0
+	br	__LBB22_8
+__LBB22_8:                              # %while.body5.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r3, 3276
+	cmp	r0, r3
+	bgt	__LBB22_7
+	br	__LBB22_9
+__LBB22_9:                              # %if.end9.i
+                                        #   in Loop: Header=BB22_8 Depth=1
+	ldi	r3, 0
+	ssw	r3, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r4
+	ssw	r4, -10
+	lsw	r4, -10
+	add r4, r0, r0
+	ssw	r0, -10
+	ldi	r0, 255
+	movens	r0, r3
+	and r5, r3, r0
+	lsw	r4, -10
+	ldb	r1, r5
+	movens	r5, r6
+	sub	r6, 58
+	and r6, r3, r6
+	add r0, r4, r0
+	add	r1, 1
+	sub	r0, 48
+	ldi	r3, 245
+	cmp	r6, r3
+	bhi	__LBB22_8
+	br	__LBB22_10
+__LBB22_10:                             # %while.cond14.i.preheader
+	ldi	r3, 255
+__LBB22_11:                             # %while.cond14.i
+                                        # =>This Inner Loop Header: Depth=1
+	and r5, r3, r5
+	cmp	r5, r2
+	beq	__LBB22_13
+	br	__LBB22_12
+__LBB22_13:                             # %while.body18.i
+                                        #   in Loop: Header=BB22_11 Depth=1
+	ldb	r1, r5
+	add	r1, 1
+	br	__LBB22_11
+__LBB22_12:                             # %while.cond14.i
+	ldi	r1, 0
+	cmp	r5, r1
+	beq	__LBB22_14
+	br	__LBB22_7
+__LBB22_14:                             # %lor.lhs.false
+	lsw	r1, -12                         # 2-byte Folded Reload
+	ldi	r3, 2
+	ldb	r1, r3, r4
+	ldi	r5, 3
+	ldb	r1, r5, r1
+	shl	r1, r1, 8
+	or r1, r4, r6
+__LBB22_15:                             # %while.cond.i9
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r3
+	add	r6, 1
+	cmp	r3, r2
+	beq	__LBB22_15
+	br	__LBB22_16
+__LBB22_16:                             # %while.end.i13
+	movens	r3, r1
+	sub	r1, 58
+	ldi	r4, 255
+	and r1, r4, r1
+	ldi	r4, 246
+	cmp	r1, r4
+	blo	__LBB22_7
+	br	__LBB22_17
+__LBB22_17:                             # %while.body5.i14.preheader
+	ldi	r1, 0
+__LBB22_18:                             # %while.body5.i14
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r4, 3276
+	cmp	r1, r4
+	bgt	__LBB22_7
+	br	__LBB22_19
+__LBB22_19:                             # %if.end9.i18
+                                        #   in Loop: Header=BB22_18 Depth=1
+	ldi	r4, 0
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r4
+	ssw	r4, -8
+	lsw	r4, -8
+	add r4, r1, r1
+	ssw	r1, -8
+	ldi	r1, 255
+	and r3, r1, r1
+	ssw	r1, -12                         # 2-byte Folded Spill
+	lsw	r4, -8
+	ldb	r6, r3
+	movens	r3, r5
+	sub	r5, 58
+	ldi	r1, 255
+	and r5, r1, r5
+	lsw	r1, -12                         # 2-byte Folded Reload
+	add r1, r4, r1
+	add	r6, 1
+	sub	r1, 48
+	ldi	r4, 245
+	cmp	r5, r4
+	bhi	__LBB22_18
+	br	__LBB22_20
+__LBB22_22:                             # %while.body18.i49
+                                        #   in Loop: Header=BB22_20 Depth=1
+	ldb	r6, r3
+	add	r6, 1
+	br	__LBB22_20
+__LBB22_20:                             # %while.cond14.i45
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r4, 255
+	and r3, r4, r4
+	cmp	r4, r2
+	beq	__LBB22_22
+	br	__LBB22_21
+__LBB22_21:                             # %while.cond14.i45
+	ldi	r2, 0
+	cmp	r4, r2
+	beq	__LBB22_24
+	br	__LBB22_7
+__LBB22_24:                             # %if.end5
+	jsr	SetGliderCmd
+__LBB22_25:                             # %cleanup.cont
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	12
+	pop	fp
+	rts
+                                        # -- End function
+HelpCmd>                                # -- Begin function HelpCmd
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-8
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r1, 0
+	movens	r1, r2
+__LBB23_1:                              # %while.cond.i.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r0, r2, r3
+	add	r2, 1
+	cmp	r3, r1
+	bne	__LBB23_1
+	br	__LBB23_2
+__LBB23_2:                              # %while.cond.preheader.i
+	ldi	r1, 1
+	cmp	r2, r1
+	beq	__LBB23_7
+	br	__LBB23_3
+__LBB23_3:                              # %land.rhs.i.preheader
+	movens	r0, r3
+	sub	r3, 2
+	ldi	r4, 2
+	ldi	r5, 0
+__LBB23_4:                              # %land.rhs.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r3, r2, r1
+	movens	r1, r6
+	sub	r6, 9
+	cmp	r6, r4
+	blo	__LBB23_6
+	br	__LBB23_5
+__LBB23_5:                              # %land.rhs.i
+                                        #   in Loop: Header=BB23_4 Depth=1
+	ldi	r6, 32
+	cmp	r1, r6
+	bne	__LBB23_7
+	br	__LBB23_6
+__LBB23_6:                              # %while.body.i
+                                        #   in Loop: Header=BB23_4 Depth=1
+	stb	r3, r2, r5
+	sub	r2, 1
+	ldi	r1, 1
+	cmp	r2, r1
+	bgt	__LBB23_4
+	br	__LBB23_7
+__LBB23_7:                              # %StringTrimRight.exit
+	ldb	r0, r2
+	ldi	r4, 0
+	cmp	r2, r4
+	beq	__LBB23_9
+	br	__LBB23_8
+__LBB23_8:                              # %land.rhs.i114.preheader
+	ldi	r5, __L.str.36
+	ldi	r3, 255
+	ssw	r2, -8                          # 2-byte Folded Spill
+	movens	r4, r6
+	br	__LBB23_17
+__LBB23_17:                             # %land.rhs.i114
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r5, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_21
+	br	__LBB23_18
+__LBB23_18:                             # %if.end.i119
+                                        #   in Loop: Header=BB23_17 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r4
+	bne	__LBB23_17
+	br	__LBB23_19
+__LBB23_19:                             # %StringCmp.exit126
+	ldb	r6, r5, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_21
+	br	__LBB23_20
+__LBB23_21:                             # %land.rhs.i135.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.38
+	lsw	r2, -8                          # 2-byte Folded Reload
+	movens	r5, r6
+	br	__LBB23_23
+__LBB23_23:                             # %land.rhs.i135
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_27
+	br	__LBB23_24
+__LBB23_24:                             # %if.end.i140
+                                        #   in Loop: Header=BB23_23 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_23
+	br	__LBB23_25
+__LBB23_25:                             # %StringCmp.exit148
+	ldb	r6, r4, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_27
+	br	__LBB23_26
+__LBB23_27:                             # %land.rhs.i157.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.40
+	lsw	r2, -8                          # 2-byte Folded Reload
+	movens	r5, r6
+	br	__LBB23_29
+__LBB23_29:                             # %land.rhs.i157
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_33
+	br	__LBB23_30
+__LBB23_30:                             # %if.end.i162
+                                        #   in Loop: Header=BB23_29 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_29
+	br	__LBB23_31
+__LBB23_31:                             # %StringCmp.exit170
+	ldb	r6, r4, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_33
+	br	__LBB23_32
+__LBB23_33:                             # %land.rhs.i179.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.42
+	lsw	r2, -8                          # 2-byte Folded Reload
+	movens	r5, r6
+	br	__LBB23_35
+__LBB23_35:                             # %land.rhs.i179
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_39
+	br	__LBB23_36
+__LBB23_36:                             # %if.end.i184
+                                        #   in Loop: Header=BB23_35 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_35
+	br	__LBB23_37
+__LBB23_37:                             # %StringCmp.exit192
+	ldb	r6, r4, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_39
+	br	__LBB23_38
+__LBB23_39:                             # %land.rhs.i201.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.44
+	lsw	r2, -8                          # 2-byte Folded Reload
+	movens	r5, r6
+	br	__LBB23_41
+__LBB23_41:                             # %land.rhs.i201
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_45
+	br	__LBB23_42
+__LBB23_42:                             # %if.end.i206
+                                        #   in Loop: Header=BB23_41 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_41
+	br	__LBB23_43
+__LBB23_43:                             # %StringCmp.exit214
+	ldb	r6, r4, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_45
+	br	__LBB23_44
+__LBB23_45:                             # %land.rhs.i223.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.46
+	lsw	r2, -8                          # 2-byte Folded Reload
+	movens	r5, r6
+	br	__LBB23_47
+__LBB23_47:                             # %land.rhs.i223
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_51
+	br	__LBB23_48
+__LBB23_48:                             # %if.end.i228
+                                        #   in Loop: Header=BB23_47 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_47
+	br	__LBB23_49
+__LBB23_49:                             # %StringCmp.exit236
+	ldb	r6, r4, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_51
+	br	__LBB23_50
+__LBB23_51:                             # %land.rhs.i245.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.48
+	lsw	r2, -8                          # 2-byte Folded Reload
+	movens	r5, r6
+	br	__LBB23_53
+__LBB23_53:                             # %land.rhs.i245
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_57
+	br	__LBB23_54
+__LBB23_54:                             # %if.end.i250
+                                        #   in Loop: Header=BB23_53 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_53
+	br	__LBB23_55
+__LBB23_55:                             # %StringCmp.exit258
+	ldb	r6, r4, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	bne	__LBB23_57
+	br	__LBB23_56
+__LBB23_57:                             # %land.rhs.i267.preheader
+	ldi	r5, 0
+	ldi	r4, __L.str.50
+	movens	r5, r6
+	lsw	r2, -8                          # 2-byte Folded Reload
+	br	__LBB23_59
+__LBB23_59:                             # %land.rhs.i267
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r6, r4, r1
+	and r2, r3, r2
+	cmp	r2, r1
+	bne	__LBB23_64
+	br	__LBB23_60
+__LBB23_60:                             # %if.end.i272
+                                        #   in Loop: Header=BB23_59 Depth=1
+	add r0, r6, r1
+	ldi	r2, 1
+	ldb	r1, r2, r2
+	add	r6, 1
+	cmp	r2, r5
+	bne	__LBB23_59
+	br	__LBB23_61
+__LBB23_61:                             # %StringCmp.exit280
+	ldb	r6, r4, r2
+	ldi	r1, 0
+	cmp	r2, r1
+	bne	__LBB23_64
+	br	__LBB23_62
+__LBB23_64:                             # %if.else33
+	ldi	r1, CURR_CHAR
+	ldi	r2, 69
+	stw	r1, r2
+	ldi	r3, 114
+	stw	r1, r3
+	stw	r1, r3
+	ldi	r2, 111
+	stw	r1, r2
+	stw	r1, r3
+	ldi	r3, 58
+	stw	r1, r3
+	ldi	r4, 32
+	stw	r1, r4
+	ldi	r3, 85
+	stw	r1, r3
+	ldi	r5, 110
+	stw	r1, r5
+	ldi	r3, 107
+	stw	r1, r3
+	stw	r1, r5
+	stw	r1, r2
+	ldi	r3, 119
+	stw	r1, r3
+	stw	r1, r5
+	stw	r1, r4
+	ldi	r3, 99
+	stw	r1, r3
+	stw	r1, r2
+	ldi	r3, 109
+	stw	r1, r3
+	stw	r1, r3
+	ldi	r3, 97
+	stw	r1, r3
+	stw	r1, r5
+	ldi	r3, 100
+	stw	r1, r3
+	stw	r1, r4
+	ldi	r5, 39
+	stw	r1, r5
+	ldb	r0, r3
+	ldi	r6, 0
+	cmp	r3, r6
+	beq	__LBB23_67
+	br	__LBB23_65
+__LBB23_65:                             # %while.body.i295.preheader
+	add	r0, 1
+__LBB23_66:                             # %while.body.i295
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r3, r3
+	stw	r1, r3
+	ldb	r0, r3
+	add	r0, 1
+	cmp	r3, r6
+	bne	__LBB23_66
+	br	__LBB23_67
+__LBB23_67:                             # %print.exit301
+	stw	r1, r5
+	ldi	r0, 46
+	stw	r1, r0
+	stw	r1, r4
+	ldi	r3, 84
+	stw	r1, r3
+	ldi	r3, 121
+	stw	r1, r3
+	ldi	r3, 112
+	stw	r1, r3
+	ldi	r6, 101
+	stw	r1, r6
+	stw	r1, r4
+	stw	r1, r5
+	ldi	r0, 104
+	stw	r1, r0
+	stw	r1, r6
+	ldi	r0, 108
+	stw	r1, r0
+	stw	r1, r3
+	stw	r1, r5
+	stw	r1, r4
+	ldi	r3, 102
+	stw	r1, r3
+	stw	r1, r2
+	ldi	r5, 114
+	stw	r1, r5
+	stw	r1, r4
+	ldi	r6, 97
+	stw	r1, r6
+	stw	r1, r4
+	stw	r1, r0
+	ldi	r0, 105
+	stw	r1, r0
+	ldi	r5, 115
+	stw	r1, r5
+	ldi	r0, 116
+	stw	r1, r0
+	stw	r1, r4
+	stw	r1, r2
+	stw	r1, r3
+	stw	r1, r4
+	ldi	r0, 99
+	stw	r1, r0
+	stw	r1, r2
+	ldi	r0, 109
+	stw	r1, r0
+	stw	r1, r0
+	stw	r1, r6
+	ldi	r0, 110
+	stw	r1, r0
+	ldi	r0, 100
+	stw	r1, r0
+	stw	r1, r5
+	ldi	r0, 46
+	stw	r1, r0
+	ldi	r0, 10
+	stw	r1, r0
+__LBB23_68:                             # %if.end41
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	8
+	pop	fp
+	rts
+__LBB23_9:                              # %while.body.i53.preheader
+	ldi	r0, CURR_CHAR
+	ldi	r1, 65
+	stw	r0, r1
+	ldi	r1, 118
+	stw	r0, r1
+	ldi	r2, 97
+	stw	r0, r2
+	ldi	r1, 105
+	stw	r0, r1
+	ldi	r3, 108
+	stw	r0, r3
+	stw	r0, r2
+	ldi	r1, 98
+	stw	r0, r1
+	stw	r0, r3
+	ldi	r6, 101
+	stw	r0, r6
+	ldi	r4, 32
+	stw	r0, r4
+	ldi	r1, 99
+	stw	r0, r1
+	ldi	r1, 111
+	stw	r0, r1
+	ldi	r1, 109
+	stw	r0, r1
+	stw	r0, r1
+	stw	r0, r2
+	ldi	r1, 110
+	stw	r0, r1
+	ldi	r1, 100
+	stw	r0, r1
+	ldi	r2, 115
+	stw	r0, r2
+	ldi	r1, 58
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r2
+	stw	r0, r6
+	ldi	r1, 116
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 60
+	stw	r0, r1
+	ldi	r2, 120
+	stw	r0, r2
+	ldi	r2, 62
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r1
+	ldi	r5, 121
+	stw	r0, r5
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r1
+	ldi	r1, 118
+	stw	r0, r1
+	ldi	r1, 97
+	stw	r0, r1
+	stw	r0, r3
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	ldi	r1, 45
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 83
+	stw	r0, r1
+	stw	r0, r6
+	ldi	r5, 116
+	stw	r0, r5
+	stw	r0, r4
+	ldi	r1, 99
+	stw	r0, r1
+	stw	r0, r6
+	stw	r0, r3
+	stw	r0, r3
+	stw	r0, r4
+	ldi	r1, 40
+	stw	r0, r1
+	ldi	r2, 120
+	stw	r0, r2
+	ldi	r6, 44
+	stw	r0, r6
+	ldi	r2, 121
+	stw	r0, r2
+	ldi	r2, 41
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r5
+	ldi	r6, 111
+	stw	r0, r6
+	stw	r0, r4
+	ldi	r5, 118
+	stw	r0, r5
+	ldi	r5, 97
+	stw	r0, r5
+	stw	r0, r3
+	stw	r0, r4
+	stw	r0, r1
+	ldi	r1, 48
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r6
+	ldi	r1, 114
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 49
+	stw	r0, r1
+	stw	r0, r2
+	ldi	r1, 10
+	stw	r0, r1
+	ldi	r1, __L.str.29+1
+	ldi	r5, 0
+__LBB23_10:                             # %while.body.i64
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r4, r3
+	stw	r0, r3
+	ldb	r1, r4
+	add	r1, 1
+	cmp	r4, r5
+	bne	__LBB23_10
+	br	__LBB23_11
+__LBB23_11:                             # %while.body.i71.preheader
+	ldi	r4, 32
+	stw	r0, r4
+	ldi	r1, 115
+	stw	r0, r1
+	ldi	r1, 116
+	movens	r1, r3
+	stw	r0, r3
+	ldi	r1, 111
+	stw	r0, r1
+	movens	r1, r6
+	ldi	r2, 112
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	ldi	r1, 45
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 83
+	stw	r0, r1
+	stw	r0, r3
+	stw	r0, r6
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r3
+	ldi	r1, 104
+	stw	r0, r1
+	ldi	r6, 101
+	stw	r0, r6
+	stw	r0, r4
+	ldi	r1, 115
+	stw	r0, r1
+	ldi	r3, 105
+	movens	r3, r6
+	stw	r0, r6
+	ldi	r1, 109
+	stw	r0, r1
+	ldi	r1, 117
+	stw	r0, r1
+	ldi	r2, 108
+	stw	r0, r2
+	ldi	r3, 97
+	stw	r0, r3
+	ldi	r1, 116
+	stw	r0, r1
+	stw	r0, r6
+	ldi	r2, 111
+	stw	r0, r2
+	ldi	r2, 110
+	stw	r0, r2
+	ldi	r6, 10
+	stw	r0, r6
+	stw	r0, r4
+	ldi	r6, 115
+	stw	r0, r6
+	stw	r0, r1
+	stw	r0, r3
+	ldi	r2, 114
+	stw	r0, r2
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	ldi	r6, 45
+	stw	r0, r6
+	stw	r0, r4
+	ldi	r6, 83
+	stw	r0, r6
+	stw	r0, r1
+	stw	r0, r3
+	stw	r0, r2
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r1
+	ldi	r2, 104
+	stw	r0, r2
+	ldi	r2, 101
+	stw	r0, r2
+	stw	r0, r4
+	ldi	r2, 115
+	stw	r0, r2
+	ldi	r6, 105
+	stw	r0, r6
+	ldi	r2, 109
+	stw	r0, r2
+	ldi	r2, 117
+	stw	r0, r2
+	ldi	r2, 108
+	stw	r0, r2
+	stw	r0, r3
+	stw	r0, r1
+	stw	r0, r6
+	ldi	r1, 111
+	stw	r0, r1
+	ldi	r1, 110
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	ldi	r1, __L.str.32+1
+__LBB23_12:                             # %while.body.i85
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r4, r3
+	stw	r0, r3
+	ldb	r1, r4
+	add	r1, 1
+	cmp	r4, r5
+	bne	__LBB23_12
+	br	__LBB23_13
+__LBB23_13:                             # %while.body.i92.preheader
+	ldi	r3, 32
+	ldi	r1, __L.str.33+1
+__LBB23_14:                             # %while.body.i92
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r3, r3
+	stw	r0, r3
+	ldb	r1, r3
+	add	r1, 1
+	cmp	r3, r5
+	bne	__LBB23_14
+	br	__LBB23_15
+__LBB23_15:                             # %while.body.i99.preheader
+	ldi	r4, 32
+	stw	r0, r4
+	ldi	r1, 115
+	stw	r0, r1
+	ldi	r6, 101
+	stw	r0, r6
+	ldi	r1, 116
+	stw	r0, r1
+	ldi	r1, 45
+	stw	r0, r1
+	ldi	r1, 103
+	stw	r0, r1
+	ldi	r2, 108
+	stw	r0, r2
+	ldi	r1, 105
+	stw	r0, r1
+	ldi	r1, 100
+	stw	r0, r1
+	stw	r0, r6
+	ldi	r1, 114
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r1, 60
+	movens	r1, r3
+	stw	r0, r3
+	ldi	r1, 120
+	stw	r0, r1
+	ldi	r2, 62
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r3
+	ldi	r1, 121
+	stw	r0, r1
+	stw	r0, r2
+	stw	r0, r4
+	stw	r0, r4
+	stw	r0, r4
+	ldi	r1, 45
+	stw	r0, r1
+	stw	r0, r4
+	ldi	r3, 80
+	stw	r0, r3
+	ldi	r1, 108
+	stw	r0, r1
+	ldi	r3, 97
+	stw	r0, r3
+	ldi	r1, 99
+	stw	r0, r1
+	stw	r0, r6
+	stw	r0, r4
+	stw	r0, r3
+	stw	r0, r4
+	ldi	r1, 103
+	stw	r0, r1
+	ldi	r1, 108
+	stw	r0, r1
+	ldi	r1, 105
+	stw	r0, r1
+	ldi	r1, 100
+	stw	r0, r1
+	stw	r0, r6
+	ldi	r1, 114
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r3
+	ldi	r1, 116
+	stw	r0, r1
+	stw	r0, r4
+	stw	r0, r1
+	movens	r1, r2
+	ldi	r1, 111
+	stw	r0, r1
+	ldi	r1, 112
+	stw	r0, r1
+	ldi	r1, 45
+	stw	r0, r1
+	ldi	r1, 108
+	stw	r0, r1
+	stw	r0, r6
+	ldi	r1, 102
+	stw	r0, r1
+	stw	r0, r2
+	stw	r0, r4
+	ldi	r1, 40
+	stw	r0, r1
+	ldi	r1, 120
+	stw	r0, r1
+	ldi	r1, 44
+	stw	r0, r1
+	ldi	r1, 121
+	stw	r0, r1
+	ldi	r1, 41
+	stw	r0, r1
+	ldi	r1, 10
+	stw	r0, r1
+	ldi	r1, __L.str.35+1
+__LBB23_16:                             # %while.body.i106
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r4, r2
+	stw	r0, r2
+	ldb	r1, r4
+	add	r1, 1
+	cmp	r4, r5
+	beq	__LBB23_68
+	br	__LBB23_16
+__LBB23_20:                             # %while.body.i127.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.37+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_22
+__LBB23_22:                             # %while.body.i127
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_22
+__LBB23_26:                             # %while.body.i149.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.39+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_28
+__LBB23_28:                             # %while.body.i149
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_28
+__LBB23_32:                             # %while.body.i171.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.41+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_34
+__LBB23_34:                             # %while.body.i171
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_34
+__LBB23_38:                             # %while.body.i193.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.43+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_40
+__LBB23_40:                             # %while.body.i193
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_40
+__LBB23_44:                             # %while.body.i215.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.45+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_46
+__LBB23_46:                             # %while.body.i215
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_46
+__LBB23_50:                             # %while.body.i237.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.47+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_52
+__LBB23_52:                             # %while.body.i237
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_52
+__LBB23_56:                             # %while.body.i259.preheader
+	ldi	r2, 85
+	ldi	r0, __L.str.49+1
+	ldi	r1, CURR_CHAR
+	br	__LBB23_58
+__LBB23_58:                             # %while.body.i259
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r2, r2
+	stw	r1, r2
+	ldb	r0, r2
+	add	r0, 1
+	cmp	r2, r4
+	beq	__LBB23_68
+	br	__LBB23_58
+__LBB23_62:                             # %while.body.i281.preheader
+	ldi	r3, 85
+	ldi	r0, __L.str.51+1
+	ldi	r2, CURR_CHAR
+__LBB23_63:                             # %while.body.i281
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r3, r3
+	stw	r2, r3
+	ldb	r0, r3
+	add	r0, 1
+	cmp	r3, r1
+	beq	__LBB23_68
+	br	__LBB23_63
                                         # -- End function
 parse>                                  # -- Begin function parse
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-108
+	addsp	-104
 	ssw	r4, -2                          # 2-byte Folded Spill
-	ldi	r0, 0
-	ssw	r0, -88
-	ssw	r0, -90
-	ldi	r0, head
-	ldw	r0, r0
-	ldi	r1, end
-	ldw	r1, r1
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, head
+	ldw	r2, r0
+	ldi	r4, end
+	ldw	r4, r1
 	cmp	r0, r1
-	bne	__LBB20_2
-	br	__LBB20_1
-__LBB20_1:                              # %if.then
-	br	__LBB20_45
-__LBB20_2:                              # %if.end
-	ldi	r0, head
-	ldw	r0, r0
-	ssw	r0, -94
-	br	__LBB20_3
-__LBB20_3:                              # %while.cond
+	beq	__LBB24_103
+	br	__LBB24_1
+__LBB24_1:                              # %if.end
+	ldi	r3, 0
+	ldw	r2, r5
+	ldw	r4, r0
+	cmp	r5, r0
+	ldi	r4, queue
+	movens	r3, r1
+	beq	__LBB24_7
+	br	__LBB24_2
+__LBB24_2:                              # %while.body.preheader
+	ldi	r6, 0
+	movens	r6, r0
+__LBB24_3:                              # %while.body
                                         # =>This Inner Loop Header: Depth=1
-	lsw	r1, -94
-	ldi	r0, end
-	ldw	r0, r2
-	ldi	r0, 0
-	cmp	r1, r2
-	ssw	r0, -96                         # 2-byte Folded Spill
-	beq	__LBB20_5
-	br	__LBB20_4
-__LBB20_4:                              # %land.rhs
-                                        #   in Loop: Header=BB20_3 Depth=1
-	lsw	r1, -88
-	ldi	r0, 0
-	ssw	r0, -100                        # 2-byte Folded Spill
-	ldi	r0, 1
-	ldi	r2, 63
-	cmp	r1, r2
-	ssw	r0, -98                         # 2-byte Folded Spill
-	blt	__LBB20_47
-# %bb.46:                               # %land.rhs
-                                        #   in Loop: Header=BB20_3 Depth=1
-	lsw	r0, -100                        # 2-byte Folded Reload
-	ssw	r0, -98                         # 2-byte Folded Spill
-__LBB20_47:                             # %land.rhs
-                                        #   in Loop: Header=BB20_3 Depth=1
-	lsw	r0, -98                         # 2-byte Folded Reload
-	ssw	r0, -96                         # 2-byte Folded Spill
-	br	__LBB20_5
-__LBB20_5:                              # %land.end
-                                        #   in Loop: Header=BB20_3 Depth=1
-	lsw	r0, -96                         # 2-byte Folded Reload
-	ldi	r1, 1
-	and r0, r1, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB20_7
-	br	__LBB20_6
-__LBB20_6:                              # %while.body
-                                        #   in Loop: Header=BB20_3 Depth=1
-	lsw	r0, -94
-	shl	r0, r0, 1
-	ldi	r1, queue
-	ldw	r0, r1, r0
-	lsw	r2, -88
-	movens	r2, r1
-	add	r1, 1
-	ssw	r1, -88
-	ldi	r1, -66
-	add	r1, fp, r1
-	stb	r1, r2, r0
-	lsw	r0, -94
-	add	r0, 1
-	shra	r0, r1, 8
+	ldb	r5, r4, r1
+	cmp	r1, r6
+	bne	__LBB24_5
+	br	__LBB24_4
+__LBB24_5:                              # %if.end6
+                                        #   in Loop: Header=BB24_3 Depth=1
+	ldb	r5, r4, r1
+	ldi	r2, -39
+	add	r2, fp, r2
+	stb	r2, r0, r1
+	add	r5, 1
+	shra	r5, r1, 8
 	shra	r1, r1, 15-8
 	shr	r1, r1, 8
 	shr	r1, r1, 11-8
-	add r0, r1, r1
+	add r5, r1, r1
 	ldi	r2, -32
 	and r1, r2, r1
-	sub r0, r1, r0
-	ssw	r0, -94
-	br	__LBB20_3
-__LBB20_7:                              # %while.end
-	lsw	r2, -88
-	ldi	r0, -66
-	add	r0, fp, r1
-	ssw	r1, -102                        # 2-byte Folded Spill
-	ldi	r0, 0
-	stb	r1, r2, r0
-	jsr	qInit
-	lsw	r0, -102                        # 2-byte Folded Reload
-	shr	r0, r1, 8
-	ldi	r2, -92
-	add	r2, fp, r2
-	ldi	r3, 1
-	stb	r2, r3, r1
-	ssb	r0, -92
-	br	__LBB20_8
-__LBB20_8:                              # %while.cond5
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	ldsb	r0, r0
-	ldi	r1, 32
-	cmp	r0, r1
-	bne	__LBB20_10
-	br	__LBB20_9
-__LBB20_9:                              # %while.body9
-                                        #   in Loop: Header=BB20_8 Depth=1
-	ldi	r0, -92
-	add	r0, fp, r2
-	ldi	r3, 1
-	ldb	r2, r3, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	add	r0, 1
-	shr	r0, r1, 8
-	stb	r2, r3, r1
-	ssb	r0, -92
-	br	__LBB20_8
-__LBB20_10:                             # %while.end10
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	ldsb	r0, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	bne	__LBB20_12
-	br	__LBB20_11
-__LBB20_11:                             # %if.then14
-	br	__LBB20_45
-__LBB20_12:                             # %if.end15
-	ldi	r0, 0
-	ssw	r0, -90
-	br	__LBB20_13
-__LBB20_13:                             # %while.cond16
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	ldsb	r0, r1
-	ldi	r0, 0
-	ldi	r2, 32
-	cmp	r1, r2
-	ssw	r0, -104                        # 2-byte Folded Spill
-	beq	__LBB20_16
-	br	__LBB20_14
-__LBB20_14:                             # %land.lhs.true
-                                        #   in Loop: Header=BB20_13 Depth=1
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	ldsb	r0, r1
-	ldi	r0, 0
-	cmp	r1, r0
-	ssw	r0, -104                        # 2-byte Folded Spill
-	beq	__LBB20_16
-	br	__LBB20_15
-__LBB20_15:                             # %land.rhs23
-                                        #   in Loop: Header=BB20_13 Depth=1
-	lsw	r1, -90
-	ldi	r0, 0
-	ssw	r0, -108                        # 2-byte Folded Spill
-	ldi	r0, 1
-	ldi	r2, 19
-	cmp	r1, r2
-	ssw	r0, -106                        # 2-byte Folded Spill
-	blt	__LBB20_49
-# %bb.48:                               # %land.rhs23
-                                        #   in Loop: Header=BB20_13 Depth=1
-	lsw	r0, -108                        # 2-byte Folded Reload
-	ssw	r0, -106                        # 2-byte Folded Spill
-__LBB20_49:                             # %land.rhs23
-                                        #   in Loop: Header=BB20_13 Depth=1
-	lsw	r0, -106                        # 2-byte Folded Reload
-	ssw	r0, -104                        # 2-byte Folded Spill
-	br	__LBB20_16
-__LBB20_16:                             # %land.end26
-                                        #   in Loop: Header=BB20_13 Depth=1
-	lsw	r0, -104                        # 2-byte Folded Reload
-	ldi	r1, 1
-	and r0, r1, r0
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB20_18
-	br	__LBB20_17
-__LBB20_17:                             # %while.body27
-                                        #   in Loop: Header=BB20_13 Depth=1
-	ldi	r0, -92
-	add	r0, fp, r3
-	ldi	r4, 1
-	ldb	r3, r4, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
+	sub r5, r1, r5
 	movens	r0, r1
 	add	r1, 1
-	shr	r1, r2, 8
-	stb	r3, r4, r2
-	ssb	r1, -92
-	ldb	r0, r0
-	lsw	r2, -90
-	movens	r2, r1
-	add	r1, 1
-	ssw	r1, -90
-	ldi	r1, -86
-	add	r1, fp, r1
-	stb	r1, r2, r0
-	br	__LBB20_13
-__LBB20_18:                             # %while.end31
-	lsw	r2, -90
-	ldi	r0, -86
-	add	r0, fp, r1
-	ldi	r0, 0
-	stb	r1, r2, r0
-	br	__LBB20_19
-__LBB20_19:                             # %while.cond33
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, -92
+	ldi	r2, end
+	ldw	r2, r2
+	cmp	r5, r2
+	beq	__LBB24_7
+	br	__LBB24_6
+__LBB24_6:                              # %if.end6
+                                        #   in Loop: Header=BB24_3 Depth=1
+	ldi	r2, 31
+	cmp	r0, r2
+	movens	r1, r0
+	blo	__LBB24_3
+	br	__LBB24_7
+__LBB24_4:                              # %if.then5
+	add	r5, 1
+	shra	r5, r1, 8
+	shra	r1, r1, 15-8
+	shr	r1, r1, 8
+	shr	r1, r1, 11-8
+	add r5, r1, r1
+	ldi	r2, -32
+	and r1, r2, r1
+	sub r5, r1, r1
+	ldi	r2, end
+	stw	r2, r1
+	movens	r0, r1
+	br	__LBB24_7
+__LBB24_7:                              # %while.end
+	ldi	r0, -39
 	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	ldsb	r0, r0
-	ldi	r1, 32
-	cmp	r0, r1
-	bne	__LBB20_21
-	br	__LBB20_20
-__LBB20_20:                             # %while.body37
-                                        #   in Loop: Header=BB20_19 Depth=1
-	ldi	r0, -92
-	add	r0, fp, r2
-	ldi	r3, 1
-	ldb	r2, r3, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
+	stb	r0, r1, r3
+	stb	r4, r3
+	ldi	r0, queue+1
+	stb	r0, r3
+	ldi	r0, queue+2
+	stb	r0, r3
+	ldi	r0, queue+3
+	stb	r0, r3
+	ldi	r0, queue+4
+	stb	r0, r3
+	ldi	r0, queue+5
+	stb	r0, r3
+	ldi	r0, queue+6
+	stb	r0, r3
+	ldi	r0, queue+7
+	stb	r0, r3
+	ldi	r0, queue+8
+	stb	r0, r3
+	ldi	r0, queue+9
+	stb	r0, r3
+	ldi	r0, queue+10
+	stb	r0, r3
+	ldi	r0, queue+11
+	stb	r0, r3
+	ldi	r0, queue+12
+	stb	r0, r3
+	ldi	r0, queue+13
+	stb	r0, r3
+	ldi	r0, queue+14
+	stb	r0, r3
+	ldi	r0, queue+15
+	stb	r0, r3
+	ldi	r0, queue+16
+	stb	r0, r3
+	ldi	r0, queue+17
+	stb	r0, r3
+	ldi	r0, queue+18
+	stb	r0, r3
+	ldi	r0, queue+19
+	stb	r0, r3
+	ldi	r0, queue+20
+	stb	r0, r3
+	ldi	r0, queue+21
+	stb	r0, r3
+	ldi	r0, queue+22
+	stb	r0, r3
+	ldi	r0, queue+23
+	stb	r0, r3
+	ldi	r0, queue+24
+	stb	r0, r3
+	ldi	r0, queue+25
+	stb	r0, r3
+	ldi	r0, queue+26
+	stb	r0, r3
+	ldi	r0, queue+27
+	stb	r0, r3
+	ldi	r0, queue+28
+	stb	r0, r3
+	ldi	r0, queue+29
+	stb	r0, r3
+	ldi	r0, queue+30
+	stb	r0, r3
+	ldi	r0, queue+31
+	stb	r0, r3
+	ldi	r0, head
+	stw	r0, r3
+	ldi	r0, end
+	stw	r0, r3
+	lsb	r1, -39
+	cmp	r1, r3
+	ldi	r5, CURR_CHAR
+	beq	__LBB24_10
+	br	__LBB24_8
+__LBB24_8:                              # %while.body.i.preheader
+	ldi	r0, -39
+	add	r0, fp, r0
 	add	r0, 1
-	shr	r0, r1, 8
-	stb	r2, r3, r1
-	ssb	r0, -92
-	br	__LBB20_19
-__LBB20_21:                             # %while.end39
-	ldi	r1, __L.str.17
-	ldi	r0, -86
+	ldi	r2, 0
+	movens	r1, r3
+__LBB24_9:                              # %while.body.i
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r3, r3
+	stw	r5, r3
+	ldb	r0, r3
+	add	r0, 1
+	cmp	r3, r2
+	bne	__LBB24_9
+	br	__LBB24_10
+__LBB24_10:                             # %print.exit
+	ldi	r0, 10
+	stw	r5, r0
+	ldi	r0, -39
 	add	r0, fp, r0
-	jsr	StringCmp
+	add	r0, 1
+	ldi	r6, 255
+	ldi	r3, 32
+__LBB24_11:                             # %while.cond13
+                                        # =>This Inner Loop Header: Depth=1
+	and r1, r6, r2
+	cmp	r2, r3
+	beq	__LBB24_14
+	br	__LBB24_12
+__LBB24_14:                             # %while.body17
+                                        #   in Loop: Header=BB24_11 Depth=1
+	ldb	r0, r1
+	add	r0, 1
+	br	__LBB24_11
+__LBB24_12:                             # %while.cond13
+	ldi	r4, 0
+	cmp	r2, r4
+	beq	__LBB24_102
+	br	__LBB24_13
+__LBB24_13:                             # %land.lhs.true.preheader
+	ldi	r5, 31
+	movens	r4, r2
+	br	__LBB24_15
+__LBB24_15:                             # %land.lhs.true
+                                        # =>This Inner Loop Header: Depth=1
+	movens	r6, r3
+	and r1, r6, r6
+	cmp	r6, r4
+	beq	__LBB24_19
+	br	__LBB24_16
+__LBB24_16:                             # %land.lhs.true
+                                        #   in Loop: Header=BB24_15 Depth=1
+	cmp	r2, r5
+	bhi	__LBB24_19
+	br	__LBB24_17
+__LBB24_17:                             # %while.body35
+                                        #   in Loop: Header=BB24_15 Depth=1
+	ldi	r6, -72
+	add	r6, fp, r6
+	stb	r6, r2, r1
+	ldb	r0, r2, r1
+	add	r2, 1
+	ldi	r6, 32
+	cmp	r1, r6
+	movens	r3, r6
+	bne	__LBB24_15
+	br	__LBB24_18
+__LBB24_18:                             # %while.end39split
+	add r0, r2, r5
+	sub	r5, 1
+	br	__LBB24_20
+__LBB24_19:                             # %land.lhs.true.while.end39_crit_edge
+	add r0, r2, r5
+	sub	r5, 1
+	movens	r3, r6
+__LBB24_20:                             # %while.end39
+	ldi	r0, -72
+	add	r0, fp, r0
 	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB20_23
-	br	__LBB20_22
-__LBB20_22:                             # %if.then41
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
+	stb	r0, r2, r1
+	ldi	r4, 32
+__LBB24_21:                             # %while.cond41
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r5, r2
+	cmp	r2, r4
+	beq	__LBB24_24
+	br	__LBB24_22
+__LBB24_24:                             # %while.body45
+                                        #   in Loop: Header=BB24_21 Depth=1
+	add	r5, 1
+	br	__LBB24_21
+__LBB24_22:                             # %while.cond41
+	cmp	r2, r1
+	beq	__LBB24_41
+	br	__LBB24_23
+__LBB24_41:                             # %while.end28.i.loopexit409
+	ldi	r0, 1
+	ssw	r0, -98                         # 2-byte Folded Spill
+	ldi	r0, 0
+	ssw	r0, -96                         # 2-byte Folded Spill
+	movens	r5, r0
+__LBB24_42:                             # %while.end28.i
+	add	r0, 1
+__LBB24_43:                             # %while.cond29.i
+                                        # =>This Inner Loop Header: Depth=1
+	and r2, r6, r1
+	cmp	r1, r4
+	beq	__LBB24_45
+	br	__LBB24_44
+__LBB24_45:                             # %while.body33.i
+                                        #   in Loop: Header=BB24_43 Depth=1
+	ldb	r0, r2
+	add	r0, 1
+	br	__LBB24_43
+__LBB24_44:                             # %while.cond29.i
+	ldi	r2, 0
+	cmp	r1, r2
+	beq	__LBB24_47
+	br	__LBB24_46
+__LBB24_46:                             # %land.lhs.true.i
+	lsw	r0, -96                         # 2-byte Folded Reload
+	lsw	r1, -98                         # 2-byte Folded Reload
+	add r0, r1, r0
+	ssw	r0, -96                         # 2-byte Folded Spill
+	br	__LBB24_47
+__LBB24_47:                             # %parseArgs.exit
+	lsw	r0, -72
+	ssw	r0, -94                         # 2-byte Folded Spill
+	cmp	r0, r2
+	movens	r2, r0
+	beq	__LBB24_51
+	br	__LBB24_48
+__LBB24_48:                             # %land.rhs.i.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_49:                             # %land.rhs.i
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.36
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_53
+	br	__LBB24_50
+__LBB24_50:                             # %if.end.i149
+                                        #   in Loop: Header=BB24_49 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_49
+	br	__LBB24_51
+__LBB24_51:                             # %StringCmp.exit
+	ldi	r1, __L.str.36
 	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	jsr	SetCmd
-	br	__LBB20_45
-__LBB20_23:                             # %if.else
-	ldi	r1, __L.str.19
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
 	ldi	r1, 0
 	cmp	r0, r1
-	beq	__LBB20_25
-	br	__LBB20_24
-__LBB20_24:                             # %if.then45
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
+	bne	__LBB24_53
+	br	__LBB24_52
+__LBB24_53:                             # %if.else
+	ldi	r1, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
+	cmp	r0, r1
+	movens	r1, r0
+	beq	__LBB24_57
+	br	__LBB24_54
+__LBB24_54:                             # %land.rhs.i154.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_55:                             # %land.rhs.i154
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.38
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_59
+	br	__LBB24_56
+__LBB24_56:                             # %if.end.i159
+                                        #   in Loop: Header=BB24_55 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_55
+	br	__LBB24_57
+__LBB24_57:                             # %StringCmp.exit167
+	ldi	r1, __L.str.38
 	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	jsr	RuleCmdWrapper
-	br	__LBB20_44
-__LBB20_25:                             # %if.else46
-	ldi	r1, __L.str.21
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
 	ldi	r1, 0
 	cmp	r0, r1
-	beq	__LBB20_27
-	br	__LBB20_26
-__LBB20_26:                             # %if.then50
-	jsr	StopCmd
-	br	__LBB20_43
-__LBB20_27:                             # %if.else51
-	ldi	r1, __L.str.23
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
+	bne	__LBB24_59
+	br	__LBB24_58
+__LBB24_59:                             # %if.else58
 	ldi	r1, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
 	cmp	r0, r1
-	beq	__LBB20_29
-	br	__LBB20_28
-__LBB20_28:                             # %if.then55
-	jsr	StartCmd
-	br	__LBB20_42
-__LBB20_29:                             # %if.else56
-	ldi	r1, __L.str.25
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
-	ldi	r1, 0
-	cmp	r0, r1
-	beq	__LBB20_31
-	br	__LBB20_30
-__LBB20_30:                             # %if.then60
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
+	movens	r1, r0
+	beq	__LBB24_63
+	br	__LBB24_60
+__LBB24_60:                             # %land.rhs.i169.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_61:                             # %land.rhs.i169
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.40
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_68
+	br	__LBB24_62
+__LBB24_62:                             # %if.end.i174
+                                        #   in Loop: Header=BB24_61 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_61
+	br	__LBB24_63
+__LBB24_63:                             # %StringCmp.exit182
+	ldi	r1, __L.str.40
 	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	jsr	FillCmdWrapper
-	br	__LBB20_41
-__LBB20_31:                             # %if.else61
-	ldi	r1, __L.str.27
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
 	ldi	r1, 0
 	cmp	r0, r1
-	beq	__LBB20_33
-	br	__LBB20_32
-__LBB20_32:                             # %if.then65
-	jsr	CleanCmd
-	br	__LBB20_40
-__LBB20_33:                             # %if.else66
-	ldi	r1, __L.str.29
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
+	bne	__LBB24_68
+	br	__LBB24_64
+__LBB24_68:                             # %if.else64
 	ldi	r1, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
 	cmp	r0, r1
-	beq	__LBB20_35
-	br	__LBB20_34
-__LBB20_34:                             # %if.then70
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
+	movens	r1, r0
+	beq	__LBB24_72
+	br	__LBB24_69
+__LBB24_69:                             # %land.rhs.i186.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_70:                             # %land.rhs.i186
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.42
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_74
+	br	__LBB24_71
+__LBB24_71:                             # %if.end.i191
+                                        #   in Loop: Header=BB24_70 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_70
+	br	__LBB24_72
+__LBB24_72:                             # %StringCmp.exit199
+	ldi	r1, __L.str.42
 	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	jsr	HelpCmd
-	br	__LBB20_39
-__LBB20_35:                             # %if.else71
-	ldi	r1, __L.str.31
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	StringCmp
 	ldi	r1, 0
 	cmp	r0, r1
-	beq	__LBB20_37
-	br	__LBB20_36
-__LBB20_36:                             # %if.then75
-	ldi	r0, -92
-	add	r0, fp, r0
-	ldi	r1, 1
+	bne	__LBB24_74
+	br	__LBB24_73
+__LBB24_74:                             # %if.else70
+	ldi	r1, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
+	cmp	r0, r1
+	movens	r1, r0
+	beq	__LBB24_78
+	br	__LBB24_75
+__LBB24_75:                             # %land.rhs.i201.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_76:                             # %land.rhs.i201
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.44
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_80
+	br	__LBB24_77
+__LBB24_77:                             # %if.end.i206
+                                        #   in Loop: Header=BB24_76 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_76
+	br	__LBB24_78
+__LBB24_78:                             # %StringCmp.exit214
+	ldi	r1, __L.str.44
 	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -92
-	or r0, r1, r0
-	jsr	SetGliderCmdWrapper
-	br	__LBB20_38
-__LBB20_37:                             # %if.else76
-	ldi	r0, __L.str.41
-	jsr	print
-	ldi	r0, -86
-	add	r0, fp, r0
-	jsr	print
-	ldi	r0, __L.str.42
-	jsr	print
-	br	__LBB20_38
-__LBB20_38:                             # %if.end78
-	br	__LBB20_39
-__LBB20_39:                             # %if.end79
-	br	__LBB20_40
-__LBB20_40:                             # %if.end80
-	br	__LBB20_41
-__LBB20_41:                             # %if.end81
-	br	__LBB20_42
-__LBB20_42:                             # %if.end82
-	br	__LBB20_43
-__LBB20_43:                             # %if.end83
-	br	__LBB20_44
-__LBB20_44:                             # %if.end84
-	br	__LBB20_45
-__LBB20_45:                             # %if.end85
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB24_80
+	br	__LBB24_79
+__LBB24_80:                             # %if.else76
+	ldi	r1, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
+	cmp	r0, r1
+	movens	r1, r0
+	beq	__LBB24_84
+	br	__LBB24_81
+__LBB24_81:                             # %land.rhs.i216.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_82:                             # %land.rhs.i216
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.46
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_86
+	br	__LBB24_83
+__LBB24_83:                             # %if.end.i221
+                                        #   in Loop: Header=BB24_82 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_82
+	br	__LBB24_84
+__LBB24_84:                             # %StringCmp.exit229
+	ldi	r1, __L.str.46
+	ldb	r0, r1, r0
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB24_86
+	br	__LBB24_85
+__LBB24_86:                             # %if.else82
+	ldi	r1, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
+	cmp	r0, r1
+	movens	r1, r0
+	beq	__LBB24_90
+	br	__LBB24_87
+__LBB24_87:                             # %land.rhs.i231.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r0
+__LBB24_88:                             # %land.rhs.i231
+                                        # =>This Inner Loop Header: Depth=1
+	ldi	r1, __L.str.50
+	ldb	r0, r1, r1
+	and r6, r3, r6
+	cmp	r6, r1
+	bne	__LBB24_92
+	br	__LBB24_89
+__LBB24_89:                             # %if.end.i236
+                                        #   in Loop: Header=BB24_88 Depth=1
+	ldb	r2, r0, r6
+	add	r0, 1
+	cmp	r6, r4
+	bne	__LBB24_88
+	br	__LBB24_90
+__LBB24_90:                             # %StringCmp.exit244
+	ldi	r1, __L.str.50
+	ldb	r0, r1, r0
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB24_92
+	br	__LBB24_91
+__LBB24_92:                             # %if.else87
+	ldi	r5, 0
+	lsw	r0, -94                         # 2-byte Folded Reload
+	cmp	r0, r5
+	ldi	r1, __L.str.48
+	beq	__LBB24_96
+	br	__LBB24_93
+__LBB24_93:                             # %land.rhs.i246.preheader
+	ldi	r4, 0
+	ldi	r0, -72
+	add	r0, fp, r2
+	add	r2, 1
+	lsw	r6, -94                         # 2-byte Folded Reload
+	movens	r4, r5
+__LBB24_94:                             # %land.rhs.i246
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r5, r1, r0
+	and r6, r3, r6
+	cmp	r6, r0
+	bne	__LBB24_98
+	br	__LBB24_95
+__LBB24_95:                             # %if.end.i251
+                                        #   in Loop: Header=BB24_94 Depth=1
+	ldb	r2, r5, r6
+	add	r5, 1
+	cmp	r6, r4
+	bne	__LBB24_94
+	br	__LBB24_96
+__LBB24_96:                             # %StringCmp.exit259
+	ldb	r5, r1, r0
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB24_98
+	br	__LBB24_97
+__LBB24_98:                             # %if.else93
+	ldi	r0, 69
+	ldi	r5, CURR_CHAR
+	stw	r5, r0
+	ldi	r1, 114
+	stw	r5, r1
+	stw	r5, r1
+	ldi	r0, 111
+	stw	r5, r0
+	stw	r5, r1
+	ldi	r1, 58
+	stw	r5, r1
+	ldi	r3, 32
+	stw	r5, r3
+	ldi	r1, 85
+	stw	r5, r1
+	ldi	r1, 110
+	stw	r5, r1
+	ldi	r2, 107
+	stw	r5, r2
+	stw	r5, r1
+	stw	r5, r0
+	ldi	r2, 119
+	stw	r5, r2
+	stw	r5, r1
+	stw	r5, r3
+	ldi	r2, 99
+	stw	r5, r2
+	stw	r5, r0
+	ldi	r0, 109
+	stw	r5, r0
+	stw	r5, r0
+	ldi	r0, 97
+	stw	r5, r0
+	stw	r5, r1
+	ldi	r0, 100
+	stw	r5, r0
+	stw	r5, r3
+	ldi	r0, 39
+	stw	r5, r0
+	ldi	r1, 0
+	lsw	r3, -94                         # 2-byte Folded Reload
+	cmp	r3, r1
+	beq	__LBB24_101
+	br	__LBB24_99
+__LBB24_99:                             # %while.body.i268.preheader
+	ldi	r2, -72
+	add	r2, fp, r2
+	add	r2, 1
+__LBB24_100:                            # %while.body.i268
+                                        # =>This Inner Loop Header: Depth=1
+	sxt	r3, r4
+	stw	r5, r4
+	ldb	r2, r3
+	add	r2, 1
+	cmp	r3, r1
+	bne	__LBB24_100
+	br	__LBB24_101
+__LBB24_101:                            # %print.exit274
+	stw	r5, r0
+	ldi	r1, 46
+	stw	r5, r1
+	ldi	r2, 32
+	movens	r2, r3
+	stw	r5, r3
+	ldi	r2, 84
+	stw	r5, r2
+	ldi	r2, 121
+	stw	r5, r2
+	ldi	r2, 112
+	stw	r5, r2
+	ldi	r4, 101
+	stw	r5, r4
+	stw	r5, r3
+	stw	r5, r0
+	ldi	r3, 104
+	stw	r5, r3
+	stw	r5, r4
+	ldi	r3, 108
+	stw	r5, r3
+	stw	r5, r2
+	stw	r5, r0
+	stw	r5, r1
+	ldi	r0, 10
+	stw	r5, r0
+__LBB24_102:                            # %cleanup103.sink.split
+	ldi	r0, 62
+	stw	r5, r0
+	ldi	r0, 32
+	stw	r5, r0
+__LBB24_103:                            # %cleanup103
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	108
+	addsp	104
 	pop	fp
 	rts
+__LBB24_23:                             # %while.cond2.preheader.i.preheader
+	ssw	r1, -94                         # 2-byte Folded Spill
+	movens	r5, r1
+	br	__LBB24_25
+__LBB24_27:                             # %while.body6.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	ldi	r0, 1
+	ldb	r1, r0, r2
+	add	r1, 1
+	br	__LBB24_25
+__LBB24_25:                             # %while.cond2.i
+                                        # =>This Loop Header: Depth=1
+                                        #     Child Loop BB24_29 Depth 2
+	and r2, r6, r0
+	ldi	r4, 32
+	cmp	r0, r4
+	beq	__LBB24_27
+	br	__LBB24_26
+__LBB24_26:                             # %while.cond2.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	ldi	r4, 0
+	cmp	r0, r4
+	beq	__LBB24_39
+	br	__LBB24_28
+__LBB24_28:                             # %if.end.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	ldi	r0, -92
+	add	r0, fp, r0
+	lsw	r2, -94                         # 2-byte Folded Reload
+	ssw	r2, -94                         # 2-byte Folded Spill
+	shl	r2, r2, 1
+	stb	r0, r2, r1
+	add r0, r2, r0
+	ssw	r0, -96                         # 2-byte Folded Spill
+	shr	r1, r2, 8
+	ldi	r0, 1
+	lsw	r4, -96                         # 2-byte Folded Reload
+	stb	r4, r0, r2
+	lsw	r4, -94                         # 2-byte Folded Reload
+	add	r4, 1
+	movens	r1, r0
+	ssw	r4, -96                         # 2-byte Folded Spill
+	ssw	r5, -100                        # 2-byte Folded Spill
+__LBB24_29:                             # %while.cond10.i
+                                        #   Parent Loop BB24_25 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	ldb	r0, r1
+	ldi	r2, 32
+	cmp	r1, r2
+	beq	__LBB24_35
+	br	__LBB24_30
+__LBB24_30:                             # %while.cond10.i
+                                        #   in Loop: Header=BB24_29 Depth=2
+	ldi	r2, 0
+	cmp	r1, r2
+	bne	__LBB24_34
+	br	__LBB24_31
+__LBB24_34:                             # %while.body19.i
+                                        #   in Loop: Header=BB24_29 Depth=2
+	add	r0, 1
+	br	__LBB24_29
+__LBB24_35:                             # %if.end27.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	ldi	r1, 9
+	lsw	r2, -94                         # 2-byte Folded Reload
+	cmp	r2, r1
+	ldi	r1, 1
+	ssw	r1, -98                         # 2-byte Folded Spill
+	ldi	r1, 0
+	blo	__LBB24_37
+# %bb.36:                               # %if.end27.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	ssw	r1, -98                         # 2-byte Folded Spill
+__LBB24_37:                             # %if.end27.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	stb	r0, r1
+	ldi	r2, 1
+	ldb	r0, r2, r2
+	cmp	r2, r1
+	beq	__LBB24_40
+	br	__LBB24_38
+__LBB24_38:                             # %if.end27.i
+                                        #   in Loop: Header=BB24_25 Depth=1
+	movens	r0, r1
+	add	r1, 1
+	ldi	r4, 9
+	lsw	r5, -94                         # 2-byte Folded Reload
+	cmp	r5, r4
+	lsw	r4, -96                         # 2-byte Folded Reload
+	lsw	r5, -100                        # 2-byte Folded Reload
+	ssw	r4, -94                         # 2-byte Folded Spill
+	blo	__LBB24_25
+	br	__LBB24_40
+__LBB24_40:                             # %while.end28.i.loopexit408
+	add	r0, 1
+	ldi	r4, 32
+	br	__LBB24_42
+__LBB24_39:                             # %while.end28.i.loopexit
+	ldi	r0, 1
+	ssw	r0, -98                         # 2-byte Folded Spill
+	lsw	r0, -94                         # 2-byte Folded Reload
+	ssw	r0, -96                         # 2-byte Folded Spill
+	movens	r1, r0
+	ldi	r4, 32
+	br	__LBB24_42
+__LBB24_52:                             # %if.then51
+	ldi	r0, -92
+	add	r0, fp, r0
+	lsw	r1, -96                         # 2-byte Folded Reload
+	jsr	SetCmdWrapper
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
+__LBB24_58:                             # %if.then56
+	ldi	r0, -92
+	add	r0, fp, r0
+	lsw	r1, -96                         # 2-byte Folded Reload
+	jsr	RuleCmdWrapper
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
+__LBB24_31:                             # %if.end27.thread.i
+	ldi	r1, 1
+	ldi	r4, 9
+	lsw	r5, -94                         # 2-byte Folded Reload
+	cmp	r5, r4
+	blo	__LBB24_33
+# %bb.32:                               # %if.end27.thread.i
+	movens	r2, r1
+__LBB24_33:                             # %if.end27.thread.i
+	ssw	r1, -98                         # 2-byte Folded Spill
+	ldi	r4, 32
+	lsw	r5, -100                        # 2-byte Folded Reload
+	br	__LBB24_42
+__LBB24_64:                             # %if.then62
+	ldi	r0, 0
+	lsw	r1, -96                         # 2-byte Folded Reload
+	cmp	r1, r0
+	beq	__LBB24_66
+	br	__LBB24_65
+__LBB24_65:                             # %while.body.i.preheader.i
+	ldi	r0, 69
+	ldi	r5, CURR_CHAR
+	stw	r5, r0
+	ldi	r0, 114
+	stw	r5, r0
+	stw	r5, r0
+	ldi	r2, 111
+	stw	r5, r2
+	ssw	r0, -96                         # 2-byte Folded Spill
+	stw	r5, r0
+	ldi	r0, 58
+	stw	r5, r0
+	ldi	r3, 32
+	stw	r5, r3
+	ldi	r0, 39
+	stw	r5, r0
+	ldi	r1, 115
+	stw	r5, r1
+	ldi	r1, 116
+	stw	r5, r1
+	stw	r5, r2
+	ldi	r1, 112
+	stw	r5, r1
+	stw	r5, r0
+	stw	r5, r3
+	ldi	r0, 99
+	stw	r5, r0
+	stw	r5, r2
+	ldi	r0, 109
+	stw	r5, r0
+	ssw	r0, -98                         # 2-byte Folded Spill
+	stw	r5, r0
+	ldi	r6, 97
+	stw	r5, r6
+	ldi	r4, 110
+	stw	r5, r4
+	ldi	r0, 100
+	stw	r5, r0
+	stw	r5, r3
+	ldi	r0, 116
+	ssw	r0, -100                        # 2-byte Folded Spill
+	stw	r5, r0
+	stw	r5, r6
+	ldi	r0, 107
+	stw	r5, r0
+	ldi	r1, 101
+	stw	r5, r1
+	ldi	r0, 115
+	ssw	r0, -94                         # 2-byte Folded Spill
+	stw	r5, r0
+	stw	r5, r3
+	ldi	r0, 117
+	ssw	r0, -102                        # 2-byte Folded Spill
+	ldi	r0, 103
+	ssw	r0, -104                        # 2-byte Folded Spill
+	movens	r4, r0
+	br	__LBB24_67
+__LBB24_73:                             # %if.then68
+	lsw	r1, -96                         # 2-byte Folded Reload
+	jsr	StartCmdWrapper
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
+__LBB24_79:                             # %if.then74
+	ldi	r0, -92
+	add	r0, fp, r0
+	lsw	r1, -96                         # 2-byte Folded Reload
+	jsr	FillCmdWrapper
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
+__LBB24_85:                             # %if.then80
+	lsw	r1, -96                         # 2-byte Folded Reload
+	jsr	CleanCmdWrapper
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
+__LBB24_66:                             # %if.end.i184
+	ldi	r1, START_STOP
+	stw	r1, r0
+	ldi	r1, gmState
+	stw	r1, r0
+	ldi	r0, 100
+	ssw	r0, -94                         # 2-byte Folded Spill
+	ldi	r1, 112
+	ldi	r0, 111
+	ssw	r0, -98                         # 2-byte Folded Spill
+	ldi	r0, 116
+	ssw	r0, -102                        # 2-byte Folded Spill
+	ldi	r0, 115
+	ssw	r0, -104                        # 2-byte Folded Spill
+	ldi	r0, 32
+	ssw	r0, -96                         # 2-byte Folded Spill
+	ldi	r6, 101
+	ldi	r3, 109
+	ldi	r2, 97
+	ldi	r4, 71
+	movens	r1, r0
+	ssw	r6, -100                        # 2-byte Folded Spill
+	ldi	r5, CURR_CHAR
+__LBB24_67:                             # %StopCmdWrapper.exit
+	stw	r5, r4
+	stw	r5, r2
+	stw	r5, r3
+	stw	r5, r6
+	lsw	r2, -96                         # 2-byte Folded Reload
+	stw	r5, r2
+	lsw	r2, -104                        # 2-byte Folded Reload
+	stw	r5, r2
+	lsw	r2, -102                        # 2-byte Folded Reload
+	stw	r5, r2
+	lsw	r2, -98                         # 2-byte Folded Reload
+	stw	r5, r2
+	stw	r5, r1
+	stw	r5, r0
+	lsw	r0, -100                        # 2-byte Folded Reload
+	stw	r5, r0
+	lsw	r0, -94                         # 2-byte Folded Reload
+	stw	r5, r0
+	ldi	r0, 46
+	stw	r5, r0
+	ldi	r0, 10
+	stw	r5, r0
+	br	__LBB24_102
+__LBB24_91:                             # %if.then86
+	movens	r5, r0
+	jsr	HelpCmd
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
+__LBB24_97:                             # %if.then91
+	ldi	r0, -92
+	add	r0, fp, r0
+	lsw	r1, -96                         # 2-byte Folded Reload
+	jsr	SetGliderCmdWrapper
+	ldi	r5, CURR_CHAR
+	br	__LBB24_102
                                         # -- End function
 main>                                   # -- Begin function main
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
 	addsp	0
-	ldi	r0, __L.str.43
-	jsr	print
 	jsr	parse
 	ldi	r0, 0
 	addsp	0
@@ -1881,8 +5401,11 @@ main>                                   # -- Begin function main
 	rts
                                         # -- End function
 ### SECTION: .bss
+gmState>                                # @gmState
+	dc	0                               # 0x0
+
 queue>                                  # @queue
-	ds	64
+	ds	32
 
 head>                                   # @head
 	dc	0                               # 0x0
@@ -1891,110 +5414,71 @@ end>                                    # @end
 	dc	0                               # 0x0
 
 ### SECTION: .rodata.str1.1
-__L.str:                                # @.str
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
-	db	58
+__L.str.11:                             # @.str.11
 	db	32
-	db	67
-	db	111
-	db	111
-	db	114
-	db	100
-	db	105
-	db	110
+	db	85
+	db	115
 	db	97
-	db	116
+	db	103
 	db	101
-	db	115
-	db	32
-	db	111
-	db	117
-	db	116
-	db	32
-	db	111
-	db	102
-	db	32
-	db	98
-	db	111
-	db	117
-	db	110
-	db	100
-	db	115
-	db	46
-	db	10
-	db	0
-
-__L.str.1:                              # @.str.1
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
 	db	58
 	db	32
-	db	86
+	db	102
+	db	105
+	db	108
+	db	108
+	db	32
+	db	60
+	db	120
+	db	49
+	db	62
+	db	32
+	db	60
+	db	121
+	db	49
+	db	62
+	db	32
+	db	60
+	db	120
+	db	50
+	db	62
+	db	32
+	db	60
+	db	121
+	db	50
+	db	62
+	db	32
+	db	60
+	db	118
 	db	97
 	db	108
-	db	117
+	db	62
+	db	32
+	db	119
+	db	104
 	db	101
-	db	32
-	db	109
-	db	117
-	db	115
-	db	116
-	db	32
-	db	98
-	db	101
-	db	32
-	db	48
-	db	32
-	db	111
 	db	114
+	db	101
 	db	32
+	db	120
 	db	49
-	db	46
-	db	10
-	db	0
-
-__L.str.2:                              # @.str.2
-	db	71
-	db	97
-	db	109
-	db	101
+	db	60
+	db	61
+	db	120
+	db	50
+	db	44
 	db	32
-	db	115
-	db	116
-	db	97
-	db	114
-	db	116
-	db	101
-	db	100
+	db	121
+	db	49
+	db	60
+	db	61
+	db	121
+	db	50
 	db	46
 	db	10
 	db	0
 
-__L.str.3:                              # @.str.3
-	db	71
-	db	97
-	db	109
-	db	101
-	db	32
-	db	115
-	db	116
-	db	111
-	db	112
-	db	112
-	db	101
-	db	100
-	db	46
-	db	10
-	db	0
-
-__L.str.4:                              # @.str.4
+__L.str.15:                             # @.str.15
 	db	69
 	db	114
 	db	114
@@ -2010,6 +5494,741 @@ __L.str.4:                              # @.str.4
 	db	105
 	db	100
 	db	32
+	db	110
+	db	117
+	db	109
+	db	98
+	db	101
+	db	114
+	db	32
+	db	111
+	db	102
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	114
+	db	117
+	db	108
+	db	101
+	db	39
+	db	46
+	db	10
+	db	32
+	db	85
+	db	115
+	db	97
+	db	103
+	db	101
+	db	58
+	db	32
+	db	114
+	db	117
+	db	108
+	db	101
+	db	32
+	db	98
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
+	db	62
+	db	32
+	db	115
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
+	db	62
+	db	10
+	db	0
+
+__L.str.16:                             # @.str.16
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	102
+	db	111
+	db	114
+	db	109
+	db	97
+	db	116
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	114
+	db	117
+	db	108
+	db	101
+	db	39
+	db	46
+	db	10
+	db	32
+	db	77
+	db	117
+	db	115
+	db	116
+	db	32
+	db	98
+	db	101
+	db	32
+	db	39
+	db	98
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
+	db	62
+	db	32
+	db	115
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
+	db	62
+	db	39
+	db	46
+	db	10
+	db	0
+
+__L.str.18:                             # @.str.18
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	110
+	db	117
+	db	109
+	db	98
+	db	101
+	db	114
+	db	32
+	db	111
+	db	102
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	115
+	db	101
+	db	116
+	db	39
+	db	46
+	db	10
+	db	32
+	db	85
+	db	115
+	db	97
+	db	103
+	db	101
+	db	58
+	db	32
+	db	115
+	db	101
+	db	116
+	db	32
+	db	60
+	db	120
+	db	62
+	db	32
+	db	60
+	db	121
+	db	62
+	db	32
+	db	60
+	db	118
+	db	97
+	db	108
+	db	62
+	db	10
+	db	0
+
+__L.str.19:                             # @.str.19
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	115
+	db	101
+	db	116
+	db	39
+	db	46
+	db	10
+	db	32
+	db	69
+	db	110
+	db	115
+	db	117
+	db	114
+	db	101
+	db	32
+	db	120
+	db	44
+	db	32
+	db	121
+	db	44
+	db	32
+	db	118
+	db	97
+	db	108
+	db	32
+	db	97
+	db	114
+	db	101
+	db	32
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	105
+	db	110
+	db	116
+	db	101
+	db	103
+	db	101
+	db	114
+	db	115
+	db	46
+	db	10
+	db	0
+
+__L.str.20:                             # @.str.20
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	110
+	db	117
+	db	109
+	db	98
+	db	101
+	db	114
+	db	32
+	db	111
+	db	102
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	102
+	db	105
+	db	108
+	db	108
+	db	39
+	db	46
+	db	10
+	db	32
+	db	85
+	db	115
+	db	97
+	db	103
+	db	101
+	db	58
+	db	32
+	db	102
+	db	105
+	db	108
+	db	108
+	db	32
+	db	60
+	db	120
+	db	49
+	db	62
+	db	32
+	db	60
+	db	121
+	db	49
+	db	62
+	db	32
+	db	60
+	db	120
+	db	50
+	db	62
+	db	32
+	db	60
+	db	121
+	db	50
+	db	62
+	db	32
+	db	60
+	db	118
+	db	97
+	db	108
+	db	62
+	db	10
+	db	0
+
+__L.str.21:                             # @.str.21
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	102
+	db	105
+	db	108
+	db	108
+	db	39
+	db	46
+	db	10
+	db	32
+	db	69
+	db	110
+	db	115
+	db	117
+	db	114
+	db	101
+	db	32
+	db	99
+	db	111
+	db	111
+	db	114
+	db	100
+	db	105
+	db	110
+	db	97
+	db	116
+	db	101
+	db	115
+	db	32
+	db	97
+	db	110
+	db	100
+	db	32
+	db	118
+	db	97
+	db	108
+	db	117
+	db	101
+	db	32
+	db	97
+	db	114
+	db	101
+	db	32
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	105
+	db	110
+	db	116
+	db	101
+	db	103
+	db	101
+	db	114
+	db	115
+	db	46
+	db	10
+	db	0
+
+__L.str.24:                             # @.str.24
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	110
+	db	117
+	db	109
+	db	98
+	db	101
+	db	114
+	db	32
+	db	111
+	db	102
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	115
+	db	101
+	db	116
+	db	45
+	db	103
+	db	108
+	db	105
+	db	100
+	db	101
+	db	114
+	db	39
+	db	46
+	db	10
+	db	32
+	db	85
+	db	115
+	db	97
+	db	103
+	db	101
+	db	58
+	db	32
+	db	115
+	db	101
+	db	116
+	db	45
+	db	103
+	db	108
+	db	105
+	db	100
+	db	101
+	db	114
+	db	32
+	db	60
+	db	120
+	db	62
+	db	32
+	db	60
+	db	121
+	db	62
+	db	10
+	db	0
+
+__L.str.25:                             # @.str.25
+	db	69
+	db	114
+	db	114
+	db	111
+	db	114
+	db	58
+	db	32
+	db	73
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	97
+	db	114
+	db	103
+	db	117
+	db	109
+	db	101
+	db	110
+	db	116
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	39
+	db	115
+	db	101
+	db	116
+	db	45
+	db	103
+	db	108
+	db	105
+	db	100
+	db	101
+	db	114
+	db	39
+	db	46
+	db	10
+	db	32
+	db	69
+	db	110
+	db	115
+	db	117
+	db	114
+	db	101
+	db	32
+	db	120
+	db	32
+	db	97
+	db	110
+	db	100
+	db	32
+	db	121
+	db	32
+	db	97
+	db	114
+	db	101
+	db	32
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	32
+	db	105
+	db	110
+	db	116
+	db	101
+	db	103
+	db	101
+	db	114
+	db	115
+	db	46
+	db	10
+	db	0
+
+__L.str.29:                             # @.str.29
+	db	32
+	db	114
+	db	117
+	db	108
+	db	101
+	db	32
+	db	98
+	db	60
+	db	110
+	db	117
+	db	109
+	db	115
+	db	62
+	db	32
+	db	115
+	db	60
+	db	110
+	db	117
+	db	109
+	db	115
+	db	62
+	db	32
+	db	32
+	db	32
+	db	45
+	db	32
+	db	83
+	db	101
+	db	116
+	db	32
+	db	66
+	db	47
+	db	83
+	db	32
+	db	114
+	db	117
+	db	108
+	db	101
+	db	115
+	db	32
+	db	40
+	db	101
+	db	46
+	db	103
+	db	46
+	db	44
+	db	32
+	db	114
+	db	117
+	db	108
+	db	101
+	db	32
+	db	98
+	db	51
+	db	32
+	db	115
+	db	50
+	db	51
+	db	41
+	db	10
+	db	0
+
+__L.str.32:                             # @.str.32
+	db	32
+	db	102
+	db	105
+	db	108
+	db	108
+	db	32
+	db	60
+	db	120
+	db	49
+	db	62
+	db	32
+	db	60
+	db	121
+	db	49
+	db	62
+	db	32
+	db	60
+	db	120
+	db	50
+	db	62
+	db	32
+	db	60
+	db	121
+	db	50
+	db	62
+	db	32
+	db	60
+	db	118
+	db	97
+	db	108
+	db	62
+	db	32
+	db	45
+	db	32
+	db	70
+	db	105
+	db	108
+	db	108
+	db	32
 	db	114
 	db	101
 	db	99
@@ -2020,345 +6239,85 @@ __L.str.4:                              # @.str.4
 	db	108
 	db	101
 	db	32
-	db	99
-	db	111
-	db	111
-	db	114
-	db	100
+	db	40
 	db	105
 	db	110
-	db	97
-	db	116
-	db	101
+	db	99
+	db	108
+	db	117
 	db	115
-	db	32
-	db	102
-	db	111
-	db	114
-	db	32
-	db	102
 	db	105
-	db	108
-	db	108
-	db	46
-	db	10
-	db	0
-
-__L.str.5:                              # @.str.5
-	db	70
-	db	105
-	db	108
-	db	108
-	db	32
-	db	99
-	db	111
-	db	109
-	db	112
-	db	108
-	db	101
-	db	116
-	db	101
-	db	46
-	db	10
-	db	0
-
-### SECTION: .rodata.cst4
-__L__const.CleanCmd.e:                  # @__const.CleanCmd.e
-	dc	32                              # 0x20
-	dc	32                              # 0x20
-
-### SECTION: .rodata.str1.1
-__L.str.6:                              # @.str.6
-	db	70
-	db	105
-	db	101
-	db	108
-	db	100
-	db	32
-	db	99
-	db	108
-	db	101
-	db	97
-	db	114
-	db	101
-	db	100
-	db	46
-	db	10
-	db	0
-
-__L.str.7:                              # @.str.7
-	ds	1
-
-__L.str.8:                              # @.str.8
-	db	65
 	db	118
-	db	97
-	db	105
-	db	108
-	db	97
-	db	98
-	db	108
 	db	101
-	db	32
-	db	99
-	db	111
-	db	109
-	db	109
-	db	97
-	db	110
-	db	100
-	db	115
-	db	58
-	db	10
-	db	0
-
-__L.str.9:                              # @.str.9
-	db	32
-	db	115
-	db	101
-	db	116
-	db	32
-	db	60
-	db	120
-	db	62
-	db	32
-	db	60
-	db	121
-	db	62
-	db	32
-	db	60
-	db	118
-	db	97
-	db	108
-	db	62
-	db	32
-	db	45
-	db	32
-	db	115
-	db	101
-	db	116
-	db	32
-	db	99
-	db	101
-	db	108
-	db	108
-	db	32
-	db	40
-	db	120
-	db	44
-	db	121
-	db	41
-	db	32
-	db	116
-	db	111
-	db	32
-	db	118
-	db	97
-	db	108
-	db	32
-	db	40
-	db	48
-	db	47
-	db	49
 	db	41
 	db	10
 	db	0
 
-__L.str.10:                             # @.str.10
+__L.str.33:                             # @.str.33
 	db	32
-	db	114
-	db	117
+	db	99
 	db	108
 	db	101
-	db	32
-	db	60
-	db	98
-	db	111
-	db	114
+	db	97
 	db	110
-	db	62
 	db	32
-	db	60
-	db	115
-	db	117
-	db	114
-	db	62
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
 	db	32
 	db	45
 	db	32
-	db	115
+	db	67
+	db	108
 	db	101
-	db	116
-	db	32
-	db	98
-	db	105
+	db	97
 	db	114
+	db	32
 	db	116
 	db	104
-	db	47
-	db	115
-	db	117
-	db	114
-	db	118
-	db	105
-	db	118
-	db	97
-	db	108
-	db	32
-	db	114
-	db	117
-	db	108
 	db	101
-	db	115
 	db	32
-	db	40
-	db	98
-	db	105
-	db	116
-	db	109
-	db	97
-	db	115
-	db	107
-	db	41
-	db	10
-	db	0
-
-__L.str.11:                             # @.str.11
-	db	32
-	db	115
-	db	116
-	db	111
-	db	112
-	db	32
-	db	45
-	db	32
-	db	115
-	db	116
-	db	111
-	db	112
-	db	32
-	db	103
-	db	97
-	db	109
 	db	101
-	db	10
-	db	0
-
-__L.str.12:                             # @.str.12
-	db	32
-	db	115
-	db	116
-	db	97
-	db	114
-	db	116
-	db	32
-	db	45
-	db	32
-	db	115
-	db	116
-	db	97
-	db	114
-	db	116
-	db	32
-	db	103
-	db	97
-	db	109
-	db	101
-	db	10
-	db	0
-
-__L.str.13:                             # @.str.13
-	db	32
-	db	102
-	db	105
-	db	108
-	db	108
-	db	32
-	db	60
-	db	120
-	db	49
-	db	62
-	db	32
-	db	60
-	db	121
-	db	49
-	db	62
-	db	32
-	db	60
-	db	120
-	db	50
-	db	62
-	db	32
-	db	60
-	db	121
-	db	50
-	db	62
-	db	32
-	db	60
-	db	118
-	db	97
-	db	108
-	db	62
-	db	32
-	db	45
-	db	32
-	db	102
-	db	105
-	db	108
-	db	108
-	db	32
-	db	114
-	db	101
-	db	99
-	db	116
-	db	32
-	db	40
-	db	120
-	db	49
-	db	44
-	db	121
-	db	49
-	db	41
-	db	45
-	db	40
-	db	120
-	db	50
-	db	45
-	db	49
-	db	44
-	db	121
-	db	50
-	db	45
-	db	49
-	db	41
-	db	10
-	db	0
-
-__L.str.14:                             # @.str.14
-	db	32
-	db	99
-	db	108
-	db	101
-	db	97
 	db	110
-	db	32
-	db	45
-	db	32
-	db	99
-	db	108
-	db	101
-	db	97
+	db	116
+	db	105
 	db	114
+	db	101
 	db	32
 	db	102
 	db	105
 	db	101
 	db	108
 	db	100
+	db	32
+	db	40
+	db	102
+	db	105
+	db	108
+	db	108
+	db	32
+	db	119
+	db	105
+	db	116
+	db	104
+	db	32
+	db	48
+	db	41
 	db	10
 	db	0
 
-__L.str.15:                             # @.str.15
+__L.str.35:                             # @.str.35
 	db	32
 	db	104
 	db	101
@@ -2367,80 +6326,68 @@ __L.str.15:                             # @.str.15
 	db	32
 	db	91
 	db	99
+	db	111
 	db	109
+	db	109
+	db	97
+	db	110
 	db	100
 	db	93
 	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
+	db	32
 	db	45
 	db	32
-	db	115
+	db	83
 	db	104
 	db	111
 	db	119
 	db	32
+	db	116
+	db	104
+	db	105
+	db	115
+	db	32
 	db	104
 	db	101
 	db	108
 	db	112
-	db	10
-	db	0
-
-__L.str.16:                             # @.str.16
 	db	32
-	db	115
-	db	101
-	db	116
-	db	45
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
+	db	111
 	db	114
 	db	32
-	db	60
-	db	120
-	db	62
-	db	32
-	db	60
-	db	121
-	db	62
-	db	32
-	db	45
-	db	32
+	db	104
+	db	101
+	db	108
 	db	112
-	db	108
-	db	97
-	db	99
-	db	101
 	db	32
-	db	97
-	db	32
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
+	db	102
+	db	111
 	db	114
 	db	32
 	db	97
-	db	116
 	db	32
-	db	40
-	db	120
-	db	44
-	db	121
-	db	41
+	db	99
+	db	111
+	db	109
+	db	109
+	db	97
+	db	110
+	db	100
 	db	10
 	db	0
 
-__L.str.17:                             # @.str.17
+__L.str.36:                             # @.str.36
 	db	115
 	db	101
 	db	116
 	db	0
 
-__L.str.18:                             # @.str.18
+__L.str.37:                             # @.str.37
 	db	85
 	db	115
 	db	97
@@ -2472,10 +6419,29 @@ __L.str.18:                             # @.str.18
 	db	116
 	db	115
 	db	32
+	db	116
+	db	104
+	db	101
+	db	32
 	db	99
 	db	101
 	db	108
 	db	108
+	db	32
+	db	97
+	db	116
+	db	32
+	db	99
+	db	111
+	db	111
+	db	114
+	db	100
+	db	105
+	db	110
+	db	97
+	db	116
+	db	101
+	db	115
 	db	32
 	db	40
 	db	120
@@ -2486,32 +6452,92 @@ __L.str.18:                             # @.str.18
 	db	116
 	db	111
 	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	115
+	db	112
+	db	101
+	db	99
+	db	105
+	db	102
+	db	105
+	db	101
+	db	100
+	db	32
 	db	118
 	db	97
 	db	108
 	db	117
 	db	101
+	db	32
+	db	10
 	db	32
 	db	40
 	db	48
 	db	32
+	db	102
 	db	111
 	db	114
 	db	32
+	db	100
+	db	101
+	db	97
+	db	100
+	db	44
+	db	32
 	db	49
+	db	32
+	db	102
+	db	111
+	db	114
+	db	32
+	db	97
+	db	108
+	db	105
+	db	118
+	db	101
 	db	41
+	db	46
+	db	32
+	db	67
+	db	111
+	db	111
+	db	114
+	db	100
+	db	105
+	db	110
+	db	97
+	db	116
+	db	101
+	db	115
+	db	32
+	db	97
+	db	114
+	db	101
+	db	32
+	db	48
+	db	45
+	db	105
+	db	110
+	db	100
+	db	101
+	db	120
+	db	101
+	db	100
 	db	46
 	db	10
 	db	0
 
-__L.str.19:                             # @.str.19
+__L.str.38:                             # @.str.38
 	db	114
 	db	117
 	db	108
 	db	101
 	db	0
 
-__L.str.20:                             # @.str.20
+__L.str.39:                             # @.str.39
 	db	85
 	db	115
 	db	97
@@ -2524,17 +6550,24 @@ __L.str.20:                             # @.str.20
 	db	108
 	db	101
 	db	32
-	db	60
 	db	98
-	db	111
-	db	114
-	db	110
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
 	db	62
 	db	32
-	db	60
 	db	115
-	db	117
-	db	114
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
 	db	62
 	db	10
 	db	32
@@ -2542,6 +6575,39 @@ __L.str.20:                             # @.str.20
 	db	101
 	db	116
 	db	115
+	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	66
+	db	105
+	db	114
+	db	116
+	db	104
+	db	32
+	db	97
+	db	110
+	db	100
+	db	32
+	db	83
+	db	117
+	db	114
+	db	118
+	db	105
+	db	118
+	db	97
+	db	108
+	db	32
+	db	114
+	db	117
+	db	108
+	db	101
+	db	115
+	db	32
+	db	102
+	db	111
+	db	114
 	db	32
 	db	67
 	db	111
@@ -2564,24 +6630,117 @@ __L.str.20:                             # @.str.20
 	db	105
 	db	102
 	db	101
+	db	46
+	db	10
+	db	32
+	db	60
+	db	100
+	db	105
+	db	103
+	db	105
+	db	116
+	db	115
+	db	62
+	db	32
+	db	97
+	db	114
+	db	101
+	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	110
+	db	117
+	db	109
+	db	98
+	db	101
+	db	114
+	db	115
+	db	32
+	db	111
+	db	102
+	db	32
+	db	110
+	db	101
+	db	105
+	db	103
+	db	104
+	db	98
+	db	111
+	db	117
+	db	114
+	db	115
+	db	32
+	db	114
+	db	101
+	db	113
+	db	117
+	db	105
+	db	114
+	db	101
+	db	100
+	db	46
+	db	10
+	db	32
+	db	69
+	db	120
+	db	97
+	db	109
+	db	112
+	db	108
+	db	101
+	db	58
+	db	32
+	db	39
+	db	114
+	db	117
+	db	108
+	db	101
+	db	32
+	db	98
+	db	51
+	db	32
+	db	115
+	db	50
+	db	51
+	db	39
+	db	32
+	db	40
+	db	115
+	db	116
+	db	97
+	db	110
+	db	100
+	db	97
+	db	114
+	db	100
+	db	32
+	db	67
+	db	111
+	db	110
+	db	119
+	db	97
+	db	121
 	db	32
 	db	114
 	db	117
 	db	108
 	db	101
 	db	115
+	db	41
 	db	46
 	db	10
 	db	0
 
-__L.str.21:                             # @.str.21
+__L.str.40:                             # @.str.40
 	db	115
 	db	116
 	db	111
 	db	112
 	db	0
 
-__L.str.22:                             # @.str.22
+__L.str.41:                             # @.str.41
 	db	85
 	db	115
 	db	97
@@ -2605,11 +6764,6 @@ __L.str.22:                             # @.str.22
 	db	104
 	db	101
 	db	32
-	db	103
-	db	97
-	db	109
-	db	101
-	db	32
 	db	115
 	db	105
 	db	109
@@ -2620,11 +6774,49 @@ __L.str.22:                             # @.str.22
 	db	105
 	db	111
 	db	110
+	db	32
+	db	102
+	db	114
+	db	111
+	db	109
+	db	32
+	db	97
+	db	100
+	db	118
+	db	97
+	db	110
+	db	99
+	db	105
+	db	110
+	db	103
+	db	32
+	db	116
+	db	111
+	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	110
+	db	101
+	db	120
+	db	116
+	db	32
+	db	103
+	db	101
+	db	110
+	db	101
+	db	114
+	db	97
+	db	116
+	db	105
+	db	111
+	db	110
 	db	46
 	db	10
 	db	0
 
-__L.str.23:                             # @.str.23
+__L.str.42:                             # @.str.42
 	db	115
 	db	116
 	db	97
@@ -2632,7 +6824,7 @@ __L.str.23:                             # @.str.23
 	db	116
 	db	0
 
-__L.str.24:                             # @.str.24
+__L.str.43:                             # @.str.43
 	db	85
 	db	115
 	db	97
@@ -2653,7 +6845,10 @@ __L.str.24:                             # @.str.24
 	db	114
 	db	116
 	db	115
-	db	47
+	db	32
+	db	111
+	db	114
+	db	32
 	db	114
 	db	101
 	db	115
@@ -2666,11 +6861,6 @@ __L.str.24:                             # @.str.24
 	db	104
 	db	101
 	db	32
-	db	103
-	db	97
-	db	109
-	db	101
-	db	32
 	db	115
 	db	105
 	db	109
@@ -2681,18 +6871,41 @@ __L.str.24:                             # @.str.24
 	db	105
 	db	111
 	db	110
+	db	44
+	db	32
+	db	97
+	db	100
+	db	118
+	db	97
+	db	110
+	db	99
+	db	105
+	db	110
+	db	103
+	db	32
+	db	103
+	db	101
+	db	110
+	db	101
+	db	114
+	db	97
+	db	116
+	db	105
+	db	111
+	db	110
+	db	115
 	db	46
 	db	10
 	db	0
 
-__L.str.25:                             # @.str.25
+__L.str.44:                             # @.str.44
 	db	102
 	db	105
 	db	108
 	db	108
 	db	0
 
-__L.str.26:                             # @.str.26
+__L.str.45:                             # @.str.45
 	db	85
 	db	115
 	db	97
@@ -2738,6 +6951,8 @@ __L.str.26:                             # @.str.26
 	db	108
 	db	115
 	db	32
+	db	97
+	db	32
 	db	114
 	db	101
 	db	99
@@ -2745,24 +6960,168 @@ __L.str.26:                             # @.str.26
 	db	97
 	db	110
 	db	103
+	db	117
 	db	108
+	db	97
+	db	114
+	db	32
+	db	97
+	db	114
 	db	101
+	db	97
 	db	32
 	db	119
 	db	105
 	db	116
 	db	104
 	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	115
+	db	112
+	db	101
+	db	99
+	db	105
+	db	102
+	db	105
+	db	101
+	db	100
+	db	32
 	db	118
 	db	97
 	db	108
 	db	117
 	db	101
+	db	32
+	db	40
+	db	48
+	db	32
+	db	111
+	db	114
+	db	32
+	db	49
+	db	41
+	db	46
+	db	10
+	db	32
+	db	40
+	db	120
+	db	49
+	db	44
+	db	121
+	db	49
+	db	41
+	db	32
+	db	105
+	db	115
+	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	116
+	db	111
+	db	112
+	db	45
+	db	108
+	db	101
+	db	102
+	db	116
+	db	32
+	db	99
+	db	111
+	db	114
+	db	110
+	db	101
+	db	114
+	db	44
+	db	32
+	db	40
+	db	120
+	db	50
+	db	44
+	db	121
+	db	50
+	db	41
+	db	32
+	db	105
+	db	115
+	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	98
+	db	111
+	db	116
+	db	116
+	db	111
+	db	109
+	db	45
+	db	114
+	db	105
+	db	103
+	db	104
+	db	116
+	db	32
+	db	99
+	db	111
+	db	114
+	db	110
+	db	101
+	db	114
+	db	32
+	db	40
+	db	105
+	db	110
+	db	99
+	db	108
+	db	117
+	db	115
+	db	105
+	db	118
+	db	101
+	db	41
+	db	46
+	db	10
+	db	32
+	db	82
+	db	101
+	db	113
+	db	117
+	db	105
+	db	114
+	db	101
+	db	115
+	db	32
+	db	120
+	db	49
+	db	32
+	db	60
+	db	61
+	db	32
+	db	120
+	db	50
+	db	32
+	db	97
+	db	110
+	db	100
+	db	32
+	db	121
+	db	49
+	db	32
+	db	60
+	db	61
+	db	32
+	db	121
+	db	50
 	db	46
 	db	10
 	db	0
 
-__L.str.27:                             # @.str.27
+__L.str.46:                             # @.str.46
 	db	99
 	db	108
 	db	101
@@ -2770,7 +7129,7 @@ __L.str.27:                             # @.str.27
 	db	110
 	db	0
 
-__L.str.28:                             # @.str.28
+__L.str.47:                             # @.str.47
 	db	85
 	db	115
 	db	97
@@ -2808,18 +7167,280 @@ __L.str.28:                             # @.str.28
 	db	101
 	db	108
 	db	100
+	db	32
+	db	98
+	db	121
+	db	32
+	db	115
+	db	101
+	db	116
+	db	116
+	db	105
+	db	110
+	db	103
+	db	32
+	db	97
+	db	108
+	db	108
+	db	32
+	db	99
+	db	101
+	db	108
+	db	108
+	db	115
+	db	32
+	db	116
+	db	111
+	db	32
+	db	48
+	db	32
+	db	40
+	db	100
+	db	101
+	db	97
+	db	100
+	db	41
+	db	46
+	db	10
+	db	32
+	db	69
+	db	113
+	db	117
+	db	105
+	db	118
+	db	97
+	db	108
+	db	101
+	db	110
+	db	116
+	db	32
+	db	116
+	db	111
+	db	32
+	db	39
+	db	102
+	db	105
+	db	108
+	db	108
+	db	32
+	db	48
+	db	32
+	db	48
+	db	32
+	db	70
+	db	73
+	db	69
+	db	76
+	db	68
+	db	95
+	db	83
+	db	73
+	db	90
+	db	69
+	db	45
+	db	49
+	db	32
+	db	70
+	db	73
+	db	69
+	db	76
+	db	68
+	db	95
+	db	83
+	db	73
+	db	90
+	db	69
+	db	45
+	db	49
+	db	32
+	db	48
+	db	39
 	db	46
 	db	10
 	db	0
 
-__L.str.29:                             # @.str.29
+__L.str.48:                             # @.str.48
+	db	115
+	db	101
+	db	116
+	db	45
+	db	103
+	db	108
+	db	105
+	db	100
+	db	101
+	db	114
+	db	0
+
+__L.str.49:                             # @.str.49
+	db	85
+	db	115
+	db	97
+	db	103
+	db	101
+	db	58
+	db	32
+	db	115
+	db	101
+	db	116
+	db	45
+	db	103
+	db	108
+	db	105
+	db	100
+	db	101
+	db	114
+	db	32
+	db	60
+	db	120
+	db	62
+	db	32
+	db	60
+	db	121
+	db	62
+	db	10
+	db	32
+	db	80
+	db	108
+	db	97
+	db	99
+	db	101
+	db	115
+	db	32
+	db	97
+	db	32
+	db	115
+	db	116
+	db	97
+	db	110
+	db	100
+	db	97
+	db	114
+	db	100
+	db	32
+	db	103
+	db	108
+	db	105
+	db	100
+	db	101
+	db	114
+	db	32
+	db	112
+	db	97
+	db	116
+	db	116
+	db	101
+	db	114
+	db	110
+	db	32
+	db	119
+	db	105
+	db	116
+	db	104
+	db	32
+	db	105
+	db	116
+	db	115
+	db	32
+	db	116
+	db	111
+	db	112
+	db	45
+	db	108
+	db	101
+	db	102
+	db	116
+	db	32
+	db	98
+	db	111
+	db	117
+	db	110
+	db	100
+	db	105
+	db	110
+	db	103
+	db	32
+	db	98
+	db	111
+	db	120
+	db	32
+	db	99
+	db	111
+	db	114
+	db	110
+	db	101
+	db	114
+	db	10
+	db	32
+	db	97
+	db	116
+	db	32
+	db	40
+	db	120
+	db	44
+	db	121
+	db	41
+	db	46
+	db	32
+	db	84
+	db	104
+	db	101
+	db	32
+	db	112
+	db	97
+	db	116
+	db	116
+	db	101
+	db	114
+	db	110
+	db	32
+	db	119
+	db	114
+	db	97
+	db	112
+	db	115
+	db	32
+	db	97
+	db	114
+	db	111
+	db	117
+	db	110
+	db	100
+	db	32
+	db	116
+	db	104
+	db	101
+	db	32
+	db	101
+	db	100
+	db	103
+	db	101
+	db	115
+	db	32
+	db	105
+	db	102
+	db	32
+	db	110
+	db	101
+	db	99
+	db	101
+	db	115
+	db	115
+	db	97
+	db	114
+	db	121
+	db	46
+	db	10
+	db	0
+
+__L.str.50:                             # @.str.50
 	db	104
 	db	101
 	db	108
 	db	112
 	db	0
 
-__L.str.30:                             # @.str.30
+__L.str.51:                             # @.str.51
 	db	85
 	db	115
 	db	97
@@ -2857,17 +7478,14 @@ __L.str.30:                             # @.str.30
 	db	97
 	db	108
 	db	32
+	db	104
+	db	101
+	db	108
+	db	112
+	db	32
 	db	111
 	db	114
 	db	32
-	db	99
-	db	111
-	db	109
-	db	109
-	db	97
-	db	110
-	db	100
-	db	45
 	db	115
 	db	112
 	db	101
@@ -2881,461 +7499,22 @@ __L.str.30:                             # @.str.30
 	db	101
 	db	108
 	db	112
-	db	46
-	db	10
-	db	0
-
-__L.str.31:                             # @.str.31
-	db	115
-	db	101
-	db	116
-	db	45
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
-	db	114
-	db	0
-
-__L.str.32:                             # @.str.32
-	db	85
-	db	115
-	db	97
-	db	103
-	db	101
-	db	58
 	db	32
-	db	115
-	db	101
-	db	116
-	db	45
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
-	db	114
-	db	32
-	db	60
-	db	120
-	db	62
-	db	32
-	db	60
-	db	121
-	db	62
-	db	10
-	db	32
-	db	80
-	db	108
-	db	97
-	db	99
-	db	101
-	db	115
-	db	32
-	db	97
-	db	32
-	db	115
-	db	116
-	db	97
-	db	110
-	db	100
-	db	97
-	db	114
-	db	100
-	db	32
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
-	db	114
-	db	46
-	db	10
-	db	0
-
-__L.str.33:                             # @.str.33
-	db	85
-	db	110
-	db	107
-	db	110
+	db	102
 	db	111
-	db	119
-	db	110
+	db	114
 	db	32
-	db	99
-	db	111
-	db	109
-	db	109
-	db	97
-	db	110
-	db	100
-	db	58
-	db	32
-	db	39
-	db	0
-
-__L.str.34:                             # @.str.34
-	db	39
-	db	46
-	db	32
-	db	84
-	db	121
-	db	112
-	db	101
-	db	32
-	db	39
+	db	116
 	db	104
 	db	101
-	db	108
-	db	112
-	db	39
 	db	32
-	db	102
-	db	111
-	db	114
-	db	32
-	db	108
+	db	103
 	db	105
-	db	115
-	db	116
-	db	46
-	db	10
-	db	0
-
-__L.str.35:                             # @.str.35
-	db	82
-	db	117
-	db	108
-	db	101
-	db	115
-	db	32
-	db	117
-	db	112
-	db	100
-	db	97
-	db	116
-	db	101
-	db	100
-	db	10
-	db	0
-
-__L.str.36:                             # @.str.36
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
-	db	58
-	db	32
-	db	73
-	db	110
 	db	118
-	db	97
-	db	108
-	db	105
-	db	100
-	db	32
-	db	97
-	db	114
-	db	103
-	db	117
-	db	109
 	db	101
 	db	110
-	db	116
-	db	115
 	db	32
-	db	102
-	db	111
-	db	114
-	db	32
-	db	39
-	db	114
-	db	117
-	db	108
-	db	101
-	db	39
-	db	46
-	db	32
-	db	85
-	db	115
-	db	97
-	db	103
-	db	101
-	db	58
-	db	32
-	db	114
-	db	117
-	db	108
-	db	101
-	db	32
-	db	60
-	db	98
-	db	111
-	db	114
-	db	110
-	db	62
-	db	32
-	db	60
-	db	115
-	db	117
-	db	114
-	db	62
-	db	10
-	db	0
-
-__L.str.37:                             # @.str.37
-	db	80
-	db	108
-	db	97
-	db	99
-	db	105
-	db	110
-	db	103
-	db	32
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
-	db	114
-	db	46
-	db	46
-	db	46
-	db	10
-	db	0
-
-__L.str.38:                             # @.str.38
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
-	db	58
-	db	32
-	db	73
-	db	110
-	db	118
-	db	97
-	db	108
-	db	105
-	db	100
-	db	32
-	db	97
-	db	114
-	db	103
-	db	117
-	db	109
-	db	101
-	db	110
-	db	116
-	db	115
-	db	32
-	db	102
-	db	111
-	db	114
-	db	32
-	db	39
-	db	115
-	db	101
-	db	116
-	db	45
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
-	db	114
-	db	39
-	db	46
-	db	32
-	db	85
-	db	115
-	db	97
-	db	103
-	db	101
-	db	58
-	db	32
-	db	115
-	db	101
-	db	116
-	db	45
-	db	103
-	db	108
-	db	105
-	db	100
-	db	101
-	db	114
-	db	32
-	db	60
-	db	120
-	db	62
-	db	32
-	db	60
-	db	121
-	db	62
-	db	10
-	db	0
-
-__L.str.39:                             # @.str.39
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
-	db	58
-	db	32
-	db	73
-	db	110
-	db	118
-	db	97
-	db	108
-	db	105
-	db	100
-	db	32
-	db	97
-	db	114
-	db	103
-	db	117
-	db	109
-	db	101
-	db	110
-	db	116
-	db	115
-	db	32
-	db	102
-	db	111
-	db	114
-	db	32
-	db	39
-	db	115
-	db	101
-	db	116
-	db	39
-	db	46
-	db	32
-	db	85
-	db	115
-	db	97
-	db	103
-	db	101
-	db	58
-	db	32
-	db	115
-	db	101
-	db	116
-	db	32
-	db	60
-	db	120
-	db	62
-	db	32
-	db	60
-	db	121
-	db	62
-	db	32
-	db	60
-	db	118
-	db	97
-	db	108
-	db	62
-	db	10
-	db	0
-
-__L.str.40:                             # @.str.40
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
-	db	58
-	db	32
-	db	73
-	db	110
-	db	118
-	db	97
-	db	108
-	db	105
-	db	100
-	db	32
-	db	97
-	db	114
-	db	103
-	db	117
-	db	109
-	db	101
-	db	110
-	db	116
-	db	115
-	db	32
-	db	102
-	db	111
-	db	114
-	db	32
-	db	39
-	db	102
-	db	105
-	db	108
-	db	108
-	db	39
-	db	46
-	db	32
-	db	85
-	db	115
-	db	97
-	db	103
-	db	101
-	db	58
-	db	32
-	db	102
-	db	105
-	db	108
-	db	108
-	db	32
-	db	60
-	db	120
-	db	49
-	db	62
-	db	32
-	db	60
-	db	121
-	db	49
-	db	62
-	db	32
-	db	60
-	db	120
-	db	50
-	db	62
-	db	32
-	db	60
-	db	121
-	db	50
-	db	62
-	db	32
-	db	60
-	db	118
-	db	97
-	db	108
-	db	62
-	db	10
-	db	0
-
-__L.str.41:                             # @.str.41
-	db	69
-	db	114
-	db	114
-	db	111
-	db	114
-	db	58
-	db	32
-	db	85
-	db	110
-	db	107
-	db	110
-	db	111
-	db	119
-	db	110
-	db	32
+	db	91
 	db	99
 	db	111
 	db	109
@@ -3343,37 +7522,8 @@ __L.str.41:                             # @.str.41
 	db	97
 	db	110
 	db	100
-	db	32
-	db	39
-	db	0
-
-__L.str.42:                             # @.str.42
-	db	39
+	db	93
 	db	46
-	db	32
-	db	84
-	db	121
-	db	112
-	db	101
-	db	32
-	db	39
-	db	104
-	db	101
-	db	108
-	db	112
-	db	39
-	db	46
-	db	10
-	db	0
-
-__L.str.43:                             # @.str.43
-	db	105
-	db	110
-	db	32
-	db	109
-	db	97
-	db	105
-	db	110
 	db	10
 	db	0
 

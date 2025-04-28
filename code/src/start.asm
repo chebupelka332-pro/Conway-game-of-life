@@ -61,10 +61,10 @@ _main:
         tst r0
     is nz
         clr r0
-        jsr main
 
-        ldi r0, in_msg
-        jsr _print
+        di
+        jsr main
+        ei
 
         ldi r0, cmdFlag
         ldi r1, 0
@@ -80,49 +80,74 @@ _kb_isr:
     ldi r6, CURR_CHAR
     ldb r6, r2
 
+    ldi r7, 31             # маска для кольцевого буфера (размер 32)
+    ldi r5, head
+    ldw r5, r4             # r4 = head
+    ldi r5, end
+    ldw r5, r1             # r1 = end
+
     if
-        ldi r1, end
-        ldw r1, r1
-
-        inc r1
-        ldi r3, 31
-        and r3, r1
-
-        ldi r4, head
-        ldw r4, r4
-
+        # проверка на backspace
+        ldi r0, 0x08
+        cmp r2, r0
+    is eq
         cmp r1, r4
+        if
+        is ne
+            dec r1
+            and r7, r1
+            ldi r0, end
+            st r0, r1
+            stb r6, r2             # echo обратно на консоль
+        fi
+        restore
+        rti
+    fi
+
+    stb r6, r2             # echo обратно на консоль
+
+    # не backspace
+    inc r1
+    and r7, r1
+
+    if
+        cmp r1, r4        
     is ne
         dec r1
-        and r3, r1
+        and r7, r1
 
-        stb r6, r2
-        if
-           ldi r0, 0x0a
-           cmp r2, r0 # end of command
-        is eq
-            ldi r0, cmdFlag
-            ldi r5, 1
-            stw r0, r5 
-            clr r2
-        fi
         ldi r5, queue
-        stb r5, r1, r2
+
+        if
+            # проверка на enter
+            ldi r0, 0x0a
+            cmp r2, r0
+        is eq
+            ldi r2, 0         # заменяем r2 на 0 (терминатор строки)
+            ldi r0, cmdFlag
+            ldi r3, 1
+            stw r0, r3
+        fi
+
+        stb r5, r1, r2        # кладем либо символ, либо 0
 
         inc r1
-        and  r3, r1 
-
+        and r7, r1
         ldi r0, end
         st r0, r1
     else
-        # print "Too long!" error
         ldi r0, len_error
         jsr _print
-        jsr qInit # проверить вызов!!!
+        jsr qInit
     fi
 
     restore
     rti
+
+
+
+
+
 
 _print:
     push r1
@@ -139,7 +164,7 @@ _print:
     pop r1
     rts
 
-len_error: dc "Your command is too long!",0x0a,0
+len_error: dc 0x0a,"Your command is too long!",0x0a,"> ",0
 in_msg: dc "> ",0
 
 cmdFlag: dc 0

@@ -16,40 +16,23 @@ volatile extern int LINE_ADR;
 volatile extern int CELL_ADR;
 volatile extern int VALUE;
 
-//---- QUEUE VARIABLES ----
+//---- GLOBAL VARIABLES ----
 
 volatile char queue[QSIZE];
 volatile int head;
 volatile int end;
-
-//---- QUEUE FUNCTIONS ----
-
-void qInit()
-{
-    for (int i = 0; i < QSIZE; i++)
-        queue[i] = 0;
-    head = 0;
-    end = 0;
-}
+volatile int gmState = 0;
 
 //---- STRING FUNCTIONS ----
 
 int isNum(char symbol)
 {
-    if (symbol >= '0' && symbol <= '9')
-        return 1;
-    return 0;
+    return (symbol >= '0' && symbol <= '9');
 }
 
 int isAlpha(char symbol)
 {
-    if (symbol >= 'a' && symbol <= 'z')
-        return 1;
-    if (symbol >= 'A' && symbol <= 'Z')
-         return 1;
-    if (symbol == '-')
-         return 1;
-    return 0;
+    return ((symbol >= 'a' && symbol <= 'z') || (symbol >= 'A' && symbol <= 'Z') || (symbol == '-'));
 }
 
 void print(char *str)
@@ -87,18 +70,76 @@ int my_mul(int a, int b)
     return res;
 }
 
-int my_atoi(char **p)
+int StringTrimRight(char *str)
+{
+    int len = StringLen(str);
+    while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len - 1] == '\t'))
+        str[--len] = NULL;
+    return len;
+}
+
+int parseArgs(char *p, char *args[], int max_args)
+{
+    int count = 0;
+    while (*p && count < max_args)
+    {
+        while (*p == ' ') p++;
+        if (*p == NULL) break;
+        args[count++] = p;
+        while (*p != ' ' && *p != NULL) p++;
+        if (*p != NULL) *p++ = NULL;
+    }
+    return count;
+}
+
+int my_atoi_safe(char *str, int *out)
 {
     int val = 0;
-    int digits_found = 0;
-    while (**p == ' ') (*p)++;
-    while (isNum(**p))
+    int found = 0;
+    while (*str == ' ') str++;
+    if (!isNum(*str)) return 0;
+    while (isNum(*str))
     {
-        val = my_mul(val, 10) + (**p - '0');
-        (*p)++;
-        digits_found++;
+        val = my_mul(val, 10) + (*str - '0');
+        str++;
+        found = 1;
     }
-    return digits_found ? val : -1;
+    *out = val;
+    return found;
+}
+
+int pow2(int n)
+{
+    int result = 1;
+    for (int i = 1; i < n; i++)
+        result = result + result;
+    return result;
+}
+
+int parseRuleArg(char *p)
+{
+    int result = 0;
+    while (*p)
+    {
+        if (isNum(*p))
+        {
+            int bit = *p - '0';
+            if (bit >= 0 && bit <= 8)
+                result = result + pow2(bit);
+        }
+        p++;
+    }
+    return result;
+}
+
+//---- QUEUE FUNCTIONS ----
+
+void qInit()
+{
+    for (int i = 0; i < QSIZE; i++)
+        queue[i] = 0;
+    head = 0;
+    end = 0;
 }
 
 //---- COMMAND LOGIC ----
@@ -119,18 +160,19 @@ void SetCommand(int x, int y, int val)
     LINE_ADR = y;
     VALUE = val;
     UPDATE = 1;
-    UPDATE = 0;
 }
 
-void StartCmd()
+void StartCmdWrapper()
 {
     START_STOP = 1;
+    gmState = 1;
     print("Game started.\n");
 }
 
-void StopCmd()
+void StopCmdWrapper()
 {
     START_STOP = 0;
+    gmState = 0;
     print("Game stopped.\n");
 }
 
@@ -147,120 +189,166 @@ void FillCmd(int *s, int *e, int val)
         print("Error: Value must be 0 or 1.\n");
         return;
     }
+
+    START_STOP = 0;
+
     for (int i = s[0]; i <= e[0]; i++)
+    {
         for (int j = s[1]; j <= e[1]; j++)
-            SetCommand(i, j, val);
+        {
+            CELL_ADR = j;
+            LINE_ADR = i;
+            VALUE = val;
+            UPDATE = 1;
+        }
+    }
+    
+    START_STOP = gmState;
+
     print("Fill complete.\n");
 }
 
 void CleanCmd()
 {
     int s[] = {0, 0};
-    int e[] = {FIELD_SIZE, FIELD_SIZE};
+    int e[] = {FIELD_SIZE - 1, FIELD_SIZE - 1};
     FillCmd(s, e, 0);
     print("Field cleared.\n");
 }
 
+void RuleCmdWrapper(char *p)
+{
+    char *args[2];
+    int count = parseArgs(p, args, 2);
+    if (count != 2)
+    {
+        print("Error: Invalid number of arguments for 'rule'. Usage: rule b<digits> s<digits>\n");
+        return;
+    }
+
+    if (args[0][0] != 'b' || args[1][0] != 's')
+    {
+        print("Error: Invalid format for 'rule'. Must be 'b<digits> s<digits>'.\n");
+        return;
+    }
+
+    BORN = parseRuleArg(args[0] + 1);
+    SURV = parseRuleArg(args[1] + 1);
+    print("Rules updated\n");
+}
+
+void SetCmdWrapper(char *p)
+{
+    char *args[3];
+    int count = parseArgs(p, args, 3);
+
+    if (count != 3)
+    {
+        print("Error: Invalid number of arguments for 'set'. Usage: set <x> <y> <val>\n");
+        return;
+    }
+
+    int x, y, val;
+    if (!my_atoi_safe(args[0], &x) || !my_atoi_safe(args[1], &y) || !my_atoi_safe(args[2], &val))
+    {
+        print("Error: Invalid arguments for 'set'.\n");
+        return;
+    }
+    SetCommand(x, y, val);
+}
+
+void FillCmdWrapper(char *p)
+{
+    char *args[5];
+    int count = parseArgs(p, args, 5);
+    if (count != 5)
+    {
+        print("Error: Invalid number of arguments for 'fill'. Usage: fill <x1> <y1> <x2> <y2> <val>\n");
+        return;
+    }
+
+    int x1, y1, x2, y2, val;
+    if (!my_atoi_safe(args[0], &x1) || !my_atoi_safe(args[1], &y1) ||
+        !my_atoi_safe(args[2], &x2) || !my_atoi_safe(args[3], &y2) ||
+        !my_atoi_safe(args[4], &val))
+    {
+        print("Error: Invalid arguments for 'fill'.\n");
+        return;
+    }
+
+    int s[] = {x1, y1};
+    int e[] = {x2, y2};
+    FillCmd(s, e, val);
+}
+
+void SetGliderCmd(int x, int y)
+{
+    START_STOP = 0;
+
+    print("Placing glider...\n");
+    SetCommand((x + 1) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 2) % FIELD_SIZE, (y + 1) % FIELD_SIZE, 1);
+    SetCommand(x % FIELD_SIZE, (y + 2) % FIELD_SIZE, 1);
+    SetCommand((x + 1) % FIELD_SIZE, (y + 2) % FIELD_SIZE, 1);
+    SetCommand((x + 2) % FIELD_SIZE, (y + 2) % FIELD_SIZE, 1);
+
+    START_STOP = gmState;
+}
+
+void SetGliderCmdWrapper(char *p)
+{
+    char *args[2];
+    int count = parseArgs(p, args, 2);
+    if (count != 2)
+    {
+        print("Error: Invalid number of arguments for 'set-glider'. Usage: set-glider <x> <y>\n");
+        return;
+    }
+
+    int x, y;
+    if (!my_atoi_safe(args[0], &x) || !my_atoi_safe(args[1], &y))
+    {
+        print("Error: Invalid arguments for 'set-glider'.\n");
+        return;
+    }
+    SetGliderCmd(x, y);
+}
+
 void HelpCmd(char *cmd)
 {
+    StringTrimRight(cmd);
+
     if (StringCmp(cmd, ""))
     {
         print("Available commands:\n");
         print(" set <x> <y> <val> - set cell (x,y) to val (0/1)\n");
-        print(" rule <born> <sur> - set birth/survival rules (bitmask)\n");
+        print(" rule b<digits> s<digits> - set birth/survival rules\n");
         print(" stop - stop game\n");
         print(" start - start game\n");
-        print(" fill <x1> <y1> <x2> <y2> <val> - fill rect (x1,y1)-(x2-1,y2-1)\n");
+        print(" fill <x1> <y1> <x2> <y2> <val> - fill rect (x1,y1)-(x2,y2)\n");
         print(" clean - clear field\n");
         print(" help [cmd] - show help\n");
-        print(" set-glider <x> <y> - place a glider at (x,y)\n");
+        print(" set-glider <x> <y> - place a glider\n");
     }
     else if (StringCmp(cmd, "set"))
-        print("Usage: set <x> <y> <val>\n Sets cell (x,y) to value (0 or 1).\n");
+        print("Usage: set <x> <y> <val>\n Sets cell (x,y) to 0 or 1.\n");
     else if (StringCmp(cmd, "rule"))
-        print("Usage: rule <born> <sur>\n Sets Conway's Game of Life rules.\n");
+        print("Usage: rule b<digits> s<digits>\n Sets birth and survival rules.\n");
     else if (StringCmp(cmd, "stop"))
-        print("Usage: stop\n Stops the game simulation.\n");
+        print("Usage: stop\n Stops the simulation.\n");
     else if (StringCmp(cmd, "start"))
-        print("Usage: start\n Starts/resumes the game simulation.\n");
+        print("Usage: start\n Starts the simulation.\n");
     else if (StringCmp(cmd, "fill"))
-        print("Usage: fill <x1> <y1> <x2> <y2> <val>\n Fills rectangle with value.\n");
+        print("Usage: fill <x1> <y1> <x2> <y2> <val>\n Fill a rectangle.\n");
     else if (StringCmp(cmd, "clean"))
-        print("Usage: clean\n Clears the entire field.\n");
-    else if (StringCmp(cmd, "help"))
-        print("Usage: help [command]\n Shows general or command-specific help.\n");
+        print("Usage: clean\n Clears the field.\n");
     else if (StringCmp(cmd, "set-glider"))
-        print("Usage: set-glider <x> <y>\n Places a standard glider.\n");
+        print("Usage: set-glider <x> <y>\n Place a glider at (x,y).\n");
     else
     {
         print("Unknown command: '");
         print(cmd);
         print("'. Type 'help' for list.\n");
-    }
-}
-
-void RuleCmd(int born, int sur)
-{
-    BORN = born;
-    SURV = sur;
-    print("Rules updated\n");
-}
-
-void RuleCmdWrapper(char *p)
-{
-    int born = my_atoi(&p);
-    int sur = my_atoi(&p);
-    if (born == -1 || sur == -1)
-        print("Error: Invalid arguments for 'rule'. Usage: rule <born> <sur>\n");
-    else
-        RuleCmd(born, sur);
-}
-
-void SetGliderCmd(int x, int y)
-{
-    print("Placing glider...\n");
-    SetCommand(x + 1, y, 1);
-    SetCommand(x + 2, y + 1, 1);
-    SetCommand(x, y + 2, 1);
-    SetCommand(x + 1, y + 2, 1);
-    SetCommand(x + 2, y + 2, 1);
-}
-
-void SetGliderCmdWrapper(char *p)
-{
-    int x = my_atoi(&p);
-    int y = my_atoi(&p);
-    if (x == -1 || y == -1)
-        print("Error: Invalid arguments for 'set-glider'. Usage: set-glider <x> <y>\n");
-    else
-        SetGliderCmd(x, y);
-}
-
-void SetCmd(char *p)
-{
-    int x = my_atoi(&p);
-    int y = my_atoi(&p);
-    int val = my_atoi(&p);
-    if (x == -1 || y == -1 || val == -1)
-        print("Error: Invalid arguments for 'set'. Usage: set <x> <y> <val>\n");
-    else
-        SetCommand(x, y, val);
-}
-
-void FillCmdWrapper(char *p)
-{
-    int x1 = my_atoi(&p);
-    int y1 = my_atoi(&p);
-    int x2 = my_atoi(&p);
-    int y2 = my_atoi(&p);
-    int val = my_atoi(&p);
-    if (x1 == -1 || y1 == -1 || x2 == -1 || y2 == -1 || val == -1)
-        print("Error: Invalid arguments for 'fill'. Usage: fill <x1> <y1> <x2> <y2> <val>\n");
-    else
-    {
-        int s[] = {x1, y1};
-        int e[] = {x2, y2};
-        FillCmd(s, e, val);
     }
 }
 
@@ -286,6 +374,7 @@ void parse()
     qInit();
 
     print(cmd_buffer);
+    print("\n");
 
     p = cmd_buffer;
     while (*p == ' ') p++;
@@ -298,13 +387,13 @@ void parse()
     while (*p == ' ') p++;
 
     if (StringCmp(command, "set"))
-        SetCmd(p);
+        SetCmdWrapper(p);
     else if (StringCmp(command, "rule"))
         RuleCmdWrapper(p);
     else if (StringCmp(command, "stop"))
-        StopCmd();
+        StopCmdWrapper();
     else if (StringCmp(command, "start"))
-        StartCmd();
+        StartCmdWrapper();
     else if (StringCmp(command, "fill"))
         FillCmdWrapper(p);
     else if (StringCmp(command, "clean"))
@@ -319,10 +408,10 @@ void parse()
         print(command);
         print("'. Type 'help'.\n");
     }
+    print("> ");
 }
 
 int main()
 {
-    print("in main\n");
     parse();
 }
