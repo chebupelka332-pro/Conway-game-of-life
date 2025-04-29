@@ -16,6 +16,7 @@ volatile extern int SURV;
 volatile extern int LINE_ADR;
 volatile extern int CELL_ADR;
 volatile extern int VALUE;
+volatile extern int RESET;
 
 //---- GLOBAL VARIABLES ----
 
@@ -225,7 +226,6 @@ void SetCommand(int x, int y, int val)
     LINE_ADR = y;
     VALUE = val;
     UPDATE = 1;
-    print("Cell set.\n");
 }
 
 void StartCmdWrapper(char *args[], int count)
@@ -293,10 +293,8 @@ void CleanCmdWrapper(char *args[], int count)
         print("Error: 'clean' command takes no arguments.\n");
         return;
     }
-    print("Clearing field...\n");
-    int s[] = {0, 0};
-    int e[] = {FIELD_SIZE - 1, FIELD_SIZE - 1};
-    FillCmd(s, e, 0);
+    RESET = 1;
+    print("Field cleaned.\n");
 }
 
 void RuleCmdWrapper(char *args[], int count)
@@ -402,43 +400,51 @@ void SetGliderCmdWrapper(char *args[], int count)
     SetGliderCmd(x, y);
 }
 
-void HelpCmd(char *cmd)
+void HelpCmdWrapper(char *args[], int count)
 {
-    StringTrimRight(cmd);
-
-    if (StringCmp(cmd, ""))
+    if (count == 0)
     {
         print("Available commands:\n");
         print(" set <x> <y> <val>      - Set cell (x,y) to val (0 or 1)\n");
         print(" rule b<nums> s<nums>   - Set B/S rules (e.g., rule b3 s23)\n");
-        print(" stop                 - Stop the simulation\n");
-        print(" start                - Start the simulation\n");
+        print(" stop                   - Stop the simulation\n");
+        print(" start                  - Start the simulation\n");
         print(" fill <x1> <y1> <x2> <y2> <val> - Fill rectangle (inclusive)\n");
-        print(" clean                - Clear the entire field (fill with 0)\n");
-        print(" set-glider <x> <y>   - Place a glider at top-left (x,y)\n");
-        print(" help [command]       - Show this help or help for a command\n");
+        print(" clean                  - Clear the entire field (fill with 0)\n");
+        print(" set-glider <x> <y>     - Place a glider at top-left (x,y)\n");
+        print(" help [command]         - Show this help or help for a command\n");
     }
-    else if (StringCmp(cmd, "set"))
-        print("Usage: set <x> <y> <val>\n Sets the cell at coordinates (x,y) to the specified value \n (0 for dead, 1 for alive). Coordinates are 0-indexed.\n");
-    else if (StringCmp(cmd, "rule"))
-        print("Usage: rule b<digits> s<digits>\n Sets the Birth and Survival rules for Conway's Game of Life.\n <digits> are the numbers of neighbours required.\n Example: 'rule b3 s23' (standard Conway rules).\n");
-    else if (StringCmp(cmd, "stop"))
-        print("Usage: stop\n Stops the simulation from advancing to the next generation.\n");
-    else if (StringCmp(cmd, "start"))
-        print("Usage: start\n Starts or resumes the simulation, advancing generations.\n");
-    else if (StringCmp(cmd, "fill"))
-        print("Usage: fill <x1> <y1> <x2> <y2> <val>\n Fills a rectangular area with the specified value (0 or 1).\n (x1,y1) is the top-left corner, (x2,y2) is the bottom-right corner (inclusive).\n Requires x1 <= x2 and y1 <= y2.\n");
-    else if (StringCmp(cmd, "clean"))
-        print("Usage: clean\n Clears the entire field by setting all cells to 0 (dead).\n Equivalent to 'fill 0 0 FIELD_SIZE-1 FIELD_SIZE-1 0'.\n");
-   else if (StringCmp(cmd, "set-glider"))
-        print("Usage: set-glider <x> <y>\n Places a standard glider pattern with its top-left bounding box corner\n at (x,y). The pattern wraps around the edges if necessary.\n");
-    else if (StringCmp(cmd, "help"))
-         print("Usage: help [command]\n Shows general help or specific help for the given [command].\n");
+    else if (count == 1)
+    {
+        char *cmd = args[0];
+
+        if (StringCmp(cmd, "set"))
+            print("Usage: set <x> <y> <val>\n Sets the cell at coordinates (x,y) to the specified value \n (0 for dead, 1 for alive). Coordinates are 0-indexed [0-31].\n");
+        else if (StringCmp(cmd, "rule"))
+            print("Usage: rule b<digits> s<digits>\n Sets the Birth and Survival rules for Conway's Game of Life.\n <digits> are the numbers of neighbours required (0-8).\n Example: 'rule b3 s23' (standard Conway rules).\n Digits can be repeated or out of order (e.g., b331 is same as b13).\n");
+        else if (StringCmp(cmd, "stop"))
+            print("Usage: stop\n Stops the simulation from advancing to the next generation.\n");
+        else if (StringCmp(cmd, "start"))
+            print("Usage: start\n Starts or resumes the simulation, advancing generations according to the current rules.\n");
+        else if (StringCmp(cmd, "fill"))
+            print("Usage: fill <x1> <y1> <x2> <y2> <val>\n Fills a rectangular area with the specified value (0 or 1).\n (x1,y1) is the top-left corner, (x2,y2) is the bottom-right corner (inclusive).\n Requires x1 <= x2 and y1 <= y2, and coordinates within [0-31].\n");
+        else if (StringCmp(cmd, "clean"))
+            print("Usage: clean\n Clears the entire field by setting all cells to 0 (dead).\n Equivalent to 'fill 0 0 31 31 0'.\n");
+        else if (StringCmp(cmd, "set-glider"))
+            print("Usage: set-glider <x> <y>\n Places a standard glider pattern with its top-left bounding box corner\n at (x,y) [0-31]. The pattern wraps around the edges if necessary.\n Pattern:\n   .X.\n   ..X\n   XXX\n");
+        else if (StringCmp(cmd, "help"))
+             print("Usage: help [command]\n Shows general help (if no command specified)\n or specific help for the given [command].\n");
+        else
+        {
+            print("Error: Unknown command '");
+            print(cmd);
+            print("' for help. Type 'help' for a list of commands.\n");
+        }
+    }
     else
     {
-        print("Error: Unknown command '");
-        print(cmd);
-        print("'. Type 'help' for a list of commands.\n");
+        print("Error: Too many arguments for 'help'.\n");
+        print(" Usage: help [command]\n");
     }
 }
 
@@ -472,9 +478,6 @@ void parse()
 
     qInit();
 
-    print(cmd_buffer); // TEST PRINTS, DELETE LATER
-    print("\n");
-
     p = cmd_buffer;
     while (*p == ' ') p++; // Пропустить ведущие пробелы
     if (*p == NULL) 
@@ -507,7 +510,7 @@ void parse()
     else if (StringCmp(command, "clean"))
         CleanCmdWrapper(args, arg_count);
     else if (StringCmp(command, "help"))
-        HelpCmd(p); // Help обрабатывает остаток строки 'p' самостоятельно
+        HelpCmdWrapper(args, arg_count);
     else if (StringCmp(command, "set-glider"))
         SetGliderCmdWrapper(args, arg_count);
     else

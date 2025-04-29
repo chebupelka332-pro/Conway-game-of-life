@@ -179,6 +179,7 @@ SURV> ds 2
 LINE_ADR> ds 2
 CELL_ADR> ds 2
 VALUE> ds 2
+RESET> ds 2
 
 
 
