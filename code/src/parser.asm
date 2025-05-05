@@ -1,5 +1,5 @@
 ### SECTION: .text
-rsect ___src_main_c_41
+rsect ___src_parser_c_41
 
 CURR_CHAR: ext
 CELL_ADR: ext
@@ -547,12 +547,10 @@ __LBB9_9:                               # %if.end25
 pow2>                                   # -- Begin function pow2
 # %bb.0:                                # %entry
 	ldi	r1, 1
-	ldi	r2, 2
-	cmp	r0, r2
+	cmp	r0, r1
 	blt	__LBB10_2
 	br	__LBB10_1
 __LBB10_1:                              # %for.body.preheader
-	sub	r0, 1
 	ldi	r2, 0
 	br	__LBB10_3
 __LBB10_3:                              # %for.body
@@ -570,202 +568,221 @@ parseRuleArg>                           # -- Begin function parseRuleArg
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-90
+	addsp	-88
 	ssw	r4, -2                          # 2-byte Folded Spill
 	ssw	r5, -4                          # 2-byte Folded Spill
 	ssw	r6, -6                          # 2-byte Folded Spill
 	movens	r0, r1
-	ldi	r0, 0
-	ssw	r0, -24
-	ldi	r2, -24
-	add	r2, fp, r2
-	ldi	r3, 2
-	stw	r2, r3, r0
-	ldi	r3, 4
-	stw	r2, r3, r0
-	ldi	r3, 6
-	stw	r2, r3, r0
-	ldi	r3, 8
-	stw	r2, r3, r0
-	ldi	r3, 10
-	stw	r2, r3, r0
-	ldi	r3, 12
-	stw	r2, r3, r0
-	ldi	r3, 14
-	stw	r2, r3, r0
-	ldi	r3, 16
-	stw	r2, r3, r0
-	ldb	r1, r3
-	cmp	r3, r0
+	ldi	r5, 0
+	ssw	r5, -24
+	ldi	r0, -24
+	add	r0, fp, r0
+	ldi	r2, 2
+	stw	r0, r2, r5
+	ldi	r2, 4
+	stw	r0, r2, r5
+	ldi	r2, 6
+	stw	r0, r2, r5
+	ldi	r2, 8
+	stw	r0, r2, r5
+	ldi	r2, 10
+	stw	r0, r2, r5
+	ldi	r2, 12
+	stw	r0, r2, r5
+	ldi	r2, 14
+	stw	r0, r2, r5
+	ldi	r2, 16
+	stw	r0, r2, r5
+	ldb	r1, r2
+	cmp	r2, r5
 	beq	__LBB11_15
 	br	__LBB11_1
 __LBB11_1:                              # %while.body.preheader
 	ldi	r4, 255
 	ldi	r6, 9
-	ldi	r2, 32
-	ssw	r2, -28                         # 2-byte Folded Spill
-	ssw	r0, -26                         # 2-byte Folded Spill
+	ldi	r0, 32
+	ssw	r0, -32                         # 2-byte Folded Spill
+	ldi	r0, -1
+	ssw	r0, -30                         # 2-byte Folded Spill
+	ssw	r5, -28                         # 2-byte Folded Spill
 __LBB11_2:                              # %while.body
                                         # =>This Loop Header: Depth=1
                                         #     Child Loop BB11_9 Depth 2
-	movens	r3, r2
-	sub	r2, 48
-	and r2, r4, r2
-	cmp	r2, r6
+	movens	r2, r0
+	sub	r0, 48
+	and r0, r4, r3
+	cmp	r3, r6
 	bhi	__LBB11_11
 	br	__LBB11_3
-__LBB11_11:                             # %if.else15
+__LBB11_11:                             # %if.else11
                                         #   in Loop: Header=BB11_2 Depth=1
-	and r3, r4, r2
-	ldi	r3, 32
-	cmp	r2, r3
+	and r2, r4, r0
+	ldi	r2, 32
+	cmp	r0, r2
 	beq	__LBB11_13
 	br	__LBB11_12
-__LBB11_12:                             # %if.else15
+__LBB11_12:                             # %if.else11
                                         #   in Loop: Header=BB11_2 Depth=1
-	cmp	r2, r6
+	ldi	r2, 9
+	cmp	r0, r2
 	bne	__LBB11_25
 	br	__LBB11_13
 __LBB11_3:                              # %if.then
                                         #   in Loop: Header=BB11_2 Depth=1
-	and r3, r4, r3
-	movens	r3, r4
-	sub	r4, 48
-	cmp	r4, r0
-	beq	__LBB11_28
-	br	__LBB11_4
-__LBB11_4:                              # %if.end
-                                        #   in Loop: Header=BB11_2 Depth=1
-	cmp	r2, r6
-	bne	__LBB11_6
-	br	__LBB11_5
-__LBB11_6:                              # %if.then8
-                                        #   in Loop: Header=BB11_2 Depth=1
-	shl	r4, r4, 1
-	ldi	r2, -24
-	add	r2, fp, r2
-	movens	r6, r5
-	ldw	r2, r4, r6
-	cmp	r6, r0
-	movens	r5, r6
-	bne	__LBB11_13
-	br	__LBB11_7
-__LBB11_7:                              # %if.then10
-                                        #   in Loop: Header=BB11_2 Depth=1
-	ldi	r6, 50
 	cmp	r3, r6
-	ldi	r6, 1
-	blo	__LBB11_10
-	br	__LBB11_8
-__LBB11_8:                              # %for.body.i64.preheader
+	bne	__LBB11_5
+	br	__LBB11_4
+__LBB11_5:                              # %if.then5
                                         #   in Loop: Header=BB11_2 Depth=1
-	sub	r3, 49
-__LBB11_9:                              # %for.body.i64
+	and r2, r4, r2
+	ssw	r2, -26                         # 2-byte Folded Spill
+	sub	r2, 48
+	shl	r2, r4, 1
+	movens	r5, r0
+	ldi	r5, -24
+	add	r5, fp, r6
+	ldw	r6, r4, r5
+	cmp	r5, r0
+	movens	r0, r5
+	bne	__LBB11_13
+	br	__LBB11_6
+__LBB11_6:                              # %if.then7
+                                        #   in Loop: Header=BB11_2 Depth=1
+	add r6, r4, r4
+	ldi	r0, 49
+	lsw	r6, -26                         # 2-byte Folded Reload
+	cmp	r6, r0
+	blo	__LBB11_8
+	br	__LBB11_7
+__LBB11_7:                              # %for.body.i59.preheader
+                                        #   in Loop: Header=BB11_2 Depth=1
+	ldi	r0, 1
+	br	__LBB11_9
+__LBB11_9:                              # %for.body.i59
                                         #   Parent Loop BB11_2 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
-	shl	r6, r6, 1
-	sub	r3, 1
-	cmp	r3, r0
+	shl	r0, r0, 1
+	sub	r2, 1
+	cmp	r2, r5
 	bne	__LBB11_9
 	br	__LBB11_10
-__LBB11_10:                             # %pow2.exit
-                                        #   in Loop: Header=BB11_2 Depth=1
-	add r2, r4, r2
-	ldi	r3, 1
-	stw	r2, r3
-	lsw	r2, -26                         # 2-byte Folded Reload
-	add r6, r2, r2
-	ssw	r2, -26                         # 2-byte Folded Spill
-	movens	r5, r6
-	br	__LBB11_13
-__LBB11_13:                             # %if.end25
+__LBB11_10:                             # %cleanup
                                         #   in Loop: Header=BB11_2 Depth=1
 	ldi	r2, 1
-	ldb	r1, r2, r3
-	add	r1, 1
+	stw	r4, r2
+	lsw	r2, -28                         # 2-byte Folded Reload
+	add r0, r2, r2
+	ssw	r2, -28                         # 2-byte Folded Spill
+	ldi	r0, 9
 	cmp	r3, r0
+	beq	__LBB11_28
+	br	__LBB11_13
+__LBB11_8:                              # %cleanup.thread92
+                                        #   in Loop: Header=BB11_2 Depth=1
+	ldi	r0, 1
+	stw	r4, r0
+	lsw	r0, -28                         # 2-byte Folded Reload
+	add	r0, 1
+	ssw	r0, -28                         # 2-byte Folded Spill
+	br	__LBB11_13
+__LBB11_13:                             # %if.end21
+                                        #   in Loop: Header=BB11_2 Depth=1
+	ldi	r0, 1
+	ldb	r1, r0, r2
+	add	r1, 1
+	cmp	r2, r5
 	ldi	r4, 255
+	ldi	r6, 9
 	bne	__LBB11_2
 	br	__LBB11_14
 __LBB11_14:                             # %while.end
 	ldi	r0, 0
-	lsw	r1, -26                         # 2-byte Folded Reload
+	lsw	r1, -28                         # 2-byte Folded Reload
 	cmp	r1, r0
-	movens	r1, r0
+	ssw	r1, -30                         # 2-byte Folded Spill
 	bne	__LBB11_28
 	br	__LBB11_15
-__LBB11_15:                             # %land.lhs.true28
-	ldi	r0, 0
-	lsw	r1, -24
-	cmp	r1, r0
+__LBB11_15:                             # %land.lhs.true24
+	ldi	r1, 0
+	lsw	r0, -24
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_16
 __LBB11_16:                             # %for.body.preheader
-	lsw	r1, -24
-	cmp	r1, r0
+	lsw	r0, -24
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_17
 __LBB11_17:                             # %for.cond
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 2
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_18
 __LBB11_18:                             # %for.cond.1
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 4
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_19
 __LBB11_19:                             # %for.cond.2
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 6
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_20
 __LBB11_20:                             # %for.cond.3
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 8
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_21
 __LBB11_21:                             # %for.cond.4
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 10
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_22
 __LBB11_22:                             # %for.cond.5
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 12
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_23
 __LBB11_23:                             # %for.cond.6
 	ldi	r0, -24
 	add	r0, fp, r0
 	ldi	r1, 14
-	ldw	r0, r1, r1
-	ldi	r0, 0
-	cmp	r1, r0
+	ldw	r0, r1, r0
+	ldi	r1, 0
+	ssw	r1, -30                         # 2-byte Folded Spill
+	cmp	r0, r1
 	bne	__LBB11_28
 	br	__LBB11_24
 __LBB11_24:                             # %for.cond.7
@@ -773,258 +790,259 @@ __LBB11_24:                             # %for.cond.7
 	add	r0, fp, r0
 	ldi	r1, 16
 	ldw	r0, r1, r2
-	ldi	r0, 121
-	ssw	r0, -26                         # 2-byte Folded Spill
+	ldi	r1, 121
+	ssw	r1, -26                         # 2-byte Folded Spill
 	ldi	r0, 112
-	ssw	r0, -66                         # 2-byte Folded Spill
+	ssw	r0, -68                         # 2-byte Folded Spill
 	ldi	r0, 98
-	ssw	r0, -82                         # 2-byte Folded Spill
-	ldi	r0, 99
-	ssw	r0, -60                         # 2-byte Folded Spill
-	ldi	r6, 110
-	ldi	r0, 103
-	ssw	r0, -56                         # 2-byte Folded Spill
-	ldi	r5, 101
-	ldi	r0, 108
-	ssw	r0, -44                         # 2-byte Folded Spill
-	ldi	r1, 117
-	ldi	r0, 82
 	ssw	r0, -84                         # 2-byte Folded Spill
+	ldi	r0, 99
+	ssw	r0, -62                         # 2-byte Folded Spill
+	ldi	r0, 103
+	ssw	r0, -58                         # 2-byte Folded Spill
+	ldi	r6, 97
+	ldi	r4, 101
+	ldi	r0, 108
+	ssw	r0, -46                         # 2-byte Folded Spill
+	ldi	r0, 82
+	ssw	r0, -86                         # 2-byte Folded Spill
 	ldi	r3, 32
-	ldi	r4, 114
-	ldi	r0, 69
-	ssw	r0, -28                         # 2-byte Folded Spill
-	ldi	r0, 0
-	cmp	r2, r0
-	ssw	r4, -50                         # 2-byte Folded Spill
-	ssw	r4, -46                         # 2-byte Folded Spill
-	ssw	r3, -40                         # 2-byte Folded Spill
-	ssw	r4, -48                         # 2-byte Folded Spill
-	ssw	r4, -52                         # 2-byte Folded Spill
-	ldi	r4, 58
+	ldi	r0, 58
+	ldi	r5, 114
+	ldi	r1, 69
 	ssw	r1, -32                         # 2-byte Folded Spill
-	ssw	r1, -74                         # 2-byte Folded Spill
-	movens	r5, r1
-	ssw	r1, -54                         # 2-byte Folded Spill
-	ssw	r3, -58                         # 2-byte Folded Spill
-	ldi	r2, 97
-	movens	r2, r5
-	ssw	r6, -76                         # 2-byte Folded Spill
-	ssw	r6, -38                         # 2-byte Folded Spill
-	ssw	r6, -36                         # 2-byte Folded Spill
-	ldi	r6, 111
-	ssw	r6, -42                         # 2-byte Folded Spill
-	ssw	r6, -78                         # 2-byte Folded Spill
-	ldi	r6, 116
-	ssw	r6, -88                         # 2-byte Folded Spill
-	ssw	r3, -62                         # 2-byte Folded Spill
-	ssw	r1, -64                         # 2-byte Folded Spill
-	ssw	r3, -34                         # 2-byte Folded Spill
-	ssw	r3, -68                         # 2-byte Folded Spill
+	ldi	r1, 0
 	ssw	r1, -30                         # 2-byte Folded Spill
-	ssw	r1, -70                         # 2-byte Folded Spill
-	ldi	r3, 109
-	ssw	r3, -86                         # 2-byte Folded Spill
-	ssw	r3, -72                         # 2-byte Folded Spill
+	cmp	r2, r1
+	ssw	r5, -52                         # 2-byte Folded Spill
+	ssw	r5, -48                         # 2-byte Folded Spill
+	ssw	r3, -42                         # 2-byte Folded Spill
+	ssw	r5, -50                         # 2-byte Folded Spill
+	ssw	r5, -54                         # 2-byte Folded Spill
+	movens	r0, r5
+	ldi	r0, 117
+	ssw	r0, -34                         # 2-byte Folded Spill
+	ssw	r0, -76                         # 2-byte Folded Spill
+	ssw	r4, -56                         # 2-byte Folded Spill
+	ssw	r3, -60                         # 2-byte Folded Spill
 	movens	r6, r1
-	ssw	r1, -80                         # 2-byte Folded Spill
+	movens	r6, r2
+	ldi	r0, 110
+	ssw	r0, -78                         # 2-byte Folded Spill
+	ssw	r0, -40                         # 2-byte Folded Spill
+	ssw	r0, -38                         # 2-byte Folded Spill
+	ldi	r0, 111
+	ssw	r0, -44                         # 2-byte Folded Spill
+	ssw	r0, -80                         # 2-byte Folded Spill
+	ldi	r0, 116
+	ssw	r0, -88                         # 2-byte Folded Spill
+	ssw	r3, -64                         # 2-byte Folded Spill
+	ssw	r4, -66                         # 2-byte Folded Spill
+	ssw	r3, -36                         # 2-byte Folded Spill
+	ssw	r3, -70                         # 2-byte Folded Spill
+	ssw	r4, -28                         # 2-byte Folded Spill
+	ssw	r4, -72                         # 2-byte Folded Spill
+	ldi	r3, 109
+	movens	r3, r4
+	ssw	r3, -74                         # 2-byte Folded Spill
+	movens	r0, r6
+	ssw	r0, -82                         # 2-byte Folded Spill
 	beq	__LBB11_27
 	br	__LBB11_28
-__LBB11_5:                              # %while.body.i.preheader
+__LBB11_4:                              # %cleanup.thread
 	ldi	r0, CURR_CHAR
 	ldi	r1, 69
 	stw	r0, r1
 	ldi	r0, 56
 	ssw	r0, -26                         # 2-byte Folded Spill
 	ldi	r0, 97
-	ssw	r0, -70                         # 2-byte Folded Spill
+	ssw	r0, -72                         # 2-byte Folded Spill
 	ldi	r0, 48
-	ssw	r0, -64                         # 2-byte Folded Spill
+	ssw	r0, -66                         # 2-byte Folded Spill
 	ldi	r0, 119
-	ssw	r0, -36                         # 2-byte Folded Spill
+	ssw	r0, -38                         # 2-byte Folded Spill
 	ldi	r0, 109
-	ssw	r0, -52                         # 2-byte Folded Spill
+	ssw	r0, -54                         # 2-byte Folded Spill
 	ldi	r2, 115
 	ldi	r6, 116
 	ldi	r0, 105
-	ssw	r0, -44                         # 2-byte Folded Spill
+	ssw	r0, -46                         # 2-byte Folded Spill
 	ldi	r0, 103
-	ssw	r0, -32                         # 2-byte Folded Spill
-	ldi	r4, 101
+	ssw	r0, -34                         # 2-byte Folded Spill
+	ldi	r5, 101
 	ldi	r0, 108
-	ssw	r0, -42                         # 2-byte Folded Spill
+	ssw	r0, -44                         # 2-byte Folded Spill
 	ldi	r1, 117
 	ldi	r0, 82
-	ssw	r0, -48                         # 2-byte Folded Spill
+	ssw	r0, -50                         # 2-byte Folded Spill
 	ldi	r0, 58
-	ssw	r0, -84                         # 2-byte Folded Spill
+	ssw	r0, -86                         # 2-byte Folded Spill
 	ldi	r0, 111
-	ldi	r5, 114
-	ssw	r5, -82                         # 2-byte Folded Spill
+	ldi	r4, 114
+	ssw	r4, -84                         # 2-byte Folded Spill
 	ldi	r3, 32
-	ssw	r3, -90                         # 2-byte Folded Spill
-	ssw	r1, -50                         # 2-byte Folded Spill
-	ssw	r1, -56                         # 2-byte Folded Spill
-	ssw	r2, -40                         # 2-byte Folded Spill
-	ssw	r2, -74                         # 2-byte Folded Spill
-	ssw	r3, -54                         # 2-byte Folded Spill
-	movens	r4, r2
-	ssw	r3, -58                         # 2-byte Folded Spill
+	ssw	r3, -30                         # 2-byte Folded Spill
+	ssw	r1, -52                         # 2-byte Folded Spill
+	ssw	r1, -58                         # 2-byte Folded Spill
+	ssw	r2, -42                         # 2-byte Folded Spill
+	ssw	r2, -76                         # 2-byte Folded Spill
+	ssw	r3, -56                         # 2-byte Folded Spill
+	movens	r5, r2
+	ssw	r3, -60                         # 2-byte Folded Spill
 	ldi	r1, 98
-	ssw	r1, -38                         # 2-byte Folded Spill
-	ssw	r1, -60                         # 2-byte Folded Spill
-	ssw	r6, -30                         # 2-byte Folded Spill
-	ssw	r6, -76                         # 2-byte Folded Spill
-	ssw	r4, -46                         # 2-byte Folded Spill
-	ssw	r4, -78                         # 2-byte Folded Spill
-	ssw	r3, -68                         # 2-byte Folded Spill
-	ldi	r1, 110
+	ssw	r1, -40                         # 2-byte Folded Spill
 	ssw	r1, -62                         # 2-byte Folded Spill
-	ssw	r1, -72                         # 2-byte Folded Spill
+	ssw	r6, -28                         # 2-byte Folded Spill
+	ssw	r6, -78                         # 2-byte Folded Spill
+	ssw	r5, -48                         # 2-byte Folded Spill
+	ssw	r5, -80                         # 2-byte Folded Spill
+	ssw	r3, -70                         # 2-byte Folded Spill
+	ldi	r1, 110
+	ssw	r1, -64                         # 2-byte Folded Spill
+	ssw	r1, -74                         # 2-byte Folded Spill
 	ldi	r1, 100
-	ssw	r1, -34                         # 2-byte Folded Spill
-	ssw	r1, -66                         # 2-byte Folded Spill
-	ssw	r3, -80                         # 2-byte Folded Spill
+	ssw	r1, -36                         # 2-byte Folded Spill
+	ssw	r1, -68                         # 2-byte Folded Spill
+	ssw	r3, -82                         # 2-byte Folded Spill
 	br	__LBB11_26
-__LBB11_25:                             # %cleanup46.sink.split.sink.split.loopexit
+__LBB11_25:                             # %cleanup42.sink.split.sink.split.loopexit
 	ldi	r0, 116
 	ssw	r0, -26                         # 2-byte Folded Spill
 	ldi	r0, 109
-	ssw	r0, -72                         # 2-byte Folded Spill
+	ssw	r0, -74                         # 2-byte Folded Spill
 	ldi	r0, 103
-	ssw	r0, -68                         # 2-byte Folded Spill
+	ssw	r0, -70                         # 2-byte Folded Spill
 	ldi	r0, 105
-	ssw	r0, -58                         # 2-byte Folded Spill
+	ssw	r0, -60                         # 2-byte Folded Spill
 	ldi	r0, 104
-	ssw	r0, -40                         # 2-byte Folded Spill
+	ssw	r0, -42                         # 2-byte Folded Spill
 	ldi	r3, 99
 	ldi	r0, 100
-	ssw	r0, -32                         # 2-byte Folded Spill
+	ssw	r0, -34                         # 2-byte Folded Spill
 	ldi	r6, 108
-	ldi	r2, 97
+	ldi	r1, 97
 	ldi	r0, 118
-	ssw	r0, -46                         # 2-byte Folded Spill
-	ldi	r1, 110
+	ssw	r0, -48                         # 2-byte Folded Spill
+	ldi	r2, 110
 	ldi	r0, 73
-	ssw	r0, -50                         # 2-byte Folded Spill
-	ldi	r4, 32
-	ldi	r0, 58
-	ssw	r0, -28                         # 2-byte Folded Spill
-	ldi	r0, 111
-	ssw	r0, -82                         # 2-byte Folded Spill
-	ldi	r0, 114
-	ldi	r5, 69
-	ssw	r0, -84                         # 2-byte Folded Spill
-	ssw	r4, -44                         # 2-byte Folded Spill
 	ssw	r0, -52                         # 2-byte Folded Spill
-	ssw	r2, -90                         # 2-byte Folded Spill
-	ssw	r2, -56                         # 2-byte Folded Spill
-	ssw	r3, -30                         # 2-byte Folded Spill
-	ssw	r3, -74                         # 2-byte Folded Spill
-	ssw	r0, -38                         # 2-byte Folded Spill
-	movens	r4, r2
-	ssw	r1, -60                         # 2-byte Folded Spill
-	ssw	r0, -76                         # 2-byte Folded Spill
-	ssw	r6, -34                         # 2-byte Folded Spill
-	ssw	r6, -78                         # 2-byte Folded Spill
-	ssw	r4, -48                         # 2-byte Folded Spill
-	ssw	r4, -62                         # 2-byte Folded Spill
-	ssw	r0, -64                         # 2-byte Folded Spill
+	ldi	r5, 32
+	ldi	r0, 58
+	ssw	r0, -32                         # 2-byte Folded Spill
+	ldi	r0, 111
+	ssw	r0, -84                         # 2-byte Folded Spill
+	ldi	r0, 114
+	ldi	r4, 69
+	ssw	r0, -86                         # 2-byte Folded Spill
+	ssw	r5, -46                         # 2-byte Folded Spill
+	ssw	r0, -54                         # 2-byte Folded Spill
+	ssw	r1, -30                         # 2-byte Folded Spill
+	ssw	r1, -58                         # 2-byte Folded Spill
+	ssw	r3, -28                         # 2-byte Folded Spill
+	ssw	r3, -76                         # 2-byte Folded Spill
+	ssw	r0, -40                         # 2-byte Folded Spill
+	movens	r5, r1
+	ssw	r2, -62                         # 2-byte Folded Spill
+	ssw	r0, -78                         # 2-byte Folded Spill
+	ssw	r6, -36                         # 2-byte Folded Spill
+	ssw	r6, -80                         # 2-byte Folded Spill
+	ssw	r5, -50                         # 2-byte Folded Spill
+	ssw	r5, -64                         # 2-byte Folded Spill
+	ssw	r0, -66                         # 2-byte Folded Spill
 	ldi	r3, 117
-	ssw	r3, -36                         # 2-byte Folded Spill
-	ssw	r3, -70                         # 2-byte Folded Spill
+	ssw	r3, -38                         # 2-byte Folded Spill
+	ssw	r3, -72                         # 2-byte Folded Spill
 	ldi	r3, 101
-	ssw	r3, -54                         # 2-byte Folded Spill
-	ssw	r3, -66                         # 2-byte Folded Spill
-	ssw	r1, -42                         # 2-byte Folded Spill
-	ssw	r1, -80                         # 2-byte Folded Spill
-__LBB11_26:                             # %cleanup46.sink.split.sink.split
+	ssw	r3, -56                         # 2-byte Folded Spill
+	ssw	r3, -68                         # 2-byte Folded Spill
+	ssw	r2, -44                         # 2-byte Folded Spill
+	ssw	r2, -82                         # 2-byte Folded Spill
+	movens	r1, r2
+__LBB11_26:                             # %cleanup42.sink.split.sink.split
 	ldi	r3, CURR_CHAR
-	stw	r3, r5
-	ldi	r5, 114
-	stw	r3, r5
-	stw	r3, r0
-	lsw	r0, -82                         # 2-byte Folded Reload
+	stw	r3, r4
+	ldi	r4, 114
+	stw	r3, r4
 	stw	r3, r0
 	lsw	r0, -84                         # 2-byte Folded Reload
 	stw	r3, r0
+	lsw	r0, -86                         # 2-byte Folded Reload
+	stw	r3, r0
 	ldi	r0, 101
 	ssw	r0, -88                         # 2-byte Folded Spill
-	ldi	r0, 116
-	ssw	r0, -86                         # 2-byte Folded Spill
+	ldi	r4, 116
 	ldi	r0, 105
-	ssw	r0, -84                         # 2-byte Folded Spill
-	lsw	r4, -90                         # 2-byte Folded Reload
-	movens	r4, r5
+	ssw	r0, -86                         # 2-byte Folded Spill
+	lsw	r5, -30                         # 2-byte Folded Reload
+	movens	r5, r1
 	movens	r2, r6
-	ssw	r4, -82                         # 2-byte Folded Spill
-__LBB11_27:                             # %cleanup46.sink.split
+	ssw	r5, -84                         # 2-byte Folded Spill
+__LBB11_27:                             # %cleanup42.sink.split
 	ldi	r0, CURR_CHAR
+	lsw	r3, -32                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -50                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -52                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -44                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -48                         # 2-byte Folded Reload
+	stw	r0, r3
+	stw	r0, r5
+	lsw	r3, -36                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -86                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -34                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -46                         # 2-byte Folded Reload
+	stw	r0, r3
 	lsw	r3, -28                         # 2-byte Folded Reload
 	stw	r0, r3
-	lsw	r1, -48                         # 2-byte Folded Reload
+	lsw	r3, -42                         # 2-byte Folded Reload
+	stw	r0, r3
 	stw	r0, r1
-	lsw	r1, -50                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -42                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -46                         # 2-byte Folded Reload
-	stw	r0, r1
+	lsw	r3, -54                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -58                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -76                         # 2-byte Folded Reload
+	stw	r0, r3
 	stw	r0, r4
-	lsw	r1, -34                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -84                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -32                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -44                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -30                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -40                         # 2-byte Folded Reload
-	stw	r0, r1
-	stw	r0, r5
-	lsw	r1, -52                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -56                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -74                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -86                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -54                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -38                         # 2-byte Folded Reload
-	stw	r0, r1
+	lsw	r3, -56                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -40                         # 2-byte Folded Reload
+	stw	r0, r3
 	stw	r0, r6
-	lsw	r1, -58                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -60                         # 2-byte Folded Reload
-	stw	r0, r1
+	lsw	r3, -60                         # 2-byte Folded Reload
+	stw	r0, r3
+	lsw	r3, -62                         # 2-byte Folded Reload
+	stw	r0, r3
 	stw	r0, r2
-	lsw	r1, -76                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -36                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -78                         # 2-byte Folded Reload
-	stw	r0, r1
+	lsw	r2, -78                         # 2-byte Folded Reload
+	stw	r0, r2
+	lsw	r2, -38                         # 2-byte Folded Reload
+	stw	r0, r2
+	lsw	r2, -80                         # 2-byte Folded Reload
+	stw	r0, r2
 	lsw	r1, -88                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -62                         # 2-byte Folded Reload
-	stw	r0, r1
-	lsw	r1, -82                         # 2-byte Folded Reload
 	stw	r0, r1
 	lsw	r1, -64                         # 2-byte Folded Reload
 	stw	r0, r1
-	lsw	r1, -68                         # 2-byte Folded Reload
+	lsw	r1, -84                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -66                         # 2-byte Folded Reload
 	stw	r0, r1
 	lsw	r1, -70                         # 2-byte Folded Reload
 	stw	r0, r1
 	lsw	r1, -72                         # 2-byte Folded Reload
 	stw	r0, r1
-	lsw	r1, -66                         # 2-byte Folded Reload
+	lsw	r1, -74                         # 2-byte Folded Reload
 	stw	r0, r1
-	lsw	r1, -80                         # 2-byte Folded Reload
+	lsw	r1, -68                         # 2-byte Folded Reload
+	stw	r0, r1
+	lsw	r1, -82                         # 2-byte Folded Reload
 	stw	r0, r1
 	lsw	r1, -26                         # 2-byte Folded Reload
 	stw	r0, r1
@@ -1033,11 +1051,13 @@ __LBB11_27:                             # %cleanup46.sink.split
 	ldi	r1, 10
 	stw	r0, r1
 	ldi	r0, -1
-__LBB11_28:                             # %cleanup46
+	ssw	r0, -30                         # 2-byte Folded Spill
+__LBB11_28:                             # %cleanup42
+	lsw	r0, -30                         # 2-byte Folded Reload
 	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	90
+	addsp	88
 	pop	fp
 	rts
                                         # -- End function

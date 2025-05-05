@@ -138,7 +138,7 @@ int my_atoi_safe(char *str, int *out)
 int pow2(int n)
 {
     int result = 1;
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
         result = result + result;
     return result;
 }
@@ -154,7 +154,6 @@ int parseRuleArg(char *p)
         if (isNum(*p))
         {
             int bit = *p - '0';
-            if (bit == 0) return 0;
             if (bit >= 0 && bit <= 8)
             {
                 if (!seen[bit]) 
