@@ -3,7 +3,7 @@
 #define QSIZE 32
 #define FIELD_SIZE 32
 #define NULL '\0'
-#define MAX_CMD_ARGS 10 // Максимальное количество аргументов, которое может разобрать parseArgs
+#define MAX_CMD_ARGS 10 // The maximum number of arguments that parse Args can parse
 
 //---- EXTERNAL VARIABLES ----
 
@@ -24,6 +24,75 @@ volatile char queue[QSIZE];
 volatile int head;
 volatile int end;
 volatile int gmState = 0;
+
+//---- HELP STRINGS ----
+
+char mainHelp[] = "Available commands:\n"
+                  " set <x> <y> <val>      - Set cell (x,y) to val (0 or 1)\n"
+                  " rule b<nums> s<nums>   - Set B/S rules (e.g., rule b3 s23)\n"
+                  " stop                   - Stop the simulation\n"
+                  " start                  - Start the simulation\n"
+                  " fill <x1> <y1> <x2> <y2> <val> - Fill rectangle (inclusive)\n"
+                  " clean                  - Clear the entire field (fill with 0)\n"
+                  " set-glider <x> <y>     - Place a glider at top-left (x,y)\n"
+                  " set-bee-queen <x> <y>  - Place a 'bee-queen' at top-left (x,y)\n"
+                  " set-lwss <x> <y>       - Place a light-weight spaceship at top-left (x,y)\n"
+                  " set-hwss <x> <y>       - Place a heavy-weight spaceship at top-left (x,y)\n"
+                  " help [command]         - Show this help or help for a command\n";
+char setHelp[] = "Usage: set <x> <y> <val>\n"
+                 " Sets the cell at coordinates (x,y) to the specified value\n"
+                 " (0 for dead, 1 for alive). Coordinates are 0-indexed [0-31].\n";
+char stopHelp[] = "Usage: stop\n"
+                  " Stops the simulation from advancing to the next generation.\n";
+char startHelp[] = "Usage: start\n"
+                   " Starts or resumes the simulation, advancing generations according to the current rules.\n";
+char fillHelp[] = "Usage: fill <x1> <y1> <x2> <y2> <val>\n"
+                  " Fills a rectangular area with the specified value (0 or 1).\n"
+                  " (x1,y1) is the top-left corner, (x2,y2) is the bottom-right corner (inclusive).\n"
+                  " Requires x1 <= x2 and y1 <= y2, and coordinates within [0-31].\n";
+char cleanHelp[] = "Usage: clean\n"
+                   " Clears the entire field by setting all cells to 0 (dead).\n"
+                   " Equivalent to 'fill 0 0 31 31 0'.\n";
+char ruleHelp[] = "Usage: rule b<digits> s<digits>\n"
+                  " Sets the Birth and Survival rules for Conway's Game of Life.\n"
+                  " <digits> are the numbers of neighbours required (0-8).\n"
+                  " Example: 'rule b3 s23' (standard Conway rules).\n"
+                  " Digits can be repeated or out of order (e.g., b331 is same as b13).\n";
+char setGliderHelp[] = "Usage: set-glider <x> <y>\n"
+                       " Places a standard glider pattern with its top-left bounding box corner\n"
+                       " at (x,y) [0-31]. The pattern wraps around the edges if necessary.\n"
+                       " Pattern:\n"
+                       "   .X.\n"
+                       "   ..X\n"
+                       "   XXX\n";
+char setBeeQueenHelp[] = "Usage: set-bee-queen <x> <y>\n"
+                         " Places a 'bee-queen' pattern with its top-left bounding box corner\n"
+                         " at (x,y) [0-31]. Pattern:\n"
+                         "   XX..\n"
+                         "   ..X.\n"
+                         "   ...X\n"
+                         "   ...X\n"
+                         "   ...X\n"
+                         "   ..X.\n"
+                         "   XX..\n";
+char setLWSSHelp[] = "Usage: set-lwss <x> <y>\n"
+                     " Places a light-weight spaceship pattern with its top-left bounding box corner\n"
+                     " at (x,y) [0-31]. Pattern:\n"
+                     "   .XXXX\n"
+                     "   X...X\n"
+                     "   ....X\n"
+                     "   X..X\n";
+char setHWSSHelp[] = "Usage: set-hwss <x> <y>\n"
+                     " Places a heavy-weight spaceship pattern with its top-left bounding box corner\n"
+                     " at (x,y) [0-31]. Pattern:\n"
+                     "   ..XX...\n"
+                     "   X....X.\n"
+                     "   ......X\n"
+                     "   X.....X\n"
+                     "   .XXXXXX\n";
+char helpHelp[] = "Usage: help [command]\n"
+                  " Shows general help (if no command specified)\n"
+                  " or specific help for the given [command].\n";
 
 //---- STRING FUNCTIONS ----
 
@@ -95,14 +164,14 @@ int parseArgs(char *p, char *args[], int args_capacity)
         if (*p == NULL) break;
         args[count++] = p;
         while (*p != ' ' && *p != NULL) p++;
-        if (*p == ' ') *p++ = NULL; // Если нашли пробел, заменить на NULL и перейти к след. символу
+        if (*p == ' ') *p++ = NULL; // If found a space, replace it with NULL and go to the next symbol
     }
     while (*p == ' ') p++;
     if (*p != NULL && count < args_capacity) 
     {
-        // Если есть еще непробельные символы, это считается лишним аргументом,
-        // даже если он не поместился в массив args. Увеличиваем count, чтобы
-        // проверка на точное количество аргументов в вызывающей функции сработала.
+        // If there are still non-whitespace characters, this is considered an extra argument,
+        // even if it does not fit into the args array. We increase count so that checking 
+        // for the exact number of arguments in the calling function works.
         count++;
     }
 
@@ -128,7 +197,7 @@ int my_atoi_safe(char *str, int *out)
     }
 
     while (*str == ' ') str++;
-    if (*str != NULL) return 0; // Если после числа и пробелов что-то осталось, аргумент невалидный
+    if (*str != NULL) return 0; // If there is anything left after the number and spaces, the argument is invalid.
 
     *out = val;
     return found;
@@ -146,7 +215,7 @@ int pow2(int n)
 int parseRuleArg(char *p)
 {
     int result = 0;
-    volatile int seen[9]; // Массив для отслеживания уже добавленных битов
+    volatile int seen[9]; // An array for tracking already added bits
     clearBuffer(seen, 9);
 
     while (*p)
@@ -159,7 +228,7 @@ int parseRuleArg(char *p)
                 if (!seen[bit]) 
                 {
                     result = result + pow2(bit);
-                    seen[bit] = 1; // Пометить бит как увиденный
+                    seen[bit] = 1; // Mark a bit as seen
                 } 
             } 
             else 
@@ -170,7 +239,7 @@ int parseRuleArg(char *p)
         } 
         else if (*p != ' ' && *p != '\t') 
         {
-             // Невалидный символ в строке правила
+             // Invalid character in the rule line
              print("Error: Invalid character in rule argument.\n");
              return -1;
         }
@@ -399,40 +468,189 @@ void SetGliderCmdWrapper(char *args[], int count)
     SetGliderCmd(x, y);
 }
 
+void SetBeeQueenCmd(int x, int y)
+{
+    START_STOP = 0;
+    
+    if (x < 0 || x > 31 || y < 0 || y > 31)
+    {
+        print("Error: Coordinates out of bounds [0-31].\n");
+        return;
+    }
+
+    //**..
+    //..*.
+    //...*
+    //...*
+    //...*
+    //..*.
+    //**..
+    print("Placing bee queen...\n");
+    SetCommand(x % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 1) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 2) % FIELD_SIZE, (y + 1) % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, (y + 2) % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, (y + 3) % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+    SetCommand((x + 2) % FIELD_SIZE, (y + 5) % FIELD_SIZE, 1);
+    SetCommand(x % FIELD_SIZE, (y + 6) % FIELD_SIZE, 1);
+    SetCommand((x + 1) % FIELD_SIZE, (y + 6) % FIELD_SIZE, 1);
+
+    START_STOP = gmState;
+
+    print("Bee queen placed.\n");
+}
+
+void SetBeeQueenCmdWrapper(char *args[], int count)
+{
+    if (count != 2)
+    {
+        print("Error: Invalid number of arguments for 'set-bee-queen'.\n Usage: set-bee-queen <x> <y>\n");
+        return;
+    }
+
+    int x, y;
+    if (!my_atoi_safe(args[0], &x) || !my_atoi_safe(args[1], &y))
+    {
+        print("Error: Invalid arguments for 'set-bee-queen'.\n Ensure x and y are valid integers.\n");
+        return;
+    }
+    SetBeeQueenCmd(x, y);
+}
+
+void SetLWSSCmd(int x, int y)
+{
+    START_STOP = 0;
+    
+    if (x < 0 || x > 31 || y < 0 || y > 31)
+    {
+        print("Error: Coordinates out of bounds [0-31].\n");
+        return;
+    }
+
+    //.****
+    //*...*
+    //....*
+    //*..*
+
+    print("Placing light-weight spaceship...\n");
+    SetCommand((x + 1) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 2) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 4) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand(x % FIELD_SIZE, (y + 1) % FIELD_SIZE, 1);
+    SetCommand((x + 4) % FIELD_SIZE, (y + 1) % FIELD_SIZE, 1);
+    SetCommand((x + 4) % FIELD_SIZE, (y + 2) % FIELD_SIZE, 1);
+    SetCommand(x % FIELD_SIZE, (y + 3) % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, (y + 3) % FIELD_SIZE, 1);
+
+    START_STOP = gmState;
+
+    print("Light-weight spaceship placed.\n");
+}
+
+void SetLWSSCmdWrapper(char *args[], int count)
+{
+    if (count != 2)
+    {
+        print("Error: Invalid number of arguments for 'set-lwss'.\n Usage: set-lwss <x> <y>\n");
+        return;
+    }
+
+    int x, y;
+    if (!my_atoi_safe(args[0], &x) || !my_atoi_safe(args[1], &y))
+    {
+        print("Error: Invalid arguments for 'set-lwss'.\n Ensure x and y are valid integers.\n");
+        return;
+    }
+    SetLWSSCmd(x, y);
+}
+
+void SetHWSSCmd(int x, int y)
+{
+    START_STOP = 0;
+    
+    if (x < 0 || x > 31 || y < 0 || y > 31)
+    {
+        print("Error: Coordinates out of bounds [0-31].\n");
+        return;
+    }
+
+    //..**...
+    //*....*.
+    //......*
+    //*.....*
+    //.******
+
+    print("Placing heavy-weight spaceship...\n");
+    SetCommand((x + 2) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, y % FIELD_SIZE, 1);
+    SetCommand(x % FIELD_SIZE, (y + 1) % FIELD_SIZE, 1);
+    SetCommand((x + 5) % FIELD_SIZE, (y + 1) % FIELD_SIZE, 1);
+    SetCommand((x + 6) % FIELD_SIZE, (y + 2) % FIELD_SIZE, 1);
+    SetCommand(x % FIELD_SIZE, (y + 3) % FIELD_SIZE, 1);
+    SetCommand((x + 6) % FIELD_SIZE, (y + 3) % FIELD_SIZE, 1);
+    SetCommand((x + 1) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+    SetCommand((x + 2) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+    SetCommand((x + 3) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+    SetCommand((x + 4) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+    SetCommand((x + 5) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+    SetCommand((x + 6) % FIELD_SIZE, (y + 4) % FIELD_SIZE, 1);
+
+    START_STOP = gmState;
+
+    print("Heavy-weight spaceship placed.\n");
+}
+
+void SetHWSSCmdWrapper(char *args[], int count)
+{
+    if (count != 2)
+    {
+        print("Error: Invalid number of arguments for 'set-hwss'.\n Usage: set-hwss <x> <y>\n");
+        return;
+    }
+
+    int x, y;
+    if (!my_atoi_safe(args[0], &x) || !my_atoi_safe(args[1], &y))
+    {
+        print("Error: Invalid arguments for 'set-hwss'.\n Ensure x and y are valid integers.\n");
+        return;
+    }
+    SetHWSSCmd(x, y);
+}
+
 void HelpCmdWrapper(char *args[], int count)
 {
     if (count == 0)
     {
-        print("Available commands:\n");
-        print(" set <x> <y> <val>      - Set cell (x,y) to val (0 or 1)\n");
-        print(" rule b<nums> s<nums>   - Set B/S rules (e.g., rule b3 s23)\n");
-        print(" stop                   - Stop the simulation\n");
-        print(" start                  - Start the simulation\n");
-        print(" fill <x1> <y1> <x2> <y2> <val> - Fill rectangle (inclusive)\n");
-        print(" clean                  - Clear the entire field (fill with 0)\n");
-        print(" set-glider <x> <y>     - Place a glider at top-left (x,y)\n");
-        print(" help [command]         - Show this help or help for a command\n");
+        print(mainHelp);
     }
     else if (count == 1)
     {
         char *cmd = args[0];
 
         if (StringCmp(cmd, "set"))
-            print("Usage: set <x> <y> <val>\n Sets the cell at coordinates (x,y) to the specified value \n (0 for dead, 1 for alive). Coordinates are 0-indexed [0-31].\n");
-        else if (StringCmp(cmd, "rule"))
-            print("Usage: rule b<digits> s<digits>\n Sets the Birth and Survival rules for Conway's Game of Life.\n <digits> are the numbers of neighbours required (0-8).\n Example: 'rule b3 s23' (standard Conway rules).\n Digits can be repeated or out of order (e.g., b331 is same as b13).\n");
+            print(setHelp);
         else if (StringCmp(cmd, "stop"))
-            print("Usage: stop\n Stops the simulation from advancing to the next generation.\n");
+            print(stopHelp);
         else if (StringCmp(cmd, "start"))
-            print("Usage: start\n Starts or resumes the simulation, advancing generations according to the current rules.\n");
+            print(startHelp);
         else if (StringCmp(cmd, "fill"))
-            print("Usage: fill <x1> <y1> <x2> <y2> <val>\n Fills a rectangular area with the specified value (0 or 1).\n (x1,y1) is the top-left corner, (x2,y2) is the bottom-right corner (inclusive).\n Requires x1 <= x2 and y1 <= y2, and coordinates within [0-31].\n");
+            print(fillHelp);
         else if (StringCmp(cmd, "clean"))
-            print("Usage: clean\n Clears the entire field by setting all cells to 0 (dead).\n Equivalent to 'fill 0 0 31 31 0'.\n");
+            print(cleanHelp);
+        else if (StringCmp(cmd, "rule"))
+            print(ruleHelp);
         else if (StringCmp(cmd, "set-glider"))
-            print("Usage: set-glider <x> <y>\n Places a standard glider pattern with its top-left bounding box corner\n at (x,y) [0-31]. The pattern wraps around the edges if necessary.\n Pattern:\n   .X.\n   ..X\n   XXX\n");
+            print(setGliderHelp);
+        else if (StringCmp(cmd, "set-bee-queen"))
+            print(setBeeQueenHelp);
+        else if (StringCmp(cmd, "set-lwss"))
+            print(setLWSSHelp);
+        else if (StringCmp(cmd, "set-hwss"))
+            print(setHWSSHelp);
         else if (StringCmp(cmd, "help"))
-             print("Usage: help [command]\n Shows general help (if no command specified)\n or specific help for the given [command].\n");
+            print(helpHelp);
         else
         {
             print("Error: Unknown command '");
@@ -451,24 +669,24 @@ void HelpCmdWrapper(char *args[], int count)
 
 void parse()
 {
-    char cmd_buffer[QSIZE + 1]; // Буфер для команды из очереди (+1 для NULL)
-    char command[QSIZE + 1];    // Буфер для имени команды
-    char *args[MAX_CMD_ARGS];   // Массив для указателей на аргументы
-    int arg_count = 0;          // Количество найденных аргументов
+    char cmd_buffer[QSIZE + 1]; // Buffer for commands from queue (+1 for NULL)
+    char command[QSIZE + 1];    // Buffer for the command name
+    char *args[MAX_CMD_ARGS];   // Array for pointers to arguments
+    int arg_count = 0;          // Number of arguments found
     int len = 0;
     int i = 0;
     char *p;
 
-    if (head == end) return; // Очередь пуста
+    if (head == end) return; // Queue is empty
 
-    // Чтение команды из очереди в cmd_buffer
+    // Reading a command from a queue in cmd_buffer
     int current = head;
     while (current != end && len < QSIZE)
     {
         if (queue[current] == '\0') 
         {
-             end = (current + 1) % QSIZE; 
-             break;
+            end = (current + 1) % QSIZE; 
+            break;
         }
         cmd_buffer[len++] = queue[current];
         current = (current + 1) % QSIZE;
@@ -478,14 +696,14 @@ void parse()
     qInit();
 
     p = cmd_buffer;
-    while (*p == ' ') p++; // Пропустить ведущие пробелы
+    while (*p == ' ') p++; // Skip leading spaces
     if (*p == NULL) 
     {
-         print("> ");
-         return;
+        print("> ");
+        return;
     }
 
-    // Извлечение имени команды
+    // Extracting the command name
     i = 0;
     while (*p != ' ' && *p != NULL && i < QSIZE)
         command[i++] = *p++;
@@ -493,7 +711,7 @@ void parse()
 
     while (*p == ' ') p++;
 
-    // Разбор аргументов (p указывает на строку *после* имени команды)
+    // Parsing arguments (p points to the line after the command name)
     arg_count = parseArgs(p, args, MAX_CMD_ARGS);
 
     if (StringCmp(command, "set"))
@@ -512,13 +730,19 @@ void parse()
         HelpCmdWrapper(args, arg_count);
     else if (StringCmp(command, "set-glider"))
         SetGliderCmdWrapper(args, arg_count);
+    else if (StringCmp(command, "set-bee-queen"))
+        SetBeeQueenCmdWrapper(args, arg_count);
+    else if (StringCmp(command, "set-lwss"))
+        SetLWSSCmdWrapper(args, arg_count);
+    else if (StringCmp(command, "set-hwss"))
+        SetHWSSCmdWrapper(args, arg_count);
     else
     {
         print("Error: Unknown command '");
         print(command);
         print("'. Type 'help'.\n");
     }
-    print("> "); // Приглашение к вводу следующей команды
+    print("> "); // Prompt to enter the following command
 }
 
 int main()
